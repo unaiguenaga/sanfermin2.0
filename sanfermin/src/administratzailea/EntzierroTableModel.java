@@ -5,6 +5,9 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.table.AbstractTableModel;
 
+import Logika.EntzierroKud;
+import Logika.EntzierroLag;
+
 public class EntzierroTableModel extends AbstractTableModel{
 	
 	private Vector<String> columNames = new Vector<String>();

@@ -8,30 +8,44 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.toedter.calendar.JCalendar;
+import Logika.EntzierroKud;
+import Logika.GanadutegiKud;
 
-import user.BotikakKudeatu;
+import com.toedter.calendar.JCalendar;
 
 public class EntzierroaAldatu extends JFrame {
 
-	JLabel eguna = new JLabel("Eguna:");
+	JLabel eguna = new JLabel("Data berria:");
 	JLabel distantzia = new JLabel("Distantzia (metrotan):");
-	JLabel ganadutegia = new JLabel("Ganadutegiaren Kodea:");
+	JLabel ganadutegia = new JLabel("Ganadutegi berria:");	
+	JLabel entzierroa = new JLabel("Entzierroa:");
+
 	JTextField distantziaTestua = new JTextField(10);
 	JTextField ganadutegiaTestua = new JTextField(10);
+
 	JPanel behekoPanela = new JPanel();
 	JButton gorde = new JButton("Aldaketak gorde");
 	JCalendar cal = new JCalendar();
+
 	private GridBagLayout eskema;
 	private Container edukiontzia;
 	private GridBagConstraints mugak;
+
+	private GanadutegiKud gk = GanadutegiKud.getInstantzia();
+	private EntzierroKud ek = EntzierroKud.getInstantzia();
+	private Vector<String> vIzenak = ek.getId();
+	private Vector<String> vGanadutegiIzenak = gk.getIzenak();
+	JComboBox entzierroak = new JComboBox(vIzenak);
+	JComboBox ganadutegiak = new JComboBox(vGanadutegiIzenak);
 
 	public EntzierroaAldatu() {
 		gridBagHasieratu();
@@ -51,18 +65,22 @@ public class EntzierroaAldatu extends JFrame {
 		edukiontzia.setLayout(eskema);
 		mugak = new GridBagConstraints();
 
-		gehituOsagaia(eguna, 1, 1, 4, 1);
+		gehituOsagaia(entzierroa, 1, 1, 4, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
-		gehituOsagaia(ganadutegia, 4, 1, 5, 1);
+		gehituOsagaia(eguna, 3, 1, 4, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
-		gehituOsagaia(distantzia, 6, 1, 5, 1);
+		gehituOsagaia(ganadutegia, 6, 1, 5, 1);
+		mugak.insets = new Insets(3, 3, 3, 3);
+		gehituOsagaia(distantzia, 8, 1, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 
-		gehituOsagaia(cal, 2, 5, 3, 1);
+		gehituOsagaia(entzierroak, 1, 5, 3, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
-		gehituOsagaia(ganadutegiaTestua, 4, 6, 5, 1);
+		gehituOsagaia(cal, 4, 5, 3, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
-		gehituOsagaia(distantziaTestua, 6, 6, 5, 1);
+		gehituOsagaia(ganadutegiak, 6, 6, 5, 1);
+		mugak.insets = new Insets(3, 3, 3, 3);
+		gehituOsagaia(distantziaTestua, 8, 6, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 
 		behekoPanela.add(BorderLayout.SOUTH, gorde);

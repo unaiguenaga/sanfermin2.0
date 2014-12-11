@@ -8,15 +8,22 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Logika.EntzierroKud;
+import Logika.GanadutegiKud;
+import Logika.TratamenduKud;
+
 public class BotikaAldatu extends JFrame {
 
+	JLabel botika = new JLabel("Botika:");
 	JLabel kodeZaharra = new JLabel("Kode Zaharra:");
 	JLabel kodeBerria = new JLabel("Kode Berria:");
 	JLabel izenBerria = new JLabel("Izen Berria:");
@@ -29,7 +36,11 @@ public class BotikaAldatu extends JFrame {
 	private GridBagLayout eskema;
 	private Container edukiontzia;
 	private GridBagConstraints mugak;
-
+	
+	private TratamenduKud tk = TratamenduKud.getInstantzia();
+	private Vector<String> vBotikak = tk.getIzenak();
+	JComboBox cbBotika = new JComboBox(vBotikak);
+	
 	public BotikaAldatu() {
 		gridBagHasieratu();
 	}
@@ -47,19 +58,23 @@ public class BotikaAldatu extends JFrame {
 		eskema = new GridBagLayout();
 		edukiontzia.setLayout(eskema);
 		mugak = new GridBagConstraints();
+		
+		gehituOsagaia(botika, 1, 1, 4, 1);
+		mugak.insets = new Insets(3, 3, 3, 3);
+		gehituOsagaia(kodeZaharra, 3, 1, 4, 1);
+		mugak.insets = new Insets(3, 3, 3, 3);
+		gehituOsagaia(kodeBerria, 6, 1, 4, 1);
+		mugak.insets = new Insets(3, 3, 3, 3);
+		gehituOsagaia(izenBerria, 9, 1, 4, 1);
+		mugak.insets = new Insets(3, 3, 3, 3);
 
-		gehituOsagaia(kodeZaharra, 1, 1, 4, 1);
+		gehituOsagaia(cbBotika, 1, 5, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
-		gehituOsagaia(kodeBerria, 3, 1, 4, 1);
+		gehituOsagaia(kodeZaharraTestua, 3, 5, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
-		gehituOsagaia(izenBerria, 6, 1, 4, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
-
-		gehituOsagaia(kodeZaharraTestua, 1, 5, 5, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
-		gehituOsagaia(kodeBerriaTestua, 3, 5, 5, 1);
+		gehituOsagaia(kodeBerriaTestua, 6, 5, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);	
-		gehituOsagaia(izenBerriaTestua, 6, 5, 5, 1);
+		gehituOsagaia(izenBerriaTestua, 9, 5, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 
 		behekoPanela.add(BorderLayout.SOUTH, gorde);

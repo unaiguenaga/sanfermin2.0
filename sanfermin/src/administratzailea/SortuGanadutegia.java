@@ -15,20 +15,34 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Logika.GanadutegiKud;
+import Logika.GanadutegiLag;
+
+
+
 public class SortuGanadutegia extends JFrame {
 
 	JLabel kodea=new JLabel("Kodea:"); 
-	JLabel helbidea=new JLabel("Helbidea:");  
+	JLabel izena = new JLabel("Izena:");
+	JLabel helbidea=new JLabel("Helbidea:"); 
+	JLabel arduraduna = new JLabel("Arduraduna:");
+	JLabel tlf = new JLabel("Telefonoa:");
 	JTextField kodeTestua= new JTextField(10);
+	JTextField izenTestua = new JTextField(10);
 	JTextField helbideTestua= new JTextField(10);
+	JTextField arduradunTestua= new JTextField(10);
+	JTextField tlfTestua= new JTextField(10);
 	JPanel behekoPanela = new JPanel();
 	JButton gehitu= new JButton("Gehitu");
 	private GridBagLayout eskema;
 	private Container edukiontzia;
 	private GridBagConstraints mugak;
 	
+	private GanadutegiKud gk = GanadutegiKud.getInstantzia();
+	
 
 	public SortuGanadutegia() {
+		botoiakHasieratu();
 		gridBagHasieratu();
 	}
 	
@@ -48,24 +62,43 @@ public class SortuGanadutegia extends JFrame {
 		
 		gehituOsagaia(kodea, 1, 1, 4, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
-		gehituOsagaia(helbidea, 3, 0, 5, 1);
+		gehituOsagaia(izena, 2, 1, 4, 1);
+		mugak.insets=new Insets(3, 3, 3, 3);
+		gehituOsagaia(helbidea, 3, 1, 4, 1);
+		mugak.insets=new Insets(3, 3, 3, 3);
+		gehituOsagaia(arduraduna, 4, 1, 4, 1);
+		mugak.insets=new Insets(3, 3, 3, 3);
+		gehituOsagaia(tlf, 5, 1, 4, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
 		
 		gehituOsagaia(kodeTestua, 1, 5, 3, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
-		gehituOsagaia(helbideTestua, 3,5, 5, 1);
+		gehituOsagaia(izenTestua, 2, 5, 3, 1);
+		mugak.insets=new Insets(3, 3, 3, 3);
+		gehituOsagaia(helbideTestua, 3, 5, 5, 1);
+		mugak.insets=new Insets(3, 3, 3, 3);
+		gehituOsagaia(arduradunTestua, 4, 5, 3, 1);
+		mugak.insets=new Insets(3, 3, 3, 3);
+		gehituOsagaia(tlfTestua, 5, 5, 5, 1);
+		mugak.insets=new Insets(3, 3, 3, 3);
 
 		behekoPanela.add(BorderLayout.SOUTH, gehitu);
 		gehituOsagaia(behekoPanela,16, 3, 9, 1);
 		
+	}
+	
+	private void botoiakHasieratu(){
 		gehitu.addActionListener(new ActionListener() {
-
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
+				gk.gehitu(Integer.parseInt(kodeTestua.getText()), izenTestua.getText(), arduradunTestua.getText(), Integer.parseInt(tlfTestua.getText()), helbideTestua.getText());
+				AukeraAdmin.getInstantzia().gtm.gehitu(new GanadutegiLag(izenTestua.getText(), arduradunTestua.getText(), Integer.parseInt(tlfTestua.getText())));
+				AukeraAdmin.getInstantzia().tableGanadutegiak.repaint();
 				dispose();
+				
 			}
 		});
-		
 	}
 	
 	
@@ -80,5 +113,4 @@ public class SortuGanadutegia extends JFrame {
 		edukiontzia.add(osagaia);
 		
 	}
-	
 }

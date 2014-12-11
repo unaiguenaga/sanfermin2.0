@@ -1,4 +1,4 @@
-package administratzailea;
+package Logika;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -47,6 +47,21 @@ public class EntzierroKud {
 			ResultSet rs = dbk.execSQL("SELECT entzierroa.id, ganadutegia.izena FROM sanfermin.entzierroa, sanfermin.ganadutegia WHERE entzierroa.fk_ganadutegia = ganadutegia.id;");
 			while(rs.next()){
 				v.add(new EntzierroLag(rs.getDate("id"), rs.getString("izena")));
+			}
+			rs.close();
+		}
+		catch(SQLException e){
+		System.out.println(e);
+		}	
+		return v;
+	}
+	
+	public Vector<String> getId(){
+		Vector<String> v = new Vector<String>();
+		try{
+			ResultSet rs = dbk.execSQL("SELECT id FROM entzierroa;");
+			while(rs.next()){
+				v.add(rs.getString("id"));
 			}
 			rs.close();
 		}

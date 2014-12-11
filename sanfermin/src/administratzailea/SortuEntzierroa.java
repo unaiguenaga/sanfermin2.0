@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,16 +17,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import user.BotikakKudeatu;
+import Logika.GanadutegiKud;
 
 import com.toedter.calendar.JCalendar;
+
 
 public class SortuEntzierroa extends JFrame {
 
 	JLabel noiz = new JLabel("Noiz:");
 	JLabel esleitu = new JLabel("Ganadutegia Esleitu:");
 	JTextField noizTestua = new JTextField(10);
-	JComboBox aukeratzeko = new JComboBox<String>();
 	JPanel behekoPanela = new JPanel();
 	JButton gorde = new JButton("Gorde");
 	private GridBagLayout eskema;
@@ -33,6 +34,10 @@ public class SortuEntzierroa extends JFrame {
 	private GridBagConstraints mugak;
 
 	JCalendar cal = new JCalendar();
+	
+	private GanadutegiKud gk = GanadutegiKud.getInstantzia();
+	private Vector<String> vIzenak = gk.getIzenak();
+	JComboBox entzierroak = new JComboBox(vIzenak);
 
 	public SortuEntzierroa() {
 		gridBagHasieratu();
@@ -53,7 +58,7 @@ public class SortuEntzierroa extends JFrame {
 		gehituOsagaia(esleitu, 1, 24, 1, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 
-		gehituOsagaia(aukeratzeko, 2, 24, 1, 1);
+		gehituOsagaia(entzierroak, 2, 24, 1, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 
 		behekoPanela.add(BorderLayout.SOUTH, gorde);

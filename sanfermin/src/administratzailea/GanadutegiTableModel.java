@@ -5,6 +5,9 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.table.AbstractTableModel;
 
+import Logika.GanadutegiKud;
+import Logika.GanadutegiLag;
+
 public class GanadutegiTableModel extends AbstractTableModel{
 	
 	private Vector<String> columNames = new Vector<String>();
