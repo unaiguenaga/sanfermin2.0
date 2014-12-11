@@ -5,8 +5,8 @@ import java.sql.Date;
 public class EntzierroLag {
 	private Date data;
 	private String ganadutegia;
-	
-	public EntzierroLag(Date data, String ganadutegia){
+
+	public EntzierroLag(Date data, String ganadutegia) {
 		this.data = data;
 		this.ganadutegia = ganadutegia;
 	}
@@ -18,15 +18,17 @@ public class EntzierroLag {
 	public String getGanadutegia() {
 		return ganadutegia;
 	}
-	
-	public Object getBalioa(int i){
+
+	public Object getBalioa(int i) {
 		switch (i) {
-		case 0: return data;
-		case 1: return ganadutegia;
+		case 0:
+			return data;
+		case 1:
+			return ganadutegia;
 		}
 		return null;
 	}
-	
+
 	public void insertElementAt(Object value, int i) {
 		switch (i) {
 		case 0:

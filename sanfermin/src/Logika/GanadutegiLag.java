@@ -1,12 +1,12 @@
 package Logika;
 
 public class GanadutegiLag {
-	
+
 	private String izena;
 	private String arduraduna;
 	private Integer tlf;
-	
-	public GanadutegiLag(String izena, String arduraduna, Integer tlf){
+
+	public GanadutegiLag(String izena, String arduraduna, Integer tlf) {
 		this.izena = izena;
 		this.arduraduna = arduraduna;
 		this.tlf = tlf;
@@ -23,16 +23,19 @@ public class GanadutegiLag {
 	public int getTlf() {
 		return tlf;
 	}
-	
-	public Object getBalioa(int i){
+
+	public Object getBalioa(int i) {
 		switch (i) {
-		case 0: return izena;
-		case 1: return arduraduna;
-		case 2: return tlf;
+		case 0:
+			return izena;
+		case 1:
+			return arduraduna;
+		case 2:
+			return tlf;
 		}
 		return null;
 	}
-	
+
 	public void insertElementAt(Object value, int i) {
 		switch (i) {
 		case 0:

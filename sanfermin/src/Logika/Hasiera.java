@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
-
 public class Hasiera extends JFrame {
 	JLabel erabiltzailea = new JLabel("Erabiltzailea:");
 	JLabel pasahitza = new JLabel("Pasahitza:");
@@ -83,8 +82,14 @@ public class Hasiera extends JFrame {
 		gehituOsagaia(behekoPanela, 5, 1, 6, 1);
 		
 		kautotu.addActionListener(new Entzule());
+		
+		aldatuPasahitza.addActionListener(new ActionListener() {
 
-
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PasahitzaAldatu.main(null);
+			}
+		});
 	}
 
 	private void gehituOsagaia(Component osagaia, int errenkada, int zutabea, int zabalera, int altuera) {

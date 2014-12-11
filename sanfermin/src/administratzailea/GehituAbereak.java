@@ -62,11 +62,7 @@ public class GehituAbereak extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuJoalduna hasiera = new SortuJoalduna();
-				hasiera.setTitle("Gehitu joalduna");
-				hasiera.setVisible(true);
-				hasiera.setSize(400, 250);
-				hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				SortuJoalduna.main(null);
 				dispose();
 			}
 		});

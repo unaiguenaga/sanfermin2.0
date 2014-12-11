@@ -4,12 +4,12 @@ import java.sql.Date;
 import java.util.Vector;
 
 public class TratamenduLag {
-	
+
 	private Date data;
 	private String botika;
 	private float dosia;
-	
-	public TratamenduLag(Date data, String botika, float dosia){
+
+	public TratamenduLag(Date data, String botika, float dosia) {
 		this.data = data;
 		this.botika = botika;
 		this.dosia = dosia;
@@ -26,16 +26,19 @@ public class TratamenduLag {
 	public float getTlf() {
 		return dosia;
 	}
-	
-	public Object getBalioa(int i){
+
+	public Object getBalioa(int i) {
 		switch (i) {
-		case 0: return data;
-		case 1: return botika;
-		case 2: return dosia;
+		case 0:
+			return data;
+		case 1:
+			return botika;
+		case 2:
+			return dosia;
 		}
 		return null;
 	}
-	
+
 	public void insertElementAt(Object value, int i) {
 		switch (i) {
 		case 0:

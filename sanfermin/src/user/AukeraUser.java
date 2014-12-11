@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
-import zamarpotu.TaulaBotikak;
 import administratzailea.GehituAbereak;
 import administratzailea.SortuEntzierroa;
 
@@ -50,9 +49,7 @@ public class AukeraUser extends JFrame {
 
 	JLabel hutsunea = new JLabel("     ");
 	JLabel hutsunea2 = new JLabel("     ");
-
-	String[] args = null;
-
+	
 	JTable tableBozkak = new JTable(new TaulaBozkaketa());
 
 	public AukeraUser() {
@@ -123,7 +120,7 @@ public class AukeraUser extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GehituAbereak.main(args);
+				GehituAbereak.main(null);
 			}
 		});
 
@@ -131,7 +128,7 @@ public class AukeraUser extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BotikakKudeatu.main(args);
+				BotikakKudeatu.main(null);
 			}
 		});
 		
@@ -139,7 +136,7 @@ public class AukeraUser extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GehituZezena.main(args);
+				GehituZezena.main(null);
 			}
 		});
 	}

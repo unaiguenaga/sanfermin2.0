@@ -37,8 +37,6 @@ public class AukeraAdmin extends JFrame {
 	JPanel botikaPanela = new JPanel();
 	JPanel entzierroPanela = new JPanel();
 	JPanel ganadutegiPanela = new JPanel();
-
-	String[] args = null;
 	
 	GanadutegiTableModel gtm = new GanadutegiTableModel();
 	public EntzierroTableModel etm =new EntzierroTableModel();
@@ -133,7 +131,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuEntzierroa.main(args);
+				SortuEntzierroa.main(null);
 			}
 		});
 
@@ -141,7 +139,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EntzierroaAldatu.main(args);
+				EntzierroaAldatu.main(null);
 			}
 		});
 
@@ -149,7 +147,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuGanadutegia.main(args);
+				SortuGanadutegia.main(null);
 			}
 		});
 
@@ -157,7 +155,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuBotika.main(args);
+				SortuBotika.main(null);
 			}
 		});
 
@@ -165,7 +163,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GanadutegiaAldatu.main(args);
+				GanadutegiaAldatu.main(null);
 			}
 		});
 
@@ -173,7 +171,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BotikaAldatu.main(args);
+				BotikaAldatu.main(null);
 			}
 		});
 	}
