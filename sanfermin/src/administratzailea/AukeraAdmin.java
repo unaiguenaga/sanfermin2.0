@@ -9,9 +9,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-
 import Logika.TratamenduTableModel;
 
 
@@ -41,11 +40,16 @@ public class AukeraAdmin extends JFrame {
 
 	String[] args = null;
 	
-
+	GanadutegiTableModel gtm = new GanadutegiTableModel();
+	public EntzierroTableModel etm =new EntzierroTableModel();
+	TratamenduTableModel ttm = new TratamenduTableModel();
+	public TableDemo tableGanadutegiak = new TableDemo(gtm);
+	TableDemo tableEntzierroak = new TableDemo(etm);
+	TableDemo tableBotikak = new TableDemo(ttm);
 	
-	JTable tableBotikak = new JTable();
-	JTable tableEntzierroak = new JTable();
-	JTable tableGanadutegiak = new JTable();
+//	JTable tableBotikak = new JTable();
+//	JTable tableEntzierroak = new JTable();
+//	JTable tableGanadutegiak = new JTable();
 
 	
 	private static AukeraAdmin instantzia = new AukeraAdmin();
@@ -94,9 +98,13 @@ public class AukeraAdmin extends JFrame {
 		// GANADUTEGIA
 		ganadutegiakPestaña.setLayout(new BorderLayout());
 		ganadutegiPanela.setLayout(new BorderLayout());
-		ganadutegiPanela.add(tableGanadutegiak);
+		JScrollPane jScrollPane = new JScrollPane(tableGanadutegiak);
+		ganadutegiPanela.add(jScrollPane);
 		ganadutegiakPestaña.add(ganadutegiPanela);
+		//ganadutegiPanela.add(tableGanadutegiak);
+		//ganadutegiakPestaña.add(ganadutegiPanela);
 		ganadutegiakPestaña.add(eskumakoPanela2, BorderLayout.EAST);
+		
 		eskumakoPanela2.setLayout(new BoxLayout(eskumakoPanela2, BoxLayout.PAGE_AXIS));
 		eskumakoPanela2.add(Box.createVerticalGlue());
 		eskumakoPanela2.add(bGanadutegiBerri);
