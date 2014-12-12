@@ -100,7 +100,7 @@ public class ErabiltzaileBerria extends JFrame {
 							"Erabiltzaile berria sortu da. ", "Erabiltzailea gehituta",
 							JOptionPane.INFORMATION_MESSAGE);
 					dispose();
-					//lehengo leihora bidali
+					SortuGanadutegia.main(null);
 
 					
 				}else{

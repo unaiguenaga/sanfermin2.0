@@ -67,6 +67,7 @@ public class AukeraUser extends JFrame {
 	BotikaTableModel btm = new BotikaTableModel();
 	TableDemo tableBotikak = new TableDemo(btm);
 
+
 	JLabel hutsunea = new JLabel("     ");
 	JLabel hutsunea2 = new JLabel("     ");
 	
@@ -154,16 +155,20 @@ public class AukeraUser extends JFrame {
 		// BOTIKAK
 		botikaPestaña.setLayout(new BorderLayout());
 		botikaPanela.setLayout(new BorderLayout());
-		botikaPestaña.add(eskumakoPanela3, BorderLayout.EAST);
-		JScrollPane jScrollPane3 = new JScrollPane(tableBotikak);
+		JScrollPane jScrollPane3=new JScrollPane(tableBotikak);
 		botikaPanela.add(jScrollPane3);
 		botikaPestaña.add(botikaPanela);
 		botikaPestaña.add(eskumakoPanela3, BorderLayout.EAST);
 		
-		eskumakoPanela3.setLayout(new BoxLayout(eskumakoPanela3, BoxLayout.Y_AXIS));
+		eskumakoPanela3.setLayout(new BoxLayout(eskumakoPanela3, BoxLayout.PAGE_AXIS));
 		eskumakoPanela3.add(Box.createVerticalGlue());
+
 		eskumakoPanela3.add(bBotikakKudeatu);
-		eskumakoPanela3.add(Box.createVerticalGlue());
+
+		eskumakoPanela3.add(Box.createVerticalGlue());	
+	
+		
+		
 
 		// BOZKAKETAK
 		bozkatuPestaña.setLayout(new BorderLayout());
