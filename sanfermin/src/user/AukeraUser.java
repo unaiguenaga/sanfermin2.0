@@ -18,6 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
+import Logika.TableDemo;
+import Logika.TratamenduTableModel;
+import administratzailea.EntzierroTableModel;
+import administratzailea.GanadutegiTableModel;
 import administratzailea.GehituAbereak;
 import administratzailea.SortuEntzierroa;
 
@@ -41,11 +45,20 @@ public class AukeraUser extends JFrame {
 	JPanel zezenakPestaña = new JPanel();
 	JPanel botikaPestaña = new JPanel();
 	JPanel bozkatuPestaña = new JPanel();
+	
+	JPanel zezenPanela = new JPanel();
+	JPanel botikaPanela = new JPanel();
+	
 	JPanel eskumakoPanela1 = new JPanel();
 	JPanel eskumakoPanela2 = new JPanel();
 	JPanel eskumakoPanela3 = new JPanel();
 	JPanel eskumakoPanela4 = new JPanel();
 	JPanel bozkaTaulaPanela = new JPanel();
+	
+	ZezenaTableModel ztm = new ZezenaTableModel();
+	TableDemo tableZezenak = new TableDemo(ztm);
+	BotikaTableModel btm = new BotikaTableModel();
+	TableDemo tableBotikak = new TableDemo(btm);
 
 	JLabel hutsunea = new JLabel("     ");
 	JLabel hutsunea2 = new JLabel("     ");
@@ -80,6 +93,9 @@ public class AukeraUser extends JFrame {
 		// ABEREAK
 		abereakPestaña.setLayout(new BorderLayout());
 		abereakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
+		zezenPanela.setLayout(new BorderLayout());
+		zezenPanela.add(tableZezenak);
+		abereakPestaña.add(zezenPanela);
 		eskumakoPanela1.setLayout(new BoxLayout(eskumakoPanela1, BoxLayout.Y_AXIS));
 		eskumakoPanela1.add(Box.createVerticalGlue());
 		eskumakoPanela1.add(bAbereaEzabatu);
@@ -108,6 +124,9 @@ public class AukeraUser extends JFrame {
 		// BOZKAKETAK
 		bozkatuPestaña.setLayout(new BorderLayout());
 		bozkatuPestaña.add(eskumakoPanela4, BorderLayout.EAST);
+		botikaPanela.setLayout(new BorderLayout());
+		botikaPanela.add(tableBotikak);
+		botikaPestaña.add(botikaPanela);
 		eskumakoPanela4.setLayout(new BoxLayout(eskumakoPanela4, BoxLayout.Y_AXIS));
 		eskumakoPanela4.add(Box.createVerticalGlue());
 		eskumakoPanela4.add(bBotoaGorde);
