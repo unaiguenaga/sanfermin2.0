@@ -46,10 +46,7 @@ public class AukeraAdmin extends JFrame {
 	public TableDemo tableGanadutegiak = new TableDemo(gtm);
 	TableDemo tableEntzierroak = new TableDemo(etm);
 	TableDemo tableBotikak = new TableDemo(ttm);
-	
-//	JTable tableBotikak = new JTable();
-//	JTable tableEntzierroak = new JTable();
-//	JTable tableGanadutegiak = new JTable();
+
 
 	
 	private static AukeraAdmin instantzia = new AukeraAdmin();
@@ -84,10 +81,12 @@ public class AukeraAdmin extends JFrame {
 
 		// ENTZIERROA
 		entzierroakPestaña.setLayout(new BorderLayout());
-		entzierroakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
 		entzierroPanela.setLayout(new BorderLayout());
-		entzierroPanela.add(tableEntzierroak);
+		JScrollPane jScrollPane1 = new JScrollPane(tableEntzierroak);
+		entzierroPanela.add(jScrollPane1);
 		entzierroakPestaña.add(entzierroPanela);
+		entzierroakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
+
 		eskumakoPanela1.setLayout(new BoxLayout(eskumakoPanela1, BoxLayout.Y_AXIS));
 		eskumakoPanela1.add(Box.createVerticalGlue());
 		eskumakoPanela1.add(bEntzierroBerri);
@@ -98,11 +97,9 @@ public class AukeraAdmin extends JFrame {
 		// GANADUTEGIA
 		ganadutegiakPestaña.setLayout(new BorderLayout());
 		ganadutegiPanela.setLayout(new BorderLayout());
-		JScrollPane jScrollPane = new JScrollPane(tableGanadutegiak);
-		ganadutegiPanela.add(jScrollPane);
+		JScrollPane jScrollPane2 = new JScrollPane(tableGanadutegiak);
+		ganadutegiPanela.add(jScrollPane2);
 		ganadutegiakPestaña.add(ganadutegiPanela);
-		//ganadutegiPanela.add(tableGanadutegiak);
-		//ganadutegiakPestaña.add(ganadutegiPanela);
 		ganadutegiakPestaña.add(eskumakoPanela2, BorderLayout.EAST);
 		
 		eskumakoPanela2.setLayout(new BoxLayout(eskumakoPanela2, BoxLayout.PAGE_AXIS));
@@ -116,9 +113,11 @@ public class AukeraAdmin extends JFrame {
 		// BOTIKAK
 		botikakPestaña.setLayout(new BorderLayout());
 		botikaPanela.setLayout(new BorderLayout());
-		botikaPanela.add(tableBotikak);
+		JScrollPane jScrollPane3=new JScrollPane(tableBotikak);
+		botikaPanela.add(jScrollPane3);
 		botikakPestaña.add(botikaPanela);
 		botikakPestaña.add(eskumakoPanela3, BorderLayout.EAST);
+		
 		eskumakoPanela3.setLayout(new BoxLayout(eskumakoPanela3, BoxLayout.PAGE_AXIS));
 		eskumakoPanela3.add(Box.createVerticalGlue());
 		eskumakoPanela3.add(bBotikaBerri);
