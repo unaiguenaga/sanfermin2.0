@@ -14,25 +14,31 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import administratzailea.EntzierroaAldatu;
 
-import com.toedter.calendar.JCalendar;
 
 public class PasahitzaAldatu extends JFrame {
 
 		JLabel jlErabIzena = new JLabel("Erabiltzaile izena:");
 		JLabel jlPasZahar = new JLabel("Pasahitz zaharra:");
 		JLabel jlPasBerria = new JLabel("Pasahitz berria:");	
+		JLabel jlPasBerriaKonprobatu = new JLabel("Errepikatu berriz:");
+		
+
 
 		JTextField jtErabIzena = new JTextField(10);
-		JTextField jtPasZahar = new JTextField(10);
-		JTextField jtPasBerria = new JTextField(10);
+		JPasswordField jtPasZahar = new JPasswordField(10);
+		JPasswordField jtPasBerria = new JPasswordField(10);
+		JPasswordField jtPasBerriaKonprobatu = new JPasswordField(10);
+
 
 		JPanel behekoPanela = new JPanel();
-		JButton bGorde = new JButton("Pasahitza gorde");
+		JButton bGorde = new JButton("Pasahitz berria gorde");
 
 		private GridBagLayout eskema;
 		private Container edukiontzia;
@@ -46,7 +52,7 @@ public class PasahitzaAldatu extends JFrame {
 			PasahitzaAldatu hasiera = new PasahitzaAldatu();
 			hasiera.setTitle("Pasahitza aldatu");
 			hasiera.setVisible(true);
-			hasiera.setSize(400, 200);
+			hasiera.setSize(400, 250);
 			hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}
 
@@ -62,6 +68,8 @@ public class PasahitzaAldatu extends JFrame {
 			mugak.insets = new Insets(3, 3, 3, 3);
 			gehituOsagaia(jlPasBerria, 6, 1, 5, 1);
 			mugak.insets = new Insets(3, 3, 3, 3);
+			gehituOsagaia(jlPasBerriaKonprobatu, 9, 1, 5, 1);
+			mugak.insets = new Insets(3, 3, 3, 3);
 
 			gehituOsagaia(jtErabIzena, 1, 5, 10, 1);
 			mugak.insets = new Insets(3, 3, 3, 3);
@@ -69,16 +77,47 @@ public class PasahitzaAldatu extends JFrame {
 			mugak.insets = new Insets(3, 3, 3, 3);
 			gehituOsagaia(jtPasBerria, 6, 5, 10, 1);
 			mugak.insets = new Insets(3, 3, 3, 3);
-			
+			gehituOsagaia(jtPasBerriaKonprobatu, 9, 5, 10, 1);
+			mugak.insets = new Insets(3, 3, 3, 3);
 
-			behekoPanela.add(BorderLayout.SOUTH, bGorde);
-			gehituOsagaia(behekoPanela, 16, 5, 9, 1);
+			behekoPanela.add(BorderLayout.CENTER, bGorde);
+			gehituOsagaia(behekoPanela, 13, 4, 10, 1);
 
 			bGorde.addActionListener(new ActionListener() {
 
-				@Override
+				
 				public void actionPerformed(ActionEvent e) {
-					dispose();
+					ErabiltzaileKudeatzailea era = new ErabiltzaileKudeatzailea();
+					System.out.println(jtPasBerria.getText().toString());
+					System.out.println(jtPasBerriaKonprobatu.getText());
+					if(era.konprobatuPasahitzaEtaErabiltzailea(jtErabIzena.getText(), jtPasZahar.getText())){
+						if(jtPasBerria.getText().equals(jtPasBerriaKonprobatu.getText())){
+							JOptionPane.showMessageDialog(null,
+									"Zure pasahitza aldatu da, aurrera segi dezakezu. ", "Aldatu da",
+									JOptionPane.INFORMATION_MESSAGE);
+							era.pasahitzaAldatu(jtErabIzena.getText(),jtPasBerria.getText());
+							dispose();
+							era.hasieratuAdminEdoUser(jtErabIzena.getText(), jtPasBerria.getText());
+							System.out.println("0");
+							
+						}
+						else{
+							JOptionPane.showMessageDialog(null,
+									"Pasahitz berriak ez dira berdinak, berriro saiatu zaitez. ", "Desberdinak",
+									JOptionPane.ERROR_MESSAGE);
+							dispose();
+							Hasiera.main(null);
+							System.out.println("1");
+
+						}
+					}
+					else{
+						ErroreaPasahitza errorea = new ErroreaPasahitza();
+						dispose();
+						Hasiera.main(null);
+						System.out.println("2");
+
+					}
 				}
 			});
 

@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -21,13 +23,14 @@ import javax.swing.JPasswordField;
 public class Hasiera extends JFrame {
 	JLabel erabiltzailea = new JLabel("Erabiltzailea:");
 	JLabel pasahitza = new JLabel("Pasahitza:");
-	JTextField erabTestua = new JTextField(10);
-	JPasswordField pasahitzaTestua = new JPasswordField(10);
+	JTextField erabTestua = new JTextField(15);
+	JPasswordField pasahitzaTestua = new JPasswordField(15);
 	JPanel behekoPanela = new JPanel();
 	JButton kautotu = new JButton("Kautotu");
 	JButton aldatuPasahitza = new JButton("PasahitzaAldatu");
 	JPanel panellag = new JPanel();
 	JLabel hutsunea = new JLabel(" ");
+	
 	private GridBagLayout eskema;
 	private Container edukiontzia;
 	private GridBagConstraints mugak;
@@ -36,9 +39,14 @@ public class Hasiera extends JFrame {
 		
 		public void actionPerformed(ActionEvent arg0) {
 			ErabiltzaileKudeatzailea era = new ErabiltzaileKudeatzailea();
-			if(era.sortuErabiltzaileMota(erabTestua.getText(),
-					pasahitzaTestua.getText())){
+			if(era.konprobatuPasahitzaEtaErabiltzailea(erabTestua.getText(),pasahitzaTestua.getText())){
+				era.hasieratuAdminEdoUser(erabTestua.getText(), pasahitzaTestua.getText());
 				dispose();
+			}
+			else{
+				ErroreaPasahitza errorea= new ErroreaPasahitza();
+				erabTestua.setText("");
+				pasahitzaTestua.setText("");
 			}
 			System.out.println("Erabiltzailea: "+erabTestua.getText());	
 		}
@@ -52,7 +60,7 @@ public class Hasiera extends JFrame {
 		Hasiera hasiera = new Hasiera();
 		hasiera.setTitle("San Ferminak");
 		hasiera.setVisible(true);
-		hasiera.setSize(300, 150);
+		hasiera.setSize(400, 200);
 		hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
@@ -85,9 +93,10 @@ public class Hasiera extends JFrame {
 		
 		aldatuPasahitza.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				PasahitzaAldatu.main(null);
+				dispose();
 			}
 		});
 	}

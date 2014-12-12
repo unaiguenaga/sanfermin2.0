@@ -57,42 +57,50 @@ public class ErabiltzaileKudeatzailea {
 		return aurkitua;
 	}
 
-	public boolean sortuErabiltzaileMota(String izen, String pasahitz) {
-		boolean aurrera = false;
+	
+
+	public void pasahitzaAldatu(String izena, String pasahitzBerria) {
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta= "UPDATE erabiltzailea set pasahitza='"+ pasahitzBerria +  "' where iderabiltzailea='" +izena + "'" ;
+		dbk.execSQL(kontsulta);
+		System.out.println(kontsulta);
+		
+	}
+	
+	public void hasieratuAdminEdoUser(String izen, String pasahitz) {
 		if (!this.konprobatuPasahitzaEtaErabiltzailea(izen, pasahitz)) {
 			// Errorea gertatu dela ateratzeko
 			ErroreaPasahitza errorea = new ErroreaPasahitza();
 		} else {
-			DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+			
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 
-			String kontsulta = "SELECT administratzailea FROM erabiltzailea where iderabiltzailea=" + '\u0022' + izen
-					+ '\u0022';
+		String kontsulta = "SELECT administratzailea FROM erabiltzailea where iderabiltzailea=" + '\u0022' + izen
+				+ '\u0022';
 
-			ResultSet rs = dbk.execSQL(kontsulta);
+		ResultSet rs = dbk.execSQL(kontsulta);
 
-			boolean adminDa = false;
+		boolean adminDa = false;
 
-			try {
-				while (rs.next()) {
-					String admin = rs.getString("administratzailea");
-					if (admin.equals("bai")) {
-						adminDa = true;
-					}
+		try {
+			while (rs.next()) {
+				String admin = rs.getString("administratzailea");
+				if (admin.equals("bai")) {
+					adminDa = true;
 				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-			if (adminDa) {
-				AukeraAdmin aa = AukeraAdmin.getInstantzia();
-				aa.main(izen);
-				aurrera = true;
-			} else {
-				AukeraUser au = new AukeraUser();
-				au.main(izen);
-				aurrera = true;
-			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return aurrera;
+		if (adminDa) {
+			AukeraAdmin aa = AukeraAdmin.getInstantzia();
+			aa.main(izen);
+		} else {
+			AukeraUser au = new AukeraUser();
+			au.main(izen);
+		}
+
+		}
 	}
 }

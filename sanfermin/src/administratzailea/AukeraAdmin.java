@@ -60,7 +60,7 @@ public class AukeraAdmin extends JFrame {
 		hasieratu();
 	}
 
-	public static void main(String izena) {
+	public void main(String izena) {
 		AukeraAdmin aukera = new AukeraAdmin();
 		aukera.setTitle("San Ferminen kudeaketa ADMINISTRATZAILEA:"+izena);
 		aukera.setVisible(true);

@@ -6,9 +6,10 @@ import javax.swing.JOptionPane;
 public class ErroreaPasahitza extends JFrame {
 
 	public ErroreaPasahitza() {
-		JOptionPane.showMessageDialog(null,
+			JOptionPane.showMessageDialog(null,
 				"Zure erabiltzailea edo pasahitza ez da zuzena. Saiatu zaitez berriro, mesedez.", "OOOOOPS",
 				JOptionPane.ERROR_MESSAGE);
+		
 	}
 
 	public static void main(String[] args) {
@@ -16,4 +17,5 @@ public class ErroreaPasahitza extends JFrame {
 				"Zure erabiltzailea edo pasahitza ez da zuzena. Saiatu zaitez berriro, mesedez.", "OOOOOPS",
 				JOptionPane.ERROR_MESSAGE);
 	}
+	
 }
