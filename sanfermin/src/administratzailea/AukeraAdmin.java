@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import Logika.Hasiera;
 import Logika.TableDemo;
 import Logika.TratamenduTableModel;
 
@@ -48,6 +49,7 @@ public class AukeraAdmin extends JFrame {
 	JMenuItem erabBerria=new JMenuItem("Sortu erabiltzaile berria");
 	JMenuItem erabKendu=new JMenuItem("Erabiltzailea borratu");
 
+	JMenuItem atzera=new JMenuItem("Atzera");
 	JMenuItem exit=new JMenuItem("Exit");
 	
 	GanadutegiTableModel gtm = new GanadutegiTableModel();
@@ -87,7 +89,6 @@ public class AukeraAdmin extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
 				ErabiltzaileBerria.main(null);
 			}
 		});
@@ -96,12 +97,27 @@ public class AukeraAdmin extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
 				ErabiltzaileaKendu.main(null);
 				
 			}
 		});
+		menua.add(atzera);
+		atzera.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Hasiera.main(null);
+			}
+		});
 		menua.add(exit);
+		exit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();				
+			}
+		});
 
 		pestañak.setBounds(10, 11, 850, 350);
 		panela.add(pestañak);
