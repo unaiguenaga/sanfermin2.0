@@ -1,4 +1,4 @@
-package administratzailea;
+package Logika;
 
 import java.awt.GridLayout;
 
