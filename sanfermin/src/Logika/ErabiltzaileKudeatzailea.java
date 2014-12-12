@@ -106,7 +106,7 @@ public class ErabiltzaileKudeatzailea {
 
 	public void sortuErabiltzaileaEtaGehitu(String izena, String pasahitza) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "INSERT INTO erabiltzailea set iderabiltzailea='"+ izena+ "', pasahitza='" + pasahitza+"',administratzailea='ez'";
+		String kontsulta = "INSERT INTO erabiltzailea set iderabiltzailea='"+ izena+ "', pasahitza='" + pasahitza +"',administratzailea='ez'";
 		dbk.execSQL(kontsulta);
 		System.out.println(kontsulta);
 	}

@@ -95,7 +95,7 @@ public class ErabiltzaileBerria extends JFrame {
 					tpasahitzaBerriz.setText("");
 				}
 				else if(pasahitzaTestua.getText().equals(tpasahitzaBerriz.getText())){
-					erab.sortuErabiltzaileaEtaGehitu(erabTestua.getText(), pasahitza.getText());
+					erab.sortuErabiltzaileaEtaGehitu(erabTestua.getText(), pasahitzaTestua.getText());
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzaile berria sortu da. ", "Erabiltzailea gehituta",
 							JOptionPane.INFORMATION_MESSAGE);

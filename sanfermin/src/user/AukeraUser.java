@@ -14,13 +14,20 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
+import Logika.Hasiera;
 import Logika.TableDemo;
 import Logika.TratamenduTableModel;
 import administratzailea.EntzierroTableModel;
+import administratzailea.ErabiltzaileBerria;
+import administratzailea.ErabiltzaileaKendu;
 import administratzailea.GanadutegiTableModel;
 import administratzailea.GehituAbereak;
 import administratzailea.SortuEntzierroa;
@@ -65,6 +72,11 @@ public class AukeraUser extends JFrame {
 	
 	JTable tableBozkak = new JTable(new TaulaBozkaketa());
 
+	JMenuBar barra= new JMenuBar();
+	JMenu menua=new JMenu("Menua");
+	JMenuItem atzera=new JMenuItem("Atzera");
+	JMenuItem exit=new JMenuItem("Exit");
+	
 	public AukeraUser() {
 		hasieratu();
 	}
@@ -73,14 +85,35 @@ public class AukeraUser extends JFrame {
 		AukeraUser aukera = new AukeraUser();
 		aukera.setTitle("San Ferminen kudeaketa ERABILTZAILEA: "+izena);
 		aukera.setVisible(true);
-		aukera.setSize(900, 400);
+		aukera.setSize(1000, 500);
 		aukera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	private void hasieratu() {
-
+		
 		setContentPane(panela);
 		panela.setLayout(null);
+		setJMenuBar(barra);
+		barra.add(menua);
+
+		menua.add(atzera);
+		atzera.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Hasiera.main(null);
+			}
+		});
+		menua.add(exit);
+		exit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();				
+			}
+		});
+
 
 		pestañak.setBounds(10, 11, 850, 350);
 		panela.add(pestañak);
@@ -90,12 +123,17 @@ public class AukeraUser extends JFrame {
 		pestañak.addTab("Botikak", null, botikaPestaña, null);
 		pestañak.addTab("Bozkak", null, bozkatuPestaña, null);
 
+
 		// ABEREAK
 		abereakPestaña.setLayout(new BorderLayout());
-		abereakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
 		zezenPanela.setLayout(new BorderLayout());
-		zezenPanela.add(tableZezenak);
+		abereakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
+		JScrollPane jScrollPane1 = new JScrollPane(tableZezenak);
+		zezenPanela.add(jScrollPane1);
 		abereakPestaña.add(zezenPanela);
+		abereakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
+
+		
 		eskumakoPanela1.setLayout(new BoxLayout(eskumakoPanela1, BoxLayout.Y_AXIS));
 		eskumakoPanela1.add(Box.createVerticalGlue());
 		eskumakoPanela1.add(bAbereaEzabatu);
@@ -115,7 +153,13 @@ public class AukeraUser extends JFrame {
 
 		// BOTIKAK
 		botikaPestaña.setLayout(new BorderLayout());
+		botikaPanela.setLayout(new BorderLayout());
 		botikaPestaña.add(eskumakoPanela3, BorderLayout.EAST);
+		JScrollPane jScrollPane3 = new JScrollPane(tableBotikak);
+		botikaPanela.add(jScrollPane3);
+		botikaPestaña.add(botikaPanela);
+		botikaPestaña.add(eskumakoPanela3, BorderLayout.EAST);
+		
 		eskumakoPanela3.setLayout(new BoxLayout(eskumakoPanela3, BoxLayout.Y_AXIS));
 		eskumakoPanela3.add(Box.createVerticalGlue());
 		eskumakoPanela3.add(bBotikakKudeatu);
