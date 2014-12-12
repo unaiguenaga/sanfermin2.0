@@ -28,9 +28,6 @@ public class PasahitzaAldatu extends JFrame {
 		JLabel jlPasZahar = new JLabel("Pasahitz zaharra:");
 		JLabel jlPasBerria = new JLabel("Pasahitz berria:");	
 		JLabel jlPasBerriaKonprobatu = new JLabel("Errepikatu berriz:");
-		
-
-
 		JTextField jtErabIzena = new JTextField(10);
 		JPasswordField jtPasZahar = new JPasswordField(10);
 		JPasswordField jtPasBerria = new JPasswordField(10);

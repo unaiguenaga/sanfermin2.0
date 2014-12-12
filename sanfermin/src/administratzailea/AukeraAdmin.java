@@ -8,6 +8,9 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -39,16 +42,21 @@ public class AukeraAdmin extends JFrame {
 	JPanel botikaPanela = new JPanel();
 	JPanel entzierroPanela = new JPanel();
 	JPanel ganadutegiPanela = new JPanel();
+	JMenuBar barra= new JMenuBar();
+	JMenu menua=new JMenu("Menua");
+	JMenu erabiltzailea=new JMenu("Erabiltzaileak");
+	JMenuItem erabBerria=new JMenuItem("Sortu erabiltzaile berria");
+	JMenuItem erabKendu=new JMenuItem("Erabiltzailea borratu");
+
+	JMenuItem exit=new JMenuItem("Exit");
 	
 	GanadutegiTableModel gtm = new GanadutegiTableModel();
-	public EntzierroTableModel etm =new EntzierroTableModel();
+	EntzierroTableModel etm =new EntzierroTableModel();
 	TratamenduTableModel ttm = new TratamenduTableModel();
-	public TableDemo tableGanadutegiak = new TableDemo(gtm);
+	TableDemo tableGanadutegiak = new TableDemo(gtm);
 	TableDemo tableEntzierroak = new TableDemo(etm);
 	TableDemo tableBotikak = new TableDemo(ttm);
 
-
-	
 	private static AukeraAdmin instantzia = new AukeraAdmin();
 	
 	public static AukeraAdmin getInstantzia(){
@@ -63,7 +71,7 @@ public class AukeraAdmin extends JFrame {
 		AukeraAdmin aukera = new AukeraAdmin();
 		aukera.setTitle("San Ferminen kudeaketa ADMINISTRATZAILEA:"+izena);
 		aukera.setVisible(true);
-		aukera.setSize(900, 400);
+		aukera.setSize(1000, 500);
 		aukera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
@@ -71,6 +79,29 @@ public class AukeraAdmin extends JFrame {
 
 		setContentPane(panela);
 		panela.setLayout(null);
+		setJMenuBar(barra);
+		barra.add(menua);
+		barra.add(erabiltzailea);
+		erabiltzailea.add(erabBerria);
+		erabBerria.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ErabiltzaileBerria.main(null);
+			}
+		});
+		erabiltzailea.add(erabKendu);
+		erabKendu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ErabiltzaileaKendu.main(null);
+				
+			}
+		});
+		menua.add(exit);
 
 		pestañak.setBounds(10, 11, 850, 350);
 		panela.add(pestañak);

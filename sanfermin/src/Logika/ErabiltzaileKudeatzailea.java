@@ -30,12 +30,13 @@ public class ErabiltzaileKudeatzailea {
 		dbk.execSQL(erabiltzailea4);
 	}
 
-	public static boolean konprobatuPasahitzaEtaErabiltzailea(String izen, String pasahitz) {
+	public static boolean konprobatuPasahitzaEtaErabiltzailea(String izen,
+			String pasahitz) {
 
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 
-		String kontsulta = "SELECT * FROM erabiltzailea WHERE iderabiltzailea='" + izen + "'" + "and " + "pasahitza='"
-				+ pasahitz + "'";
+		String kontsulta = "SELECT * FROM erabiltzailea WHERE iderabiltzailea='"
+				+ izen + "'" + "and " + "pasahitza='" + pasahitz + "'";
 		System.out.println(kontsulta);
 		ResultSet rs = dbk.execSQL(kontsulta);
 
@@ -57,50 +58,77 @@ public class ErabiltzaileKudeatzailea {
 		return aurkitua;
 	}
 
-	
-
 	public void pasahitzaAldatu(String izena, String pasahitzBerria) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta= "UPDATE erabiltzailea set pasahitza='"+ pasahitzBerria +  "' where iderabiltzailea='" +izena + "'" ;
+		String kontsulta = "UPDATE erabiltzailea set pasahitza='"
+				+ pasahitzBerria + "' where iderabiltzailea='" + izena + "'";
 		dbk.execSQL(kontsulta);
 		System.out.println(kontsulta);
-		
+
 	}
-	
+
 	public void hasieratuAdminEdoUser(String izen, String pasahitz) {
 		if (!this.konprobatuPasahitzaEtaErabiltzailea(izen, pasahitz)) {
 			// Errorea gertatu dela ateratzeko
 			ErroreaPasahitza errorea = new ErroreaPasahitza();
 		} else {
-			
+
+			DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+
+			String kontsulta = "SELECT administratzailea FROM erabiltzailea where iderabiltzailea="
+					+ '\u0022' + izen + '\u0022';
+
+			ResultSet rs = dbk.execSQL(kontsulta);
+
+			boolean adminDa = false;
+
+			try {
+				while (rs.next()) {
+					String admin = rs.getString("administratzailea");
+					if (admin.equals("bai")) {
+						adminDa = true;
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (adminDa) {
+				AukeraAdmin aa = AukeraAdmin.getInstantzia();
+				aa.main(izen);
+			} else {
+				AukeraUser au = new AukeraUser();
+				au.main(izen);
+			}
+
+		}
+	}
+
+	public void sortuErabiltzaileaEtaGehitu(String izena, String pasahitza) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "insert into erabiltzailea set iderabiltzailea='"+ izena+ "', pasahitza='" + pasahitza+"',administratzailea='ez'";
+		dbk.execSQL(kontsulta);
+		System.out.println(kontsulta);
+	}
 
-		String kontsulta = "SELECT administratzailea FROM erabiltzailea where iderabiltzailea=" + '\u0022' + izen
-				+ '\u0022';
-
+	public boolean existitzenDa(String izena) {
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "SELECT * FROM erabiltzailea WHERE iderabiltzailea='"
+				+ izena+ "'";
+		System.out.println(kontsulta);
 		ResultSet rs = dbk.execSQL(kontsulta);
-
-		boolean adminDa = false;
-
 		try {
 			while (rs.next()) {
-				String admin = rs.getString("administratzailea");
-				if (admin.equals("bai")) {
-					adminDa = true;
-				}
+				String izen = rs.getString("iderabiltzailea");
+				if (izena.equals(izen))
+					return true;
+				else
+					return false;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (adminDa) {
-			AukeraAdmin aa = AukeraAdmin.getInstantzia();
-			aa.main(izen);
-		} else {
-			AukeraUser au = new AukeraUser();
-			au.main(izen);
-		}
-
-		}
+		return false;
 	}
 }
