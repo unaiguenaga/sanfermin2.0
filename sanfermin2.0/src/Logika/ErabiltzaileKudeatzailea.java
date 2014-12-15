@@ -95,7 +95,7 @@ public class ErabiltzaileKudeatzailea {
 			}
 			if (adminDa) {
 				AukeraAdmin aa = AukeraAdmin.getInstantzia();
-				aa.main(izen);
+				aa.bistaratu(izen);
 			} else {
 				AukeraUser au = new AukeraUser();
 				au.main(izen);

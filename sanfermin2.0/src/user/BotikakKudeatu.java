@@ -16,8 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import administratzailea.SortuEntzierroa;
-
 import com.toedter.calendar.JCalendar;
 
 public class BotikakKudeatu  extends JFrame{
@@ -26,8 +24,8 @@ public class BotikakKudeatu  extends JFrame{
 	JLabel lZezena = new JLabel("Zezena:");
 	JLabel lNoiz = new JLabel("Noiz:");
 	JLabel lDosia = new JLabel("Dosia:");
-	JComboBox cbBotika = new JComboBox<String>();
-	JComboBox cbZezena = new JComboBox<String>();
+	JComboBox cbBotika = new JComboBox();
+	JComboBox cbZezena = new JComboBox();
 	JCalendar cal = new JCalendar();
 	JTextField tfDosia = new JTextField(10);
 	JPanel behekoPanela = new JPanel();

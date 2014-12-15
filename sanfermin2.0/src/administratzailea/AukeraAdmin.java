@@ -48,6 +48,8 @@ public class AukeraAdmin extends JFrame {
 	JMenu erabiltzailea=new JMenu("Erabiltzaileak");
 	JMenuItem erabBerria=new JMenuItem("Sortu erabiltzaile berria");
 	JMenuItem erabKendu=new JMenuItem("Erabiltzailea borratu");
+	
+	String[] args = null;
 
 	JMenuItem atzera=new JMenuItem("Atzera");
 	JMenuItem exit=new JMenuItem("Exit");
@@ -69,12 +71,11 @@ public class AukeraAdmin extends JFrame {
 		hasieratu();
 	}
 
-	public void main(String izena) {
-		AukeraAdmin aukera = AukeraAdmin.getInstantzia();
-		aukera.setTitle("San Ferminen kudeaketa ADMINISTRATZAILEA:"+izena);
-		aukera.setVisible(true);
-		aukera.setSize(1000, 500);
-		aukera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	public void bistaratu(String izena) {
+		setTitle("San Ferminen kudeaketa ADMINISTRATZAILEA:"+izena);
+		setVisible(true);
+		setSize(900, 400);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	private void hasieratu() {
@@ -179,7 +180,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuEntzierroa.main(null);
+				EntzierroaSortu.main(args);
 			}
 		});
 

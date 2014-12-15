@@ -23,7 +23,6 @@ import Logika.TratamenduTableModel;
 import administratzailea.EntzierroTableModel;
 import administratzailea.GanadutegiTableModel;
 import administratzailea.GehituAbereak;
-import administratzailea.SortuEntzierroa;
 
 public class AukeraUser extends JFrame {
 	JButton bAbereaEzabatu = new JButton("Aberea Ezabatu");
