@@ -36,6 +36,7 @@ public class GanadutegiTableModel extends AbstractTableModel{
 
 	@Override
 	public Object getValueAt(int row, int col) {
+	//	System.out.println("Col: " + col + "Row:" + row);
 		return data.elementAt(row).getBalioa(col);
 	}
 	
@@ -43,6 +44,14 @@ public class GanadutegiTableModel extends AbstractTableModel{
 		return columNames.elementAt(col);
 	}
 
+	public void removeRow(int row){
+		data.remove(row);
+	}
+	
+	public GanadutegiLag lortuLerroa(int lerro){
+		return data.elementAt(lerro);
+	}
+	
 	public Class getColumnClass(int col){
 		return data.elementAt(0).getBalioa(col).getClass();
 	}

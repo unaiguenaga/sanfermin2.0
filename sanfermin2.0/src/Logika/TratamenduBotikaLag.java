@@ -3,14 +3,14 @@ package Logika;
 import java.sql.Date;
 import java.util.Vector;
 
-public class TratamenduLag {
+public class TratamenduBotikaLag {
 
 	private Date data;
-	private int botika;
+	private String botika;
 	private String dosia;
-	private int zezena;
+	private String zezena;
 
-	public TratamenduLag(Date data, int botika, String dosia, int zezena) {
+	public TratamenduBotikaLag(Date data, String botika, String dosia, String zezena) {
 		this.data = data;
 		this.botika = botika;
 		this.dosia = dosia;
@@ -22,7 +22,7 @@ public class TratamenduLag {
 		return data;
 	}
 
-	public int getArduraduna() {
+	public String getArduraduna() {
 		return botika;
 	}
 
@@ -50,13 +50,13 @@ public class TratamenduLag {
 			data = (Date) value;
 			break;
 		case 1:
-			botika = (Integer) value;
+			botika = (String) value;
 			break;
 		case 2:
 			dosia = (String) value;
 			break;
 		case 3:
-			zezena = (Integer) value;
+			zezena = (String) value;
 		}
 	}
 }

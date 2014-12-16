@@ -31,6 +31,11 @@ public class Hasiera extends JFrame {
 	JPanel panellag = new JPanel();
 	JLabel hutsunea = new JLabel(" ");
 	
+	///////////// Behin datu basia kargata gero, komenta hurrengo lerrua ///////////////////////////
+	
+	//DatuBaseaKargatu db = new DatuBaseaKargatu();
+	
+	////////////////////////////////////////////////////////////////////
 	private GridBagLayout eskema;
 	private Container edukiontzia;
 	private GridBagConstraints mugak;

@@ -3,15 +3,15 @@ package Logika;
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
-public class TratamenduTableModel extends AbstractTableModel {
+public class TratamenduBotikaTableModel extends AbstractTableModel {
 
 	private Vector<String> columNames = new Vector<String>();
-	private TratamenduKud tk = TratamenduKud.getInstantzia();
-	private Vector<TratamenduLag> data = new Vector<TratamenduLag>();
+	private TratamenduBotikaKud tk = TratamenduBotikaKud.getInstantzia();
+	private Vector<TratamenduBotikaLag> data = new Vector<TratamenduBotikaLag>();
 
 	private int zezena = 0;
 
-	public TratamenduTableModel() {
+	public TratamenduBotikaTableModel() {
 		hasieratuZutabeIzenak();
 		kargatu();
 	}
@@ -63,7 +63,7 @@ public class TratamenduTableModel extends AbstractTableModel {
 	}
 
 	public void kargatu() {
-		Vector<TratamenduLag> v3 = tk.getLag();
+		Vector<TratamenduBotikaLag> v3 = tk.getLag();
 		for (int i = 0; i <= v3.size() - 1; i++) {
 			data.addElement(v3.elementAt(i));
 		}
