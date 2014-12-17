@@ -36,12 +36,20 @@ public class EntzierroKud {
 				+ ganadutegia + "');");
 	}
 
-	private void ezabatu(Date id) {
+	public void ezabatu(String id) {
 		dbk.execSQL("DELETE FROM entzierroa WHERE id='" + id + "';");
 	}
 
 	public void ezabatuDenak() {
 		dbk.execSQL("DELETE FROM entzierroa;");
+	}
+	
+	public void aldatu(String id, int ganadutegia){
+		dbk.execSQL("UPDATE `sanfermin`.`entzierroa` SET `fk_ganadutegia`='"+ganadutegia+"' WHERE `id`='"+id+"';");
+	}
+	
+	public void aldatu(String id, int ganadutegia, float luzera){
+		dbk.execSQL("UPDATE `sanfermin`.`entzierroa` SET `luzera`='"+luzera+"', `fk_ganadutegia`='"+ganadutegia+"' WHERE `id`='"+id+"';");
 	}
 
 	public Vector<EntzierroLag> getLag() {

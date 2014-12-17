@@ -3,6 +3,7 @@ package administratzailea;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ObjectInputStream.GetField;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -15,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import Logika.EntzierroKud;
+import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
 import Logika.TratamenduTableModel;
@@ -26,7 +29,7 @@ public class AukeraAdmin extends JFrame {
 	JButton bAldaketakGorde = new JButton("Aldaketak gorde");
 	JButton bEntzierroBerri = new JButton("Sortu entzierro berria");
 	JButton bDatuakAldatu = new JButton("Datuak aldatu");
-	JButton bAldaketakGorde2 = new JButton("Aldaketak gorde");
+	JButton bEntzierroaEzabatu = new JButton("Hautatutakoa ezabatu");
 	JButton bBotikaBerri = new JButton("Gehitu botika berria");
 	JButton bBajanEman = new JButton("Bajan eman");
 	JButton bAldaketakGorde3 = new JButton("Aldaketak gorde");
@@ -70,7 +73,7 @@ public class AukeraAdmin extends JFrame {
 	public AukeraAdmin() {
 		hasieratu();
 	}
-
+	
 	public void bistaratu(String izena) {
 		setTitle("San Ferminen kudeaketa ADMINISTRATZAILEA:"+izena);
 		setVisible(true);
@@ -139,7 +142,7 @@ public class AukeraAdmin extends JFrame {
 		eskumakoPanela1.add(Box.createVerticalGlue());
 		eskumakoPanela1.add(bEntzierroBerri);
 		eskumakoPanela1.add(bDatuakAldatu);
-		eskumakoPanela1.add(bAldaketakGorde2);
+		eskumakoPanela1.add(bEntzierroaEzabatu);
 		eskumakoPanela1.add(Box.createVerticalGlue());
 
 		// GANADUTEGIA
@@ -188,7 +191,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EntzierroaAldatu.main(null);
+				new EntzierroaAldatu(etm.getValueAt(tableEntzierroak.getTable().getSelectedRow(),0).toString());
 			}
 		});
 
@@ -212,7 +215,8 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GanadutegiaAldatu.main(null);
+				//GanadutegiaAldatu.main(null);
+				new GanadutegiaAldatu(tableGanadutegiak.getTable().getSelectedRow());
 			}
 		});
 
@@ -221,6 +225,26 @@ public class AukeraAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BotikaAldatu.main(null);
+			}
+		});
+		
+		bHautatutakoaEzabatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int id = GanadutegiKud.getInstantzia().getId().get(tableGanadutegiak.getTable().getSelectedRow());
+				GanadutegiKud.getInstantzia().ezabatu(id);
+				gtm.eguneratu();
+			}
+		});
+		
+		bEntzierroaEzabatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String id = EntzierroKud.getInstantzia().getId().get(tableEntzierroak.getTable().getSelectedRow());
+				EntzierroKud.getInstantzia().ezabatu(id);
+				etm.eguneratu();
 			}
 		});
 	}

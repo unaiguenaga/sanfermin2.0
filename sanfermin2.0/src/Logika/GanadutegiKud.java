@@ -30,14 +30,26 @@ public class GanadutegiKud {
 				+ "', '" + izena + "', '" + arduraduna + "', '" + tlf + "');");
 	}
 
-	private void ezabatu(int id) {
+	public void ezabatu(int id) {
 		dbk.execSQL("DELETE FROM ganadutegia WHERE id='" + id + "';");
 	}
 
 	public void ezabatuDenak() {
 		dbk.execSQL("DELETE FROM ganadutegia;");
 	}
-
+	
+	public void aldatuArduraduna(int id, String ard){
+		dbk.execSQL("UPDATE `sanfermin`.`ganadutegia` SET `arduraduna`='"+ard+"' WHERE `id`='"+id+"';");
+	}
+	
+	public void aldatuTlf(int id, int tlf){
+		dbk.execSQL("UPDATE `sanfermin`.`ganadutegia` SET `tlf`='"+tlf+"' WHERE `id`='"+id+"';");
+	}
+	
+	public void aldatuHelbidea(int id, String helb){
+		dbk.execSQL("UPDATE `sanfermin`.`ganadutegia` SET `helbidea`='"+helb+"' WHERE `id`='"+id+"';");
+	}
+	
 	public Vector<GanadutegiLag> getLag() {
 		Vector<GanadutegiLag> v = new Vector<GanadutegiLag>();
 		try {
