@@ -3,36 +3,42 @@ package user;
 public class ZezenLag {
 
 	private Integer kodea;
+	private String izena;
 	private String jaiotzeData;
-	private String pisua;
-	private String altuera;
-	private String adarLuzera;
+	private float pisua;
+	private float altuera;
+	private float adarLuzera;
 
 
-	public ZezenLag(Integer kodea, String jaiotzeData, String pisua, String altuera, String adarLuzera) {
+	public ZezenLag(Integer kodea, String izena, String jaiotzeData, float pisua, float altuera, float adarLuzera) {
 		this.kodea = kodea;
+		this.izena = izena;
 		this.jaiotzeData = jaiotzeData;
 		this.pisua = pisua;
-		this.pisua = altuera;
-		this.pisua = adarLuzera;
+		this.altuera = altuera;
+		this.adarLuzera = adarLuzera;
 
 	}
 
 	public int getKodea() {
 		return kodea;
 	}
+	
+	public String getIzena(){
+		return izena;
+	}
 
 	public String getJaiotzeData() {
 		return jaiotzeData;
 	}
 
-	public String getPisua() {
+	public float getPisua() {
 		return pisua;
 	}
-	public String getAltuera() {
+	public float getAltuera() {
 		return altuera;
 	}
-	public String getAdarLuzera() {
+	public float getAdarLuzera() {
 		return adarLuzera;
 	}
 
@@ -41,12 +47,14 @@ public class ZezenLag {
 		case 0:
 			return kodea;
 		case 1:
-			return jaiotzeData;
+			return izena;
 		case 2:
-			return pisua;
+			return jaiotzeData;
 		case 3:
-			return altuera;
+			return pisua;
 		case 4:
+			return altuera;
+		case 5:
 			return adarLuzera;
 		}
 		return null;
@@ -58,16 +66,19 @@ public class ZezenLag {
 			kodea = (Integer) value;
 			break;
 		case 1:
-			jaiotzeData = (String) value;
+			izena = (String) value;
 			break;
 		case 2:
-			pisua = (String) value;
+			jaiotzeData = (String) value;
 			break;
 		case 3:
-			altuera = (String) value;
+			pisua = (Float) value;
 			break;
 		case 4:
-			adarLuzera = (String) value;
+			altuera = (Float) value;
+			break;
+		case 5:
+			adarLuzera = (Float) value;
 			break;
 		}
 	}

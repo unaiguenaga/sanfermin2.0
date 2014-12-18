@@ -2,14 +2,26 @@ package Logika;
 
 public class GanadutegiLag {
 
+	private int id;
+	private String helbidea;
 	private String izena;
 	private String arduraduna;
 	private Integer tlf;
 
-	public GanadutegiLag(String izena, String arduraduna, Integer tlf) {
+	public GanadutegiLag(String izena, String arduraduna, Integer tlf, int id, String helbidea) {
 		this.izena = izena;
 		this.arduraduna = arduraduna;
 		this.tlf = tlf;
+		this.id = id;
+		this.helbidea = helbidea;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getHelbidea() {
+		return helbidea;
 	}
 
 	public String getIzena() {
@@ -32,12 +44,17 @@ public class GanadutegiLag {
 			return arduraduna;
 		case 2:
 			return tlf;
+		case 3:
+			return id;
+		case 4:
+			return helbidea;
 		}
 		return null;
 	}
 
 	public void insertElementAt(Object value, int i) {
 		switch (i) {
+		
 		case 0:
 			izena = (String) value;
 			break;
@@ -46,6 +63,12 @@ public class GanadutegiLag {
 			break;
 		case 2:
 			tlf = (Integer) value;
+			break;
+		case 3:
+			id = (Integer) value;
+			break;
+		case 4:
+			helbidea = (String) value;
 			break;
 		}
 	}

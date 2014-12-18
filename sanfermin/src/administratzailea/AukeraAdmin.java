@@ -15,6 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import user.BotikaKud;
+import user.BotikaLag;
+import user.BotikaTableModel;
+import user.TaulaBozkaketa;
+import Logika.GanadutegiKud;
+import Logika.GanadutegiLag;
 import Logika.Hasiera;
 import Logika.TableDemo;
 import Logika.TratamenduTableModel;
@@ -54,10 +60,11 @@ public class AukeraAdmin extends JFrame {
 	
 	GanadutegiTableModel gtm = new GanadutegiTableModel();
 	EntzierroTableModel etm =new EntzierroTableModel();
-	TratamenduTableModel ttm = new TratamenduTableModel();
+	//TratamenduTableModel ttm = new TratamenduTableModel();
+	BotikaTableModel btm = new BotikaTableModel();
 	TableDemo tableGanadutegiak = new TableDemo(gtm);
 	TableDemo tableEntzierroak = new TableDemo(etm);
-	TableDemo tableBotikak = new TableDemo(ttm);
+	TableDemo tableBotikak = new TableDemo(btm);
 
 	private static AukeraAdmin instantzia = new AukeraAdmin();
 	
@@ -198,12 +205,51 @@ public class AukeraAdmin extends JFrame {
 				SortuGanadutegia.main(null);
 			}
 		});
+		
+		bHautatutakoaEzabatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				int lerro = tableGanadutegiak.getHautatutakoLerroa();
+				GanadutegiLag lag = gtm.lortuLerroa(lerro);
+				String izena = lag.getIzena();
+				GanadutegiKud.getInstantzia().ezabatu(izena);
+				gtm.removeRow(lerro);
+				gtm.fireTableDataChanged();
+			}
+		});
 
 		bBotikaBerri.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SortuBotika.main(null);
+				btm.fireTableDataChanged();
+			}
+		});
+		
+		bBajanEman.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Saguarekin hautatutako gelaxkaren (celda) balioa lortzeko
+				
+				int lerro = tableBotikak.getHautatutakoLerroa();
+				BotikaLag lag = btm.lortuLerroa(lerro);
+				int kodea = lag.getKodea();
+				BotikaKud.getInstantzia().ezabatu(kodea);
+				btm.removeRow(lerro);
+				btm.fireTableDataChanged();
+/*
+ 				String izena=tableBotikak.lortuBalioa(btm, tableBotikak.table);
+ 
+				System.out.println("balioa: "+izena);
+				
+				//String-etik integer formatura pasatzeko
+				int kodea = Integer.parseInt(izena);
+				BotikaKud.getInstantzia().ezabatu(kodea);
+*/				
 			}
 		});
 

@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
+
 import Logika.DBKudeatzaile;
 
 public class GanadutegiKud {
@@ -25,13 +27,21 @@ public class GanadutegiKud {
 
 	// METODOAK
 
-	public void gehitu(int id, String izena, String arduraduna, int tlf, String helbidea) {
-		dbk.execSQL("INSERT INTO ganadutegia (id, helbidea, izena, arduraduna,tlf) VALUES ('" + id + "', '" + helbidea
-				+ "', '" + izena + "', '" + arduraduna + "', '" + tlf + "');");
+	public void gehitu(int id, String izena, String arduraduna, int tlf,
+			String helbidea) {
+		dbk.execSQL("INSERT INTO ganadutegia (id, helbidea, izena, arduraduna,tlf) VALUES ('"
+				+ id
+				+ "', '"
+				+ helbidea
+				+ "', '"
+				+ izena
+				+ "', '"
+				+ arduraduna
+				+ "', '" + tlf + "');");
 	}
 
-	private void ezabatu(int id) {
-		dbk.execSQL("DELETE FROM ganadutegia WHERE id='" + id + "';");
+	public void ezabatu(String id) {
+		dbk.execSQL("DELETE FROM ganadutegia WHERE izena='" + id +"'"+";");
 	}
 
 	public void ezabatuDenak() {
@@ -43,7 +53,9 @@ public class GanadutegiKud {
 		try {
 			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia;");
 			while (rs.next()) {
-				v.add(new GanadutegiLag(rs.getString("izena"), rs.getString("arduraduna"), rs.getInt("tlf")));
+				v.add(new GanadutegiLag(rs.getString("izena"), rs
+						.getString("arduraduna"), rs.getInt("tlf"), rs
+						.getInt("id"), rs.getString("helbidea")));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -56,6 +68,25 @@ public class GanadutegiKud {
 		Vector<String> v = new Vector<String>();
 		try {
 			ResultSet rs = dbk.execSQL("SELECT izena FROM ganadutegia;");
+			while (rs.next()) {
+				v.add(rs.getString("izena"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
+
+	// Metodo honek bozkatu ahal diren Ganadutegiak aterako ditu, bozkatzen
+	// dagoena kenduta
+	public Vector<String> getBozkatzekoak(String izena) {
+		Vector<String> v = new Vector<String>();
+
+		try {
+			ResultSet rs = dbk
+					.execSQL("SELECT izena FROM ganadutegia WHERE arduraduna!='"
+							+ izena + "'");
 			while (rs.next()) {
 				v.add(rs.getString("izena"));
 			}
@@ -80,4 +111,10 @@ public class GanadutegiKud {
 		return v;
 	}
 
+	public static DefaultListModel kargatuModeloa(DefaultListModel model, Vector<String> data) {
+		for (int i = 0; i < data.size(); i++) {
+			model.addElement(data.get(i));
+		}
+		return model;
+	}
 }

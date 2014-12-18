@@ -61,6 +61,7 @@ public class ZezenaTableModel extends AbstractTableModel{
 	
 	public void hasieratuZutabeIzenak(){
 		columNames.add("Kodea");
+		columNames.add("Izena");
 		columNames.add("Jaiotze data");
 		columNames.add("Pisua");
 		columNames.add("Altuera");

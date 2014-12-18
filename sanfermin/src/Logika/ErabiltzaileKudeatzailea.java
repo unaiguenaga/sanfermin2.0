@@ -9,26 +9,10 @@ import user.AukeraUser;
 public class ErabiltzaileKudeatzailea {
 
 	public void main(String[] args) {
-		erabiltzaileakKargartu();
+		
 	}
 
-	public void erabiltzaileakKargartu() {
-
-		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-
-		String ezabatu = "delete from erabiltzailea";
-		dbk.execSQL(ezabatu);
-
-		String erabiltzailea1 = "insert into erabiltzailea set iderabiltzailea= 'leire', pasahitza='leire',administratzailea='bai'";
-		String erabiltzailea2 = "insert into erabiltzailea set iderabiltzailea= 'unai', pasahitza='unai',administratzailea='ez'";
-		String erabiltzailea3 = "insert into erabiltzailea set iderabiltzailea= 'xenki', pasahitza='xenki',administratzailea='bai'";
-		String erabiltzailea4 = "insert into erabiltzailea set iderabiltzailea= 'ander', pasahitza='ander',administratzailea='ez'";
-
-		dbk.execSQL(erabiltzailea1);
-		dbk.execSQL(erabiltzailea2);
-		dbk.execSQL(erabiltzailea3);
-		dbk.execSQL(erabiltzailea4);
-	}
+	
 
 	public static boolean konprobatuPasahitzaEtaErabiltzailea(String izen,
 			String pasahitz) {
@@ -97,7 +81,7 @@ public class ErabiltzaileKudeatzailea {
 				AukeraAdmin aa = AukeraAdmin.getInstantzia();
 				aa.main(izen);
 			} else {
-				AukeraUser au = new AukeraUser();
+				AukeraUser au = new AukeraUser().getInstantzia();
 				au.main(izen);
 			}
 

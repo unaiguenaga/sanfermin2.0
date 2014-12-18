@@ -4,6 +4,8 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
+import Logika.GanadutegiLag;
+
 public class BotikaTableModel extends AbstractTableModel{
 	
 	private Vector<String> columNames = new Vector<String>();
@@ -37,6 +39,14 @@ public class BotikaTableModel extends AbstractTableModel{
 	public String getColumnName (int col){
 		return columNames.elementAt(col);
 	}
+	
+	public void removeRow(int row){
+		data.remove(row);
+	}
+	
+	public BotikaLag lortuLerroa(int lerro){
+		return data.elementAt(lerro);
+	}
 
 	public Class getColumnClass(int col){
 		return data.elementAt(0).getBalioa(col).getClass();
@@ -60,6 +70,12 @@ public class BotikaTableModel extends AbstractTableModel{
 		columNames.add("Kodea");
 		columNames.add("Izena");
 		
+	}
+	
+	public void eguneratu(){
+		this.data = new Vector<BotikaLag>();
+		this.kargatu();
+		this.fireTableDataChanged();
 	}
 	
 	public void kargatu(){

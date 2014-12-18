@@ -59,10 +59,11 @@ public class TratamenduTableModel extends AbstractTableModel {
 		columNames.add("Data");
 		columNames.add("Botika");
 		columNames.add("Dosia");
+		columNames.add("Zezena");
 	}
 
 	public void kargatu() {
-		Vector<TratamenduLag> v3 = tk.getLag(zezena);
+		Vector<TratamenduLag> v3 = tk.getLag();
 		for (int i = 0; i <= v3.size() - 1; i++) {
 			data.addElement(v3.elementAt(i));
 		}

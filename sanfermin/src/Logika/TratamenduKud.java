@@ -3,7 +3,10 @@ package Logika;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
+
+import javax.swing.JTextField;
 
 import Logika.DBKudeatzaile;
 
@@ -26,9 +29,16 @@ public class TratamenduKud {
 
 	// METODOAK
 
-	public void gehitu(Date data, String botika, float dosia, int zezena) {
-		dbk.execSQL("INSERT INTO tratamendua (data, botika, dosia, fk_zezena) VALUES ('" + data + "', '" + botika
-				+ "', '" + dosia + "', " + zezena + ");");
+	public void gehitu(String data, int botika, String dosia, int zezena) {
+		dbk.execSQL("INSERT INTO tratamendua (data, fk_botika, dosia, fk_zezena) VALUES ('"
+				+ data
+				+ "', '"
+				+ botika
+				+ "', '"
+				+ dosia
+				+ "', "
+				+ zezena
+				+ ");");
 	}
 
 	private void ezabatu(Date data) {
@@ -39,12 +49,33 @@ public class TratamenduKud {
 		dbk.execSQL("DELETE FROM tratamendua;");
 	}
 
-	public Vector<TratamenduLag> getLag(int zezena) {
+	public Vector<TratamenduLag> getLag() {
 		Vector<TratamenduLag> v = new Vector<TratamenduLag>();
+		
+		System.out.println("select aurretik");
+		
+		//ResultSet rs = dbk.execSQL("SELECT tratamendua.data, botika.izena, tratamendua.dosia, zezena.izena FROM tratamendua,botika,zezena WHERE tratamendua.fk_zezena=zezena.id and tratamendua.fk_botika=botika.kodea");
+		String kontsulta = "SELECT t.data, b.izena, t.dosia, z.izenaZezen FROM tratamendua t INNER JOIN botika b ON t.fk_botika = b.kodea INNER JOIN zezena z ON t.fk_zezena = z.id";
+		ResultSet rs = dbk.execSQL(kontsulta);
+		
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM tratamendua WHERE fk_zezena='" + zezena + "';");
 			while (rs.next()) {
-				v.add(new TratamenduLag(rs.getDate("data"), rs.getString("botika"), rs.getFloat("dosia")));
+				v.add(new TratamenduLag(rs.getDate("data"), rs.getInt("izena"), rs.getString("dosia"), rs.getInt("izenaZezen")));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		System.out.println("select ostean");
+		return v;
+	}
+
+	public Vector<String> getIzenak() {
+		Vector<String> v = new Vector<String>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT fk_botika FROM tratamendua;");
+			while (rs.next()) {
+				v.add(rs.getString("fk_botika"));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -53,17 +84,51 @@ public class TratamenduKud {
 		return v;
 	}
 
-	public Vector<String> getIzenak() {
-		Vector<String> v = new Vector<String>();
+	// Metodo honek Zezenaren kodea eta Botikaren kodea bilatuko ditu, eta Tratamendu berria gehituko du Datu Basera
+	
+	public void gehituTratamendua(String data, Object zezena, Object botika,
+			String dosia) {
+
+		// ///////////////////// Zezenaren kodea bilatzeko // //////////////////////////
+		String zezen = (String) zezena;
+		String bilatu = "select id from zezena where izenaZezen='" + zezen + "'";
+
+		ResultSet rs = dbk.execSQL(bilatu);
+
+		int zezenKodea = 0;
+
 		try {
-			ResultSet rs = dbk.execSQL("SELECT botika FROM tratamendua;");
 			while (rs.next()) {
-				v.add(rs.getString("botika"));
+				int kode = rs.getInt("id");
+				zezenKodea = kode;
 			}
-			rs.close();
 		} catch (SQLException e) {
-			System.out.println(e);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return v;
+
+		// /////////////////// Botikaren kodea bilatzeko // ///////////////////////////
+
+		String zeinBotika = (String) botika;
+		String bilatuBotika = "select kodea from botika where izena='"
+				+ zeinBotika + "'";
+
+		ResultSet rs1 = dbk.execSQL(bilatuBotika);
+
+		int botikaKodea = 0;
+
+		try {
+			while (rs1.next()) {
+				int kode1 = rs1.getInt("kodea");
+				botikaKodea = kode1;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
+		}
+		
+		//////////////////////// Tratamendua gehitu ///////////////////////////////
+		
+		TratamenduKud.getInstantzia().gehitu(data, botikaKodea, dosia, zezenKodea);
 	}
 }

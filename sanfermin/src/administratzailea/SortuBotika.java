@@ -14,6 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
+
+import user.BotikaKud;
+import user.BotikaTableModel;
 
 public class SortuBotika extends JFrame{
 
@@ -65,6 +69,9 @@ public class SortuBotika extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				int kodea = Integer.parseInt((String) kodeTestua.getText());
+				BotikaKud.getInstantzia().gehituBotika(kodea, (String) izenaTestua.getText());
+				AukeraAdmin.getInstantzia().btm.eguneratu();
 				dispose();
 			}
 		});

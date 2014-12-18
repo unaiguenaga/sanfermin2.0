@@ -25,8 +25,8 @@ public class ZezenKud  {
 
 	// METODOAK
 
-	public void gehitu(int kodea, String jaiotzeData, String pisua, String altuera, String adarLuzera, String ganadutegiaKode) {
-		dbk.execSQL("INSERT INTO zezena (id, jaiotzeData, pisua, altuera,adarrenLuzera, fk_ganadutegia) VALUES  ('" + kodea + "', '" + jaiotzeData
+	public void gehitu(int kodea, String izena, String jaiotzeData, String pisua, String altuera, String adarLuzera, String ganadutegiaKode) {
+		dbk.execSQL("INSERT INTO zezena (id, izenaZezen, jaiotzeData, pisua, altuera,adarrenLuzera, fk_ganadutegia) VALUES  ('" + kodea + "', '" + izena + "', '" + jaiotzeData
 				+ "', '" + pisua + "', '" + altuera + "', '" + adarLuzera + "', '" + ganadutegiaKode +"');");
 	}
 	
@@ -45,7 +45,7 @@ public class ZezenKud  {
 		try {
 			ResultSet rs = dbk.execSQL("SELECT * FROM zezena;");
 			while (rs.next()) {
-				v.add(new ZezenLag(rs.getInt("kodea"), rs.getString("jaiotzeData"), rs.getString("pisua"), rs.getString("altuera"), rs.getString("adarrenLuzera")));
+				v.add(new ZezenLag(rs.getInt("id"), rs.getString("izenaZezen"), rs.getString("jaiotzeData"), rs.getFloat("pisua"), rs.getFloat("altuera"), rs.getFloat("adarrenLuzera")));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -68,6 +68,19 @@ public class ZezenKud  {
 		}
 		return v;
 	}
-
+	
+	public Vector<String> getIzenak() {
+		Vector<String> v = new Vector<String>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT izenaZezen FROM zezena;");
+			while (rs.next()) {
+				v.add(rs.getString("izenaZezen"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
 	
 }

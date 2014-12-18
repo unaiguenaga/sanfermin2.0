@@ -1,10 +1,8 @@
-package user;
+package Logika;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
-
-import Logika.DBKudeatzaile;
 
 public class BotikaKud  {
 
@@ -31,7 +29,7 @@ public class BotikaKud  {
 	}
 
 	
-	public void ezabatu(int kodea) {
+	private void ezabatu(int kodea) {
 		dbk.execSQL("DELETE FROM botika WHERE kodea='" + kodea + "';");
 	}
 
@@ -68,19 +66,6 @@ public class BotikaKud  {
 		}
 		return v;
 	}
-	
-	public Vector<String> getIzenak() {
-		Vector<String> v = new Vector<String>();
-		try {
-			ResultSet rs = dbk.execSQL("SELECT izena FROM botika;");
-			while (rs.next()) {
-				v.add(rs.getString("izena"));
-			}
-			rs.close();
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
-		return v;
-	}
+
 	
 }

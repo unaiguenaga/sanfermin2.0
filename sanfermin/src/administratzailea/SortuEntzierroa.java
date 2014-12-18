@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -17,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Logika.EntzierroKud;
+import Logika.EntzierroLag;
 import Logika.GanadutegiKud;
 
 import com.toedter.calendar.JCalendar;
@@ -69,7 +72,10 @@ public class SortuEntzierroa extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+				String data = formato.format(cal.getDate());
+				System.out.println("Ganadutegia: "+entzierroak.getSelectedIndex());
+				EntzierroKud.getInstantzia().gehitu(data, 10, entzierroak.getSelectedIndex()+1);
 				dispose();
 			}
 		});
