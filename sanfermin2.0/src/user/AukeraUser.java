@@ -38,7 +38,7 @@ import administratzailea.GehituAbereak;
 
 public class AukeraUser extends JFrame {
 	
-	public String erabiltzaileIzena = null;
+	private String erabiltzaileIzena;
 	
 	JButton bAbereaEzabatu = new JButton("Aberea Ezabatu");
 	JButton bAbereaGehitu = new JButton("Aberea Gehitu");
@@ -119,7 +119,7 @@ public class AukeraUser extends JFrame {
 
 	JMenuBar barra= new JMenuBar();
 	JMenu menua=new JMenu("Menua");
-	JMenuItem atzera=new JMenuItem("Atzera");
+	JMenuItem atzera=new JMenuItem("Saioa itxi");
 	JMenuItem exit=new JMenuItem("Exit");
 	
 private static AukeraUser instantzia = new AukeraUser();
@@ -141,6 +141,10 @@ private static AukeraUser instantzia = new AukeraUser();
 		setSize(1000, 500);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
+	}
+	
+	public String getErabiltzaileIzana(){
+		return erabiltzaileIzena;
 	}
 
 	private void hasieratu() {
@@ -174,7 +178,7 @@ private static AukeraUser instantzia = new AukeraUser();
 
 		pestañak.addTab("Abereak", null, abereakPestaña, null);
 		pestañak.addTab("Entzierroko Zezenak Kudeatu", null, zezenakPestaña, null);
-		pestañak.addTab("Botikak", null, botikaPestaña, null);
+		pestañak.addTab("Tratamenduak", null, botikaPestaña, null);
 		pestañak.addTab("Bozkak", null, bozkatuPestaña, null);
 
 
@@ -291,7 +295,7 @@ private static AukeraUser instantzia = new AukeraUser();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BotikakKudeatu.main(null);
+				new BotikakKudeatu(erabiltzaileIzena);
 			}
 		});
 		

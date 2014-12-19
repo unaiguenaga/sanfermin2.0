@@ -85,7 +85,7 @@ public class ErabiltzaileBerria extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ErabiltzaileKudeatzailea erab=new ErabiltzaileKudeatzailea();
+				ErabiltzaileKudeatzailea erab=ErabiltzaileKudeatzailea.getInstantzia();
 				if(erab.existitzenDa(erabTestua.getText())){
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzaile izen hori jadanik existitzen da, berriro saiatu zaitez beste izen batekin. ", "Izen errepikatua",

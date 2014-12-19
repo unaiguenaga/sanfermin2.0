@@ -38,7 +38,7 @@ public class Hasiera extends JFrame {
 	class Entzule implements ActionListener {
 		
 		public void actionPerformed(ActionEvent arg0) {
-			ErabiltzaileKudeatzailea era = new ErabiltzaileKudeatzailea();
+			ErabiltzaileKudeatzailea era = ErabiltzaileKudeatzailea.getInstantzia();
 			if(era.konprobatuPasahitzaEtaErabiltzailea(erabTestua.getText(),pasahitzaTestua.getText())){
 				era.hasieratuAdminEdoUser(erabTestua.getText(), pasahitzaTestua.getText());
 				dispose();
@@ -53,11 +53,11 @@ public class Hasiera extends JFrame {
 	}
 
 	public Hasiera() {
+		new DatuBaseaKargatu();
 		gridBagHasieratu();
 	}
 
 	public static void main(String[] args) {
-		new DatuBaseaKargatu();
 		Hasiera hasiera = new Hasiera();
 		hasiera.setTitle("San Ferminak");
 		hasiera.setVisible(true);
@@ -111,6 +111,5 @@ public class Hasiera extends JFrame {
 
 		eskema.setConstraints(osagaia, mugak);
 		edukiontzia.add(osagaia);
-
 	}
 }

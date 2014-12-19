@@ -8,26 +8,14 @@ import user.AukeraUser;
 
 public class ErabiltzaileKudeatzailea {
 
-	public void main(String[] args) {
-		erabiltzaileakKargartu();
+	
+	private static ErabiltzaileKudeatzailea instantzia = new ErabiltzaileKudeatzailea();
+	
+	public static ErabiltzaileKudeatzailea getInstantzia(){
+		return instantzia;
 	}
-
-	public void erabiltzaileakKargartu() {
-
-		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-
-		String ezabatu = "delete from erabiltzailea";
-		dbk.execSQL(ezabatu);
-
-		String erabiltzailea1 = "insert into erabiltzailea set iderabiltzailea= 'leire', pasahitza='leire',administratzailea='bai'";
-		String erabiltzailea2 = "insert into erabiltzailea set iderabiltzailea= 'unai', pasahitza='unai',administratzailea='ez'";
-		String erabiltzailea3 = "insert into erabiltzailea set iderabiltzailea= 'xenki', pasahitza='xenki',administratzailea='bai'";
-		String erabiltzailea4 = "insert into erabiltzailea set iderabiltzailea= 'ander', pasahitza='ander',administratzailea='ez'";
-
-		dbk.execSQL(erabiltzailea1);
-		dbk.execSQL(erabiltzailea2);
-		dbk.execSQL(erabiltzailea3);
-		dbk.execSQL(erabiltzailea4);
+	
+	private ErabiltzaileKudeatzailea() {
 	}
 
 	public static boolean konprobatuPasahitzaEtaErabiltzailea(String izen,
@@ -58,6 +46,15 @@ public class ErabiltzaileKudeatzailea {
 		return aurkitua;
 	}
 
+	public void izenaAldatu(String izena, String pasahitzBerria) {
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "UPDATE erabiltzailea set iderabiltzailea='"
+				+ pasahitzBerria + "' where iderabiltzailea='" + izena + "'";
+		dbk.execSQL(kontsulta);
+		System.out.println(kontsulta);
+
+	}
+	
 	public void pasahitzaAldatu(String izena, String pasahitzBerria) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "UPDATE erabiltzailea set pasahitza='"
@@ -92,7 +89,7 @@ public class ErabiltzaileKudeatzailea {
 			AukeraAdmin aa = AukeraAdmin.getInstantzia();
 			aa.bistaratu(izen);
 		} else {
-			AukeraUser au = new AukeraUser();
+			AukeraUser au = AukeraUser.getInstantzia();
 			au.main(izen);
 		}
 	}

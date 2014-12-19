@@ -106,5 +106,19 @@ public class GanadutegiKud {
 		}
 		return v;
 	}
+	
+	public int getId(String erabiltzailea) {
+		Vector<Integer> v = new Vector<Integer>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT id FROM ganadutegia WHERE arduraduna = '"+erabiltzailea+"';");
+			while (rs.next()) {
+				return rs.getInt("id");
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return 0;
+	}
 
 }
