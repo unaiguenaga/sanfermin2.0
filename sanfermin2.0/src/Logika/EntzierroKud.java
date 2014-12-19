@@ -80,4 +80,18 @@ public class EntzierroKud {
 		}
 		return v;
 	}
+	
+	public Vector<String> getId(String erab) {
+		Vector<String> v = new Vector<String>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT id FROM entzierroa;");
+			while (rs.next()) {
+				v.add(rs.getString("id"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
 }

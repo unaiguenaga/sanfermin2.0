@@ -26,8 +26,8 @@ public class TratamenduKud {
 
 	// METODOAK
 
-	public void gehitu(Date data, String botika, float dosia, int zezena) {
-		dbk.execSQL("INSERT INTO tratamendua (data, botika, dosia, fk_zezena) VALUES ('" + data + "', '" + botika
+	public void gehitu(String data, int botika, Float dosia, int zezena) {
+		dbk.execSQL("INSERT INTO tratamendua (data, fk_botika, dosia, fk_zezena) VALUES ('" + data + "', '" + botika
 				+ "', '" + dosia + "', " + zezena + ");");
 	}
 
@@ -93,5 +93,50 @@ public class TratamenduKud {
 			System.out.println(e);
 		}
 		return izena;
+	}
+	public void gehituTratamendua(String data, Object zezena, Object botika,
+			Float dosia) {
+
+		// ///////////////////// Zezenaren kodea bilatzeko // //////////////////////////
+		String zezen = (String) zezena;
+		String bilatu = "select id from zezena where izenaZezen='" + zezen + "'";
+
+		ResultSet rs = dbk.execSQL(bilatu);
+
+		int zezenKodea = 0;
+
+		try {
+			while (rs.next()) {
+				int kode = rs.getInt("id");
+				zezenKodea = kode;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// /////////////////// Botikaren kodea bilatzeko // ///////////////////////////
+
+		String zeinBotika = (String) botika;
+		String bilatuBotika = "select kodea from botika where izena='"
+				+ zeinBotika + "'";
+
+		ResultSet rs1 = dbk.execSQL(bilatuBotika);
+
+		int botikaKodea = 0;
+
+		try {
+			while (rs1.next()) {
+				int kode1 = rs1.getInt("kodea");
+				botikaKodea = kode1;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
+		}
+		
+		//////////////////////// Tratamendua gehitu ///////////////////////////////
+		
+		gehitu(data, botikaKodea, dosia, zezenKodea);
 	}
 }

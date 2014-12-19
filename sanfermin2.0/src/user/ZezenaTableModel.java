@@ -4,8 +4,8 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import Logika.ZezenKud;
-import Logika.ZezenLag;
+import Logika.GanadutegiKud;
+import Logika.GanadutegiLag;
 
 public class ZezenaTableModel extends AbstractTableModel{
 	
@@ -42,10 +42,6 @@ public class ZezenaTableModel extends AbstractTableModel{
 	}
 
 	public Class getColumnClass(int col){
-		System.out.println(col);
-		ZezenLag z = data.elementAt(0);
-		System.out.println(z.getBalioa(col).getClass());
-		
 		return data.elementAt(0).getBalioa(col).getClass();
 	}
 	
@@ -56,7 +52,7 @@ public class ZezenaTableModel extends AbstractTableModel{
 		}else{
 			return false;
 		}*/
-		return false;
+		return true;
 	}
 	
 	public void setValueAt(Object value, int row, int col){
@@ -65,6 +61,7 @@ public class ZezenaTableModel extends AbstractTableModel{
 	
 	public void hasieratuZutabeIzenak(){
 		columNames.add("Kodea");
+		columNames.add("Izena");
 		columNames.add("Jaiotze data");
 		columNames.add("Pisua");
 		columNames.add("Altuera");

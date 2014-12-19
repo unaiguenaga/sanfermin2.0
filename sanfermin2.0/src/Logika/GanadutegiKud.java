@@ -77,6 +77,21 @@ public class GanadutegiKud {
 		}
 		return v;
 	}
+	
+	public Vector<String> getIzenak(String erabiltzailea) {
+		Vector<String> v = new Vector<String>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT izena FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
+			System.out.println("SELECT izena FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
+			while (rs.next()) {
+				v.add(rs.getString("izena"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
 
 	public Vector<Integer> getId() {
 		Vector<Integer> v = new Vector<Integer>();

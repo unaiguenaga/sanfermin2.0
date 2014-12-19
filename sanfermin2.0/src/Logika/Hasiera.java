@@ -57,6 +57,7 @@ public class Hasiera extends JFrame {
 	}
 
 	public static void main(String[] args) {
+		new DatuBaseaKargatu();
 		Hasiera hasiera = new Hasiera();
 		hasiera.setTitle("San Ferminak");
 		hasiera.setVisible(true);

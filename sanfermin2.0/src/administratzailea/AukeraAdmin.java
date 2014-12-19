@@ -1,10 +1,9 @@
 package administratzailea;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ObjectInputStream.GetField;
+import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,6 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import user.BotikaKud;
+import user.BotikaLag;
+import user.BotikaTableModel;
+import user.TratamenduTableModel;
 import Logika.EntzierroKud;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
@@ -25,15 +28,17 @@ import Logika.TableDemo;
 
 public class AukeraAdmin extends JFrame {
 	JButton bGanadutegiBerri = new JButton("Sortu ganadutegi berria");
-	JButton bHautatutakoaEzabatu = new JButton("Hautatutakoa ezabatu");
+	JButton bGanadutegiaAldatu = new JButton("Datuak Aldatu");
+	JButton bGanadutegiaEzabatu = new JButton("Hautatutakoa ezabatu");
+	
 	JButton bEntzierroBerri = new JButton("Sortu entzierro berria");
 	JButton bEntzierroaAldatu = new JButton("Datuak aldatu");
 	JButton bEntzierroaEzabatu = new JButton("Hautatutakoa ezabatu");
-	JButton bTratamenduBerri = new JButton("Gehitu botika berria");
-	JButton bBajanEman = new JButton("Bajan eman");
-	JButton bAldaketakGorde3 = new JButton("Aldaketak gorde");
-	JButton bGanadutegiaAldatu = new JButton("Datuak Aldatu");
-	JButton bTratamenduaAldatu = new JButton("Botika Aldatu");
+	
+	JButton bBotikaBerri = new JButton("Gehitu botika");
+	JButton bBotikaAldatu = new JButton("Aldaketak gorde");
+	JButton bBotikaEzabatu = new JButton("Ezabatu botika");
+
 	JTabbedPane pestañak = new JTabbedPane();
 	JPanel panela = new JPanel();
 	JPanel entzierroakPestaña = new JPanel();
@@ -58,10 +63,10 @@ public class AukeraAdmin extends JFrame {
 	
 	GanadutegiTableModel gtm = new GanadutegiTableModel();
 	EntzierroTableModel etm =new EntzierroTableModel();
-	TratamenduTableModel ttm = new TratamenduTableModel();
+	BotikaTableModel btm = new BotikaTableModel();
 	TableDemo tableGanadutegiak = new TableDemo(gtm);
 	TableDemo tableEntzierroak = new TableDemo(etm);
-	TableDemo tableBotikak = new TableDemo(ttm);
+	TableDemo tableBotikak = new TableDemo(btm);
 
 	private static AukeraAdmin instantzia = new AukeraAdmin();
 	
@@ -127,7 +132,7 @@ public class AukeraAdmin extends JFrame {
 
 		pestañak.addTab("Entzierroak", null, entzierroakPestaña, null);
 		pestañak.addTab("Ganadutegiak", null, ganadutegiakPestaña, null);
-		pestañak.addTab("Tratemenduak", null, botikakPestaña, null);
+		pestañak.addTab("Botikak", null, botikakPestaña, null);
 
 		// ENTZIERROA
 		entzierroakPestaña.setLayout(new BorderLayout());
@@ -155,7 +160,7 @@ public class AukeraAdmin extends JFrame {
 		eskumakoPanela2.setLayout(new BoxLayout(eskumakoPanela2, BoxLayout.PAGE_AXIS));
 		eskumakoPanela2.add(Box.createVerticalGlue());
 		eskumakoPanela2.add(bGanadutegiBerri);
-		eskumakoPanela2.add(bHautatutakoaEzabatu);
+		eskumakoPanela2.add(bGanadutegiaEzabatu);
 		eskumakoPanela2.add(bGanadutegiaAldatu);
 		eskumakoPanela2.add(Box.createVerticalGlue());
 
@@ -169,10 +174,9 @@ public class AukeraAdmin extends JFrame {
 		
 		eskumakoPanela3.setLayout(new BoxLayout(eskumakoPanela3, BoxLayout.PAGE_AXIS));
 		eskumakoPanela3.add(Box.createVerticalGlue());
-		eskumakoPanela3.add(bTratamenduBerri);
-		eskumakoPanela3.add(bBajanEman);
-		eskumakoPanela3.add(bTratamenduaAldatu);
-		eskumakoPanela3.add(bAldaketakGorde3);
+		eskumakoPanela3.add(bBotikaBerri);
+		eskumakoPanela3.add(bBotikaEzabatu);
+		eskumakoPanela3.add(bBotikaAldatu);
 		eskumakoPanela3.add(Box.createVerticalGlue());
 
 		// LISTENERS
@@ -224,7 +228,7 @@ public class AukeraAdmin extends JFrame {
 			}
 		});
 		
-		bHautatutakoaEzabatu.addActionListener(new ActionListener() {
+		bGanadutegiaEzabatu.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -236,7 +240,7 @@ public class AukeraAdmin extends JFrame {
 		
 		// TRATAMENDUAK
 
-		bTratamenduBerri.addActionListener(new ActionListener() {
+		bBotikaBerri.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -245,11 +249,11 @@ public class AukeraAdmin extends JFrame {
 			}
 		});
 
-		bTratamenduaAldatu.addActionListener(new ActionListener() {
+		bBotikaAldatu.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BotikaAldatu.main(null);
+				BotikaKud.getInstantzia().gordeDBan(btm.getData());
 			}
 		});
 	}

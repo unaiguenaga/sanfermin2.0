@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,11 +21,14 @@ import administratzailea.SortuZezena;
 
 public class GehituZezena extends JFrame {
 	
+	private ZezenKud zk = ZezenKud.getInstantzia();
+	private Vector<String> vIzenakZezenak = zk.getIzenak();
+	
 	private GridBagLayout eskema;
 	private Container edukiontzia;
 	private GridBagConstraints mugak;
 	
-	JComboBox zezenak = new JComboBox();
+	JComboBox zezenak = new JComboBox(vIzenakZezenak);
 	JButton gehitu = new JButton("Gehitu");
 	
 	public GehituZezena() {

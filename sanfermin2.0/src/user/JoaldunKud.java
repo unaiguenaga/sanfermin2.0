@@ -47,7 +47,7 @@ public class JoaldunKud  {
 		try {
 			ResultSet rs = dbk.execSQL("SELECT * FROM Joalduna;");
 			while (rs.next()) {
-				v.add(new JoaldunLag(rs.getInt("kodea"), rs.getString("jaiotzeData"), rs.getString("pisua"), rs.getString("altuera"), rs.getString("kolorea")));
+				v.add(new JoaldunLag(rs.getInt("id"), rs.getString("jaiotzeData"), rs.getFloat("pisua"), rs.getFloat("altuera"), rs.getString("kolorea")));
 			}
 			rs.close();
 		} catch (SQLException e) {

@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,16 +18,31 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Logika.DatuBaseaKargatu;
+import Logika.GanadutegiKud;
+import Logika.TratamenduKud;
+
 import com.toedter.calendar.JCalendar;
 
 public class BotikakKudeatu  extends JFrame{
+	
+//////////////Datu basea kargatu (zezenak soilik)
+	//DatuBaseaKargatu db = new DatuBaseaKargatu();
+	
+///////////////////////////////////////////
+	
+	private BotikaKud bk = BotikaKud.getInstantzia();
+	private Vector<String> vIzenakBotikak = bk.getIzenak();
+	
+	private ZezenKud zk = ZezenKud.getInstantzia();
+	private Vector<String> vIzenakZezenak = zk.getIzenak();
 
 	JLabel lBotika = new JLabel("Botika:");
 	JLabel lZezena = new JLabel("Zezena:");
 	JLabel lNoiz = new JLabel("Noiz:");
 	JLabel lDosia = new JLabel("Dosia:");
-	JComboBox cbBotika = new JComboBox();
-	JComboBox cbZezena = new JComboBox();
+	JComboBox cbBotika = new JComboBox(vIzenakBotikak);
+	JComboBox cbZezena = new JComboBox(vIzenakZezenak);
 	JCalendar cal = new JCalendar();
 	JTextField tfDosia = new JTextField(10);
 	JPanel behekoPanela = new JPanel();
@@ -35,8 +52,17 @@ public class BotikakKudeatu  extends JFrame{
 	private GridBagConstraints mugak;
 	String[] args = null;
 	
+	
+	
 	public BotikakKudeatu() {
-		gridBagHasieratu();
+		////////////////////////// Zezenak eta Botikak kargatu /////////////////////////////////
+		//db.zenzenakKargartu();
+		//db.joaldunakKargartu();
+		//db.botikakKargatu();
+		//db.tratamenduakKargartu();
+		///////////////////////////////////////////////////////////////////////////////////////
+		
+		gridBagHasieratu();	
 	}
 
 	private void gridBagHasieratu() {
@@ -77,6 +103,11 @@ public class BotikakKudeatu  extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+				String data = formato.format(cal.getDate());
+				TratamenduKud.getInstantzia().gehituTratamendua(data, cbZezena.getSelectedItem(), cbBotika.getSelectedItem(), Float.parseFloat(tfDosia.getText()));
+				AukeraUser.getInstantzia().ttm.eguneratu();
+				
 				dispose();
 			}
 		});
@@ -97,7 +128,7 @@ public class BotikakKudeatu  extends JFrame{
 	public static void main(String[] args) {
 		
 		BotikakKudeatu botikakKudeatu = new BotikakKudeatu();
-		botikakKudeatu.setTitle("Entzierro berria gehitu");
+		botikakKudeatu.setTitle("Tratamendu berria gehitu");
 		botikakKudeatu.setVisible(true);
 		botikakKudeatu.setSize(550, 300);
 		botikakKudeatu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
