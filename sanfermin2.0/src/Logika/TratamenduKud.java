@@ -39,12 +39,12 @@ public class TratamenduKud {
 		dbk.execSQL("DELETE FROM tratamendua;");
 	}
 
-	public Vector<TratamenduLag> getLag(int zezena) {
+	public Vector<TratamenduLag> getLag() {
 		Vector<TratamenduLag> v = new Vector<TratamenduLag>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM tratamendua WHERE fk_zezena='" + zezena + "';");
+			ResultSet rs = dbk.execSQL("SELECT * FROM tratamendua;");
 			while (rs.next()) {
-				v.add(new TratamenduLag(rs.getDate("data"), rs.getString("botika"), rs.getFloat("dosia")));
+				v.add(new TratamenduLag(getIzena(rs.getInt("fk_botika")), rs.getFloat("dosia"), ZezenKud.getInstantzia().getIzena(rs.getInt("fk_zezena")) ,rs.getDate("data"),rs.getInt("fk_zezena") ,rs.getInt("fk_botika")));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -53,10 +53,24 @@ public class TratamenduKud {
 		return v;
 	}
 
+	public Vector<Integer> getIdak() {
+		Vector<Integer> v = new Vector<Integer>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT kodea FROM botika;");
+			while (rs.next()) {
+				v.add(rs.getInt("botika"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
+	
 	public Vector<String> getIzenak() {
 		Vector<String> v = new Vector<String>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT botika FROM tratamendua;");
+			ResultSet rs = dbk.execSQL("SELECT izena FROM botika;");
 			while (rs.next()) {
 				v.add(rs.getString("botika"));
 			}
@@ -65,5 +79,19 @@ public class TratamenduKud {
 			System.out.println(e);
 		}
 		return v;
+	}
+	
+	public String getIzena(int id){
+		String izena = "";
+		try {
+			ResultSet rs = dbk.execSQL("SELECT izena FROM botika WHERE kodea='"+id+"';");
+			while (rs.next()) {
+				return rs.getString("izena");
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return izena;
 	}
 }

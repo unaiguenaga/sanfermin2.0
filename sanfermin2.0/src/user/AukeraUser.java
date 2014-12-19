@@ -19,7 +19,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
 import Logika.TableDemo;
-import Logika.TratamenduTableModel;
 import administratzailea.EntzierroTableModel;
 import administratzailea.GanadutegiTableModel;
 import administratzailea.GehituAbereak;
