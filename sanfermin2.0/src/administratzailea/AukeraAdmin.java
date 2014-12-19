@@ -58,7 +58,7 @@ public class AukeraAdmin extends JFrame {
 	
 	String[] args = null;
 
-	JMenuItem atzera=new JMenuItem("Atzera");
+	JMenuItem atzera=new JMenuItem("Sesioa itxi");
 	JMenuItem exit=new JMenuItem("Exit");
 	
 	GanadutegiTableModel gtm = new GanadutegiTableModel();
@@ -238,14 +238,13 @@ public class AukeraAdmin extends JFrame {
 			}
 		});
 		
-		// TRATAMENDUAK
+		// BOKTIKAK
 
 		bBotikaBerri.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//SortuBotika.main(null);
-				new TratamenduaSortu();
+				new SortuBotika();
 			}
 		});
 
@@ -254,6 +253,15 @@ public class AukeraAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BotikaKud.getInstantzia().gordeDBan(btm.getData());
+			}
+		});
+		
+		bBotikaEzabatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BotikaKud.getInstantzia().ezabatu(Integer.parseInt(btm.getValueAt(tableBotikak.getTable().getSelectedRow(), 0).toString()));
+				btm.eguneratu();
 			}
 		});
 	}
