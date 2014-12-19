@@ -93,8 +93,8 @@ public class SortuGanadutegia extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				gk.gehitu(Integer.parseInt(kodeTestua.getText()), izenTestua.getText(), arduradunTestua.getText(), Integer.parseInt(tlfTestua.getText()), helbideTestua.getText());
-				AukeraAdmin.getInstantzia().gtm.gehitu(new GanadutegiLag(izenTestua.getText(), arduradunTestua.getText(), Integer.parseInt(tlfTestua.getText()), Integer.parseInt(kodeTestua.getText()),helbideTestua.getText()));
-				AukeraAdmin.getInstantzia().tableGanadutegiak.repaint();
+				AukeraAdmin.getInstantzia().gtm.eguneratu();
+				//AukeraAdmin.getInstantzia().tableGanadutegiak.repaint();
 				dispose();
 				
 			}

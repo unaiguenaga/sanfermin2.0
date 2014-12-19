@@ -119,13 +119,13 @@ public class DatuBaseaKargatu {
 		String ezabatu = "delete from zezena";
 		dbk.execSQL(ezabatu);
 
-		String zezena1 = "insert into zezena set id= 1000, izenaZezen='Islero',jaiotzeData='2013-09-10',pisua=250,altuera=2.30,adarrenLuzera=1.02,fk_ganadutegia=1";
-		String zezena2 = "insert into zezena set id= 1001, izenaZezen='Raton',jaiotzeData='2013-10-15',pisua=256,altuera=2.40,adarrenLuzera=1.52,fk_ganadutegia=1";
-		String zezena3 = "insert into zezena set id= 1002, izenaZezen='Atrevido',jaiotzeData='2013-11-06',pisua=302,altuera=2.10,adarrenLuzera=1.06,fk_ganadutegia=1";
-		String zezena4 = "insert into zezena set id= 1003, izenaZezen='Belador',jaiotzeData='2012-01-26',pisua=223,altuera=2.56,adarrenLuzera=1.32,fk_ganadutegia=2";
-		String zezena5 = "insert into zezena set id= 1004, izenaZezen='Sedoso',jaiotzeData='2013-10-10',pisua=285,altuera=2.40,adarrenLuzera=0.98,fk_ganadutegia=2";
-		String zezena6 = "insert into zezena set id= 1005, izenaZezen='Cimbareto',jaiotzeData='2013-02-20',pisua=260,altuera=2.24,adarrenLuzera=1.10,fk_ganadutegia=3";
-		String zezena7 = "insert into zezena set id= 1006, izenaZezen='Desteñido',jaiotzeData='2013-03-10',pisua=280,altuera=2.01,adarrenLuzera=1.25,fk_ganadutegia=4";
+		String zezena1 = "insert into zezena set id= 1000, izena='Islero',jaiotzeData='2013-09-10',pisua=250,altuera=2.30,adarrenLuzera=1.02,fk_ganadutegia=1";
+		String zezena2 = "insert into zezena set id= 1001, izena='Raton',jaiotzeData='2013-10-15',pisua=256,altuera=2.40,adarrenLuzera=1.52,fk_ganadutegia=1";
+		String zezena3 = "insert into zezena set id= 1002, izena='Atrevido',jaiotzeData='2013-11-06',pisua=302,altuera=2.10,adarrenLuzera=1.06,fk_ganadutegia=1";
+		String zezena4 = "insert into zezena set id= 1003, izena='Belador',jaiotzeData='2012-01-26',pisua=223,altuera=2.56,adarrenLuzera=1.32,fk_ganadutegia=2";
+		String zezena5 = "insert into zezena set id= 1004, izena='Sedoso',jaiotzeData='2013-10-10',pisua=285,altuera=2.40,adarrenLuzera=0.98,fk_ganadutegia=2";
+		String zezena6 = "insert into zezena set id= 1005, izena='Cimbareto',jaiotzeData='2013-02-20',pisua=260,altuera=2.24,adarrenLuzera=1.10,fk_ganadutegia=3";
+		String zezena7 = "insert into zezena set id= 1006, izena='Desteñido',jaiotzeData='2013-03-10',pisua=280,altuera=2.01,adarrenLuzera=1.25,fk_ganadutegia=4";
 
 		dbk.execSQL(zezena1);
 		dbk.execSQL(zezena2);
@@ -143,13 +143,13 @@ public class DatuBaseaKargatu {
 		String ezabatu = "delete from Joalduna";
 		dbk.execSQL(ezabatu);
 
-		String joalduna1 = "insert into Joalduna set id= 100,jaiotzeData='2013-12-10',pisua=250,altuera=2.30,fk_ganadutegia=1";
-		String joalduna2 = "insert into Joalduna set id= 101,jaiotzeData='2013-03-15',pisua=256,altuera=2.40,fk_ganadutegia=1";
-		String joalduna3 = "insert into Joalduna set id= 102,jaiotzeData='2013-10-06',pisua=302,altuera=2.10,fk_ganadutegia=2";
-		String joalduna4 = "insert into Joalduna set id= 103,jaiotzeData='2012-09-26',pisua=223,altuera=2.56,fk_ganadutegia=2";
-		String joalduna5 = "insert into Joalduna set id= 104,jaiotzeData='2013-02-10',pisua=285,altuera=2.40,fk_ganadutegia=2";
-		String joalduna6 = "insert into Joalduna set id= 105,jaiotzeData='2013-07-20',pisua=260,altuera=2.24,fk_ganadutegia=3";
-		String joalduna7 = "insert into Joalduna set id= 106,jaiotzeData='2013-06-10',pisua=280,altuera=2.01,fk_ganadutegia=";
+		String joalduna1 = "insert into Joalduna set id= 100,jaiotzeData='2013-12-10',pisua=250,altuera=2.30,kolorea='gorria',fk_ganadutegia=1";
+		String joalduna2 = "insert into Joalduna set id= 101,jaiotzeData='2013-03-15',pisua=256,altuera=2.40,kolorea='beltza',fk_ganadutegia=1";
+		String joalduna3 = "insert into Joalduna set id= 102,jaiotzeData='2013-10-06',pisua=302,altuera=2.10,kolorea='marroia',fk_ganadutegia=2";
+		String joalduna4 = "insert into Joalduna set id= 103,jaiotzeData='2012-09-26',pisua=223,altuera=2.56,kolorea='zuria',fk_ganadutegia=2";
+		String joalduna5 = "insert into Joalduna set id= 104,jaiotzeData='2013-02-10',pisua=285,altuera=2.40,kolorea='beltza',fk_ganadutegia=2";
+		String joalduna6 = "insert into Joalduna set id= 105,jaiotzeData='2013-07-20',pisua=260,altuera=2.24,kolorea='marroia',fk_ganadutegia=3";
+		String joalduna7 = "insert into Joalduna set id= 106,jaiotzeData='2013-06-10',pisua=280,altuera=2.01,kolorea='gorria',fk_ganadutegia=";
 
 		dbk.execSQL(joalduna1);
 		dbk.execSQL(joalduna2);

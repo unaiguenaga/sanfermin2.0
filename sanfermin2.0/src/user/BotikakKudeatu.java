@@ -21,14 +21,13 @@ import javax.swing.JTextField;
 import Logika.DatuBaseaKargatu;
 import Logika.GanadutegiKud;
 import Logika.TratamenduKud;
-import administratzailea.SortuEntzierroa;
 
 import com.toedter.calendar.JCalendar;
 
 public class BotikakKudeatu  extends JFrame{
 	
 //////////////Datu basea kargatu (zezenak soilik)
-	DatuBaseaKargatu db = new DatuBaseaKargatu();
+	//DatuBaseaKargatu db = new DatuBaseaKargatu();
 	
 ///////////////////////////////////////////
 	
@@ -106,7 +105,8 @@ public class BotikakKudeatu  extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 				String data = formato.format(cal.getDate());
-				TratamenduKud.getInstantzia().gehituTratamendua(data, cbZezena.getSelectedItem(), cbBotika.getSelectedItem(), tfDosia.getText());
+				TratamenduKud.getInstantzia().gehituTratamendua(data, cbZezena.getSelectedItem(), cbBotika.getSelectedItem(), Float.parseFloat(tfDosia.getText()));
+				AukeraUser.getInstantzia().ttm.eguneratu();
 				
 				dispose();
 			}

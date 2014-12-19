@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Logika.EntzierroKud;
+import Logika.EntzierroLag;
 import Logika.GanadutegiKud;
 
 import com.toedter.calendar.JCalendar;
@@ -42,42 +44,31 @@ public class EntzierroaAldatu extends JFrame {
 
 	private GanadutegiKud gk = GanadutegiKud.getInstantzia();
 	private EntzierroKud ek = EntzierroKud.getInstantzia();
-	private Vector<String> vIzenak = ek.getId();
-	private Vector<String> vGanadutegiIzenak = gk.getIzenak();
-	JComboBox entzierroak = new JComboBox(vIzenak);
-	JComboBox ganadutegiak = new JComboBox(vGanadutegiIzenak);
+	private Vector<String> vDatak = ek.getId();
+	private Vector<String> vIzenak = gk.getIzenak();
+	private Vector<Integer> vId = gk.getId();
+	JComboBox entzierroak = new JComboBox(vDatak);
+	JComboBox ganadutegiak = new JComboBox(vIzenak);
+	
+	String entzierroId;
 
-	public EntzierroaAldatu() {
+	public EntzierroaAldatu(String id){
+		entzierroId = id;
 		gridBagHasieratu();
 	}
-
-	public static void main(String[] args) {
-		EntzierroaAldatu hasiera = new EntzierroaAldatu();
-		hasiera.setTitle("Entzierroaren datuak aldatu");
-		hasiera.setVisible(true);
-		hasiera.setSize(450, 350);
-		hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
-
-	private void gridBagHasieratu() {
+	
+	private void gridBagHasieratu(){
+		
 		edukiontzia = getContentPane();
 		eskema = new GridBagLayout();
 		edukiontzia.setLayout(eskema);
 		mugak = new GridBagConstraints();
 
-		gehituOsagaia(entzierroa, 1, 1, 4, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
-		gehituOsagaia(eguna, 3, 1, 4, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
 		gehituOsagaia(ganadutegia, 6, 1, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		gehituOsagaia(distantzia, 8, 1, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 
-		gehituOsagaia(entzierroak, 1, 5, 3, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
-		gehituOsagaia(cal, 4, 5, 3, 1);
-		mugak.insets = new Insets(3, 3, 3, 3);
 		gehituOsagaia(ganadutegiak, 6, 6, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		gehituOsagaia(distantziaTestua, 8, 6, 5, 1);
@@ -90,9 +81,20 @@ public class EntzierroaAldatu extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (distantziaTestua.getText().equals("")){
+					ek.aldatu(entzierroId, vId.get(ganadutegiak.getSelectedIndex()));
+				}else{
+					ek.aldatu(entzierroId, vId.get(ganadutegiak.getSelectedIndex()), Float.parseFloat(distantziaTestua.getText()));
+				}
+				AukeraAdmin.getInstantzia().etm.eguneratu();
 				dispose();
 			}
 		});
+		
+		this.setTitle("Entzierroaren datuak aldatu");
+		this.setVisible(true);
+		this.setSize(450, 350);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}
 

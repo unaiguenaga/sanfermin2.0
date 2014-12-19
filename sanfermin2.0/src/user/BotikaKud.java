@@ -82,5 +82,11 @@ public class BotikaKud  {
 		}
 		return v;
 	}
+
+	public void gordeDBan(Vector<BotikaLag> datuak) {
+		for (int i = 0; i<datuak.size();i++){
+			ResultSet rs = dbk.execSQL("UPDATE `sanfermin`.`botika` SET `izena`='"+datuak.get(i).getIzena()+"' WHERE `kodea`='"+datuak.get(i).getKodea()+"';");
+		}
+	}
 	
 }

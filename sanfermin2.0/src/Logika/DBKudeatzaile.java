@@ -10,7 +10,7 @@ public class DBKudeatzaile {
 		try {
 			String userName = "sanfermin";
 			String password = "sanfermin";
-			String url = "jdbc:mysql://localhost:3306/sanfermin";
+			String url = "jdbc:mysql://localhost/sanfermin";
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = (Connection) DriverManager.getConnection(url, userName, password);
 			System.out.println("Database connection established");

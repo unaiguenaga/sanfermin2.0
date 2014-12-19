@@ -29,18 +29,16 @@ import Logika.ErroreaBozkaketa;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
-import Logika.TratamenduBotikaTableModel;
-import Logika.TratamenduTableModel;
+import administratzailea.AukeraAdmin;
 import administratzailea.EntzierroTableModel;
 import administratzailea.ErabiltzaileBerria;
 import administratzailea.ErabiltzaileaKendu;
 import administratzailea.GanadutegiTableModel;
 import administratzailea.GehituAbereak;
-import administratzailea.SortuEntzierroa;
 
 public class AukeraUser extends JFrame {
 	
-	public static String erabiltzaileIzena = null;
+	public String erabiltzaileIzena = null;
 	
 	JButton bAbereaEzabatu = new JButton("Aberea Ezabatu");
 	JButton bAbereaGehitu = new JButton("Aberea Gehitu");
@@ -82,7 +80,7 @@ public class AukeraUser extends JFrame {
 	
 	private GanadutegiKud gk = GanadutegiKud.getInstantzia();
 	private BotoKud bk = BotoKud.getInstantzia();
-	private Vector<String> vIzenak = gk.getBozkatzekoak(erabiltzaileIzena);
+	private Vector<String> vIzenak = new Vector<String>();
 	
 	DefaultListModel modeloaEzkerra = new DefaultListModel();
 	DefaultListModel modeloaEskuina = new DefaultListModel();
@@ -99,14 +97,14 @@ public class AukeraUser extends JFrame {
 	TableDemo tableJoaldunak = new TableDemo(jtm);
 	
 	/////// Azken aldaketa //////
-	TratamenduBotikaTableModel tbtm = new TratamenduBotikaTableModel();
-	TableDemo tableTratamenduaBotikak = new TableDemo(tbtm);
+//	TratamenduBotikaTableModel tbtm = new TratamenduBotikaTableModel();
+//	TableDemo tableTratamenduaBotikak = new TableDemo(tbtm);
 	/////////////////////////////
 	
 	
 	///////Aldaketa///////
-	//TratamenduTableModel ttm = new TratamenduTableModel();
-	//TableDemo tableTratamenduak = new TableDemo(ttm);
+	TratamenduTableModel ttm = new TratamenduTableModel();
+	TableDemo tableTratamenduak = new TableDemo(ttm);
 	////////////////////
 	/*
 	BotikaTableModel btm = new BotikaTableModel();
@@ -124,17 +122,25 @@ public class AukeraUser extends JFrame {
 	JMenuItem atzera=new JMenuItem("Atzera");
 	JMenuItem exit=new JMenuItem("Exit");
 	
+private static AukeraUser instantzia = new AukeraUser();
+	
+	public static AukeraUser getInstantzia(){
+		return instantzia;
+	}
+	
 	public AukeraUser() {
-		hasieratu();
+		//hasieratu();
 	}
 
-	public static void main(String izena) {
+	public void main(String izena) {
 		erabiltzaileIzena = izena;
-		AukeraUser aukera = new AukeraUser();
-		aukera.setTitle("San Ferminen kudeaketa ERABILTZAILEA: "+izena);
-		aukera.setVisible(true);
-		aukera.setSize(1000, 500);
-		aukera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		System.out.println("User:"+erabiltzaileIzena);
+		hasieratu();
+		setTitle("San Ferminen kudeaketa ERABILTZAILEA: "+izena);
+		setVisible(true);
+		setSize(1000, 500);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 	}
 
 	private void hasieratu() {
@@ -161,7 +167,7 @@ public class AukeraUser extends JFrame {
 				dispose();				
 			}
 		});
-
+		
 
 		pestañak.setBounds(10, 11, 850, 350);
 		panela.add(pestañak);
@@ -178,16 +184,16 @@ public class AukeraUser extends JFrame {
 		zezenPanela.setLayout(new BorderLayout());
 		joaldunPanela.setLayout(new BorderLayout());
 		//abereakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
-		JScrollPane jScrollPane1 = new JScrollPane(tableZezenak);
-		JScrollPane jScrollPane2 = new JScrollPane(tableJoaldunak);
-		//aberealPanela.add(jScrollPane1);
-		//aberealPanela.add(jScrollPane2);
-		zezenPanela.add(jScrollPane1);
-		joaldunPanela.add(jScrollPane2);
+//		JScrollPane jScrollPane1 = new JScrollPane(tableZezenak);
+//		JScrollPane jScrollPane2 = new JScrollPane(tableJoaldunak);
+		aberealPanela.add(tableZezenak);
+		aberealPanela.add(tableJoaldunak);
+//		zezenPanela.add(jScrollPane1);
+//		joaldunPanela.add(jScrollPane2);
 		///////////// Panelak bat bestearen gainean jarri///////////////
-		abereakPestaña.add(zezenPanela, BorderLayout.WEST);
-		abereakPestaña.add(joaldunPanela);
-		//abereakPestaña.add(aberealPanela);
+		//abereakPestaña.add(zezenPanela, BorderLayout.WEST);
+		//abereakPestaña.add(joaldunPanela);
+		abereakPestaña.add(aberealPanela);
 		abereakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
 		////////////////////////////////////////////////////////////////7
 		
@@ -213,7 +219,7 @@ public class AukeraUser extends JFrame {
 		botikaPanela.setLayout(new BorderLayout());
 		
 		///////Aldaketa
-		JScrollPane jScrollPane3=new JScrollPane(tableTratamenduaBotikak);
+		JScrollPane jScrollPane3=new JScrollPane(tableTratamenduak);
 		/////////////
 		//JScrollPane jScrollPane3=new JScrollPane(tableBotikak);
 		botikaPanela.add(jScrollPane3);
@@ -236,12 +242,17 @@ public class AukeraUser extends JFrame {
 		botikaPanela.setLayout(new BorderLayout());
 		
 		///////Aldaketa///////
-		modeloaEzkerra = gk.kargatuModeloa(modeloaEzkerra, vIzenak);
+		vIzenak = gk.getIzenak(erabiltzaileIzena);
+		for (int i = 0; i < vIzenak.size(); i++) {
+			modeloaEzkerra.addElement(vIzenak.get(i));
+		}
+		//modeloaEzkerra = gk.kargatuModeloa(modeloaEzkerra, vIzenak);
+		System.out.println("Erab: "+erabiltzaileIzena);
 		modeloaEskuina = bk.kargatuModeloa(erabiltzaileIzena);
 		bozkatuEzkerra.setModel(modeloaEzkerra);
 		bozkatuEskuina.setModel(modeloaEskuina);
 		
-		botikaPanela.add(tableTratamenduaBotikak);
+		botikaPanela.add(tableTratamenduak);
 		////////////////////
 		
 		//botikaPanela.add(tableBotikak);
@@ -264,6 +275,9 @@ public class AukeraUser extends JFrame {
 		//bozkaTaulaPanela.add(bozkatuEskuina);
 		bozkatuPestaña.add(bozkatuTaulaEzkerra, BorderLayout.WEST);
 		bozkatuPestaña.add(bozkatuTaulaEskuina, BorderLayout.CENTER);
+		
+		
+
 
 		bAbereaGehitu.addActionListener(new ActionListener() {
 
@@ -326,5 +340,4 @@ public class AukeraUser extends JFrame {
 			}
 		});
 	}
-
 }

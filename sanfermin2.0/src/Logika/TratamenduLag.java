@@ -4,42 +4,59 @@ import java.sql.Date;
 import java.util.Vector;
 
 public class TratamenduLag {
-
+	
+	// Taulan bistaratuko direnak:
+	private String botika;
+	private float dosia;
+	private String zezena;
 	private Date data;
-	private int botika;
-	private String dosia;
-	private int zezena;
+	// Laguntzaileak:
+	private int idZezena;
+	private int idBotika;
 
-	public TratamenduLag(Date data, int botika, String dosia, int zezena) {
-		this.data = data;
+	public TratamenduLag(String botika, float dosia, String izena, Date data, int idZezena, int idBotika) {
 		this.botika = botika;
 		this.dosia = dosia;
-		this.zezena= zezena;
-		
+		this.zezena = izena;
+		this.data = data;
+		this.idZezena = idZezena;
+		this.idBotika = idBotika;
 	}
-
-	public Date getIzena() {
-		return data;
-	}
-
-	public int getArduraduna() {
+	
+	public String getBotika() {
 		return botika;
 	}
 
-	public String getTlf() {
+	public float getDosia() {
 		return dosia;
 	}
-
+	
+	public String getZezena() {
+		return zezena;
+	}
+	
+	public Date getData() {
+		return data;
+	}
+	
+	public int getIdZezena() {
+		return idZezena;
+	}
+	
+	public int getIdBotika() {
+		return idBotika;
+	}
+	
 	public Object getBalioa(int i) {
 		switch (i) {
 		case 0:
-			return data;
-		case 1:
 			return botika;
-		case 2:
+		case 1:
 			return dosia;
-		case 3:
+		case 2:
 			return zezena;
+		case 3:
+			return data;
 		}
 		return null;
 	}
@@ -47,16 +64,17 @@ public class TratamenduLag {
 	public void insertElementAt(Object value, int i) {
 		switch (i) {
 		case 0:
-			data = (Date) value;
+			botika = (String) value;
 			break;
 		case 1:
-			botika = (Integer) value;
+			dosia = (Float) value;
 			break;
 		case 2:
-			dosia = (String) value;
+			zezena = (String) value;
 			break;
 		case 3:
-			zezena = (Integer) value;
+			data = (Date) value;
+			break;
 		}
 	}
 }

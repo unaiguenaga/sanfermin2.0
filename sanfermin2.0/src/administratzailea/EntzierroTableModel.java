@@ -59,22 +59,21 @@ public class EntzierroTableModel extends AbstractTableModel{
 		data.get(row).insertElementAt(value, col);
 	}
 	
+	public void eguneratu(){
+		this.data = new Vector<EntzierroLag>();
+		this.kargatu();
+		this.fireTableDataChanged();
+	}
+	
 	public void hasieratuZutabeIzenak(){
 		columNames.add("Data");
 		columNames.add("Ganadutegia");
 	}
 	
-	public void kargatu(){
+	private void kargatu(){
 		Vector<EntzierroLag> v2 = ek.getLag();
 		for (int i = 0; i<=v2.size()-1; i++){
 			data.addElement(v2.elementAt(i));
 		}
-	}
-	
-	public void gehitu(EntzierroLag lag){
-		System.out.println(data.size());
-		data.addElement(lag);
-		System.out.println(data.size());
-		this.fireTableDataChanged();
 	}
 }
