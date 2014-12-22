@@ -28,7 +28,6 @@ public class BotikaKud  {
 
 	
 	public void gehituBotika(int kodea, String izena) {
-		dbk.execSQL("INSERT INTO botika (kodea, izena) VALUES  ('" + kodea + "', '" + izena+"');");
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO botika set kodea=?, izena=?";
 		String[] datuMotak={"int", "String"};
