@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import user.BotoLag;
 import Logika.DBKudeatzaile;
 
 public class GanadutegiKud {
@@ -119,6 +120,20 @@ public class GanadutegiKud {
 			System.out.println(e);
 		}
 		return 0;
+	}
+
+	public Vector<BotoLag> BotoLag(String erabiltzailea) {
+		Vector<BotoLag> v = new Vector<BotoLag>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
+			while (rs.next()) {
+				v.add(new BotoLag(rs.getInt("id"), rs.getString("izena")));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
 	}
 
 }

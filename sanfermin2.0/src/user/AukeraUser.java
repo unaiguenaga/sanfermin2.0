@@ -3,9 +3,11 @@ package user;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -71,6 +73,19 @@ public class AukeraUser extends JFrame {
 	JPanel eskumakoPanela4 = new JPanel();
 	JPanel aberealPanela = new JPanel();
 	JPanel bozkaTaulaPanela = new JPanel();
+	
+	//BOTOAK
+	JPanel botoakEsk = new JPanel();
+	JPanel botoakErd = new JPanel();
+	JPanel botoakEzk = new JPanel();
+	JButton botatu = new JButton("       ---->       ");
+	JButton ezeztatu = new JButton("       <----       ");
+	JButton botoaEman = new JButton("Botoa eman");
+	BotoTableModel btmEsk;
+	BotoTableModel btmEzk;
+	TableDemo t1;
+	TableDemo t2;
+	
 	
 	//////Bozkatu Aldaketa 2 panel sartzeko
 	JPanel bozkatuTaulaEzkerra = new JPanel();
@@ -221,64 +236,88 @@ private static AukeraUser instantzia = new AukeraUser();
 		// BOTIKAK
 		botikaPestaña.setLayout(new BorderLayout());
 		botikaPanela.setLayout(new BorderLayout());
-		
-		///////Aldaketa
 		JScrollPane jScrollPane3=new JScrollPane(tableTratamenduak);
-		/////////////
-		//JScrollPane jScrollPane3=new JScrollPane(tableBotikak);
 		botikaPanela.add(jScrollPane3);
 		botikaPestaña.add(botikaPanela);
-		botikaPestaña.add(eskumakoPanela3, BorderLayout.EAST);
-		
 		eskumakoPanela3.setLayout(new BoxLayout(eskumakoPanela3, BoxLayout.PAGE_AXIS));
 		eskumakoPanela3.add(Box.createVerticalGlue());
-
 		eskumakoPanela3.add(bBotikakKudeatu);
-
-		eskumakoPanela3.add(Box.createVerticalGlue());	
-	
-		
+		eskumakoPanela3.add(Box.createVerticalGlue());
+		botikaPestaña.add(eskumakoPanela3, BorderLayout.EAST);
 		
 
 		// BOZKAKETAK
-		bozkatuPestaña.setLayout(new BorderLayout());
-		bozkatuPestaña.add(eskumakoPanela4, BorderLayout.EAST);
-		botikaPanela.setLayout(new BorderLayout());
+		bozkatuPestaña.setLayout(new BoxLayout(bozkatuPestaña,BoxLayout.X_AXIS));
+		botoakEsk.setLayout(new BorderLayout());
+		botoakEzk.setLayout(new BorderLayout());
+		
+		btmEzk = new BotoTableModel(false);
+		btmEsk = new BotoTableModel(true);
+		t1 = new TableDemo(btmEzk);
+		t2 = new TableDemo(btmEsk);
+		
+		t1.getTable().setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		t2.getTable().setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		t1.getTable().getColumnModel().getColumn(0).setPreferredWidth(359);
+		t2.getTable().getColumnModel().getColumn(0).setPreferredWidth(359);
+		
+		botoakEzk.add(t1, BorderLayout.CENTER);
+		botoakErd.setLayout(new BoxLayout(botoakErd, BoxLayout.PAGE_AXIS));
+		botoakErd.add(Box.createVerticalGlue());
+		botoakErd.add(botatu);
+		botoakErd.add(ezeztatu);
+		botoakErd.add(botoaEman);
+		botoakErd.add(Box.createVerticalGlue());
+		botoakEsk.add(t2, BorderLayout.CENTER);
+		
+		bozkatuPestaña.add(Box.createVerticalGlue());
+		bozkatuPestaña.add(botoakEzk);
+		bozkatuPestaña.add(botoakErd);
+		bozkatuPestaña.add(botoakEsk);
+		bozkatuPestaña.add(Box.createVerticalGlue());
+
+//		bozkatuPestaña.add(eskumakoPanela4, BorderLayout.EAST);
+//		bozkaTaulaPanela.setLayout(new BorderLayout());
+//		bozkaTaulaPanela.add(new TableDemo(new BotoTableModel(false)), BorderLayout.WEST);
+//		bozkaTaulaPanela.add(new TableDemo(new BotoTableModel(true)), BorderLayout.EAST);
+//		bozkatuPestaña.add(bozkaTaulaPanela, BorderLayout.WEST);
 		
 		///////Aldaketa///////
-		vIzenak = gk.getIzenak(erabiltzaileIzena);
-		for (int i = 0; i < vIzenak.size(); i++) {
-			modeloaEzkerra.addElement(vIzenak.get(i));
-		}
-		//modeloaEzkerra = gk.kargatuModeloa(modeloaEzkerra, vIzenak);
-		System.out.println("Erab: "+erabiltzaileIzena);
-		modeloaEskuina = bk.kargatuModeloa(erabiltzaileIzena);
-		bozkatuEzkerra.setModel(modeloaEzkerra);
-		bozkatuEskuina.setModel(modeloaEskuina);
+//		vIzenak = gk.getIzenak(erabiltzaileIzena);
+//		for (int i = 0; i < vIzenak.size(); i++) {
+//			modeloaEzkerra.addElement(vIzenak.get(i));
+//		}
+//		//modeloaEzkerra = gk.kargatuModeloa(modeloaEzkerra, vIzenak);
+//		System.out.println("Erab: "+erabiltzaileIzena);
+//		modeloaEskuina = bk.kargatuModeloa(erabiltzaileIzena);
+//		bozkatuEzkerra.setModel(modeloaEzkerra);
+//		bozkatuEskuina.setModel(modeloaEskuina);
+
 		
-		botikaPanela.add(tableTratamenduak);
+		
+		
+		
 		////////////////////
 		
 		//botikaPanela.add(tableBotikak);
-		botikaPestaña.add(botikaPanela);
-		eskumakoPanela4.setLayout(new BoxLayout(eskumakoPanela4, BoxLayout.Y_AXIS));
-		eskumakoPanela4.add(Box.createVerticalGlue());
-		eskumakoPanela4.add(bBotoaGorde);
-		eskumakoPanela4.add(bBotoaEman);
-		eskumakoPanela4.add(Box.createVerticalGlue());
-		bozkaTaulaPanela.setLayout(new BorderLayout());
+		
+//		eskumakoPanela4.setLayout(new BoxLayout(eskumakoPanela4, BoxLayout.Y_AXIS));
+//		eskumakoPanela4.add(Box.createVerticalGlue());
+//		eskumakoPanela4.add(bBotoaGorde);
+//		eskumakoPanela4.add(bBotoaEman);
+//		eskumakoPanela4.add(Box.createVerticalGlue());
 		
 		//Panel bi sartu
-		bozkatuEzkerra.setLayout(new BorderLayout());
-		bozkatuEskuina.setLayout(new BorderLayout());
+		//bozkatuEzkerra.setLayout(new BorderLayout());
+		//bozkatuEskuina.setLayout(new BorderLayout());
 		
 		//bozkaTaulaPanela.add(tableBozkak);
-		bozkatuTaulaEzkerra.add(bozkatuEzkerra);
-		bozkatuTaulaEskuina.add(bozkatuEskuina);
+		//bozkatuTaulaEzkerra.add(bozkatuEzkerra);
+		//bozkatuTaulaEskuina.add(bozkatuEskuina);
 		//bozkaTaulaPanela.add(bozkatuEzkerra, BorderLayout.WEST);
 		//bozkaTaulaPanela.add(bozkatuEskuina);
-		bozkatuPestaña.add(bozkatuTaulaEzkerra, BorderLayout.WEST);
-		bozkatuPestaña.add(bozkatuTaulaEskuina, BorderLayout.CENTER);
+		//bozkatuPestaña.add(bozkatuTaulaEzkerra, BorderLayout.WEST);
+		//bozkatuPestaña.add(bozkatuTaulaEskuina, BorderLayout.CENTER);
 		
 		
 
@@ -341,6 +380,23 @@ private static AukeraUser instantzia = new AukeraUser();
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				bk.gehituBotoak(modeloaEskuina, erabiltzaileIzena);
+			}
+		});
+		
+		botatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btmEsk.gehitu(btmEzk.kendu(t1.getTable().getSelectedRow()));
+				
+			}
+		});
+		
+		ezeztatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btmEzk.gehitu(btmEsk.kendu(t2.getTable().getSelectedRow()));
 			}
 		});
 	}

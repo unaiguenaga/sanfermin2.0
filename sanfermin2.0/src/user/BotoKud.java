@@ -42,20 +42,7 @@ public class BotoKud {
 		dbk.execSQL("DELETE FROM botoak;");
 	}
 
-	public Vector<BotoLag> getLag() {
-		Vector<BotoLag> v = new Vector<BotoLag>();
-		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM botoak;");
-			while (rs.next()) {
-				v.add(new BotoLag(rs.getInt("fk_emailea"), rs
-						.getInt("fk_hartzailea"), rs.getString("data")));
-			}
-			rs.close();
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
-		return v;
-	}
+
 
 	public Vector<Integer> getEmailea() {
 		Vector<Integer> v = new Vector<Integer>();
