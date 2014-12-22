@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.ComboBoxModel;
 
 import Logika.DBKudeatzaile;
+import Logika.ErabiltzaileKudeatzailea;
 import Logika.GanadutegiKud;
 
 public class ZezenKud  {
@@ -29,13 +30,25 @@ public class ZezenKud  {
 	// METODOAK
 
 	public void gehitu(int kodea, String izena, String jaiotzeData, String pisua, String altuera, String adarLuzera, String ganadutegiaKode) {
-		dbk.execSQL("INSERT INTO zezena (id, izena, jaiotzeData, pisua, altuera,adarrenLuzera, fk_ganadutegia) VALUES  ('" + kodea + "', '" + izena + "', '" + jaiotzeData
-				+ "', '" + pisua + "', '" + altuera + "', '" + adarLuzera + "', '" + ganadutegiaKode +"');");
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "INSERT INTO zezena set id=?, izena=?, jaiotzeData=?, pisua=?, altuera=?, adarrenLuzera=?, fk_ganadutegia=?";
+		String[] datuMotak={"int", "String", "String", "String", "String", "String", "String"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={kodea, izena,jaiotzeData, pisua, altuera, adarLuzera, ganadutegiaKode};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
+		System.out.println(kontsulta);
 	}
 	
 
 	private void ezabatu(int kodea) {
-		dbk.execSQL("DELETE FROM zezena WHERE kodea='" + kodea + "';");
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "DELETE FROM zezena WHERE kodea=?";
+		String[] datuMotak={"int"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={kodea};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
 	}
 	
 	public void ezabatuDenak() {
