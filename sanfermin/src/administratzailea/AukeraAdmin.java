@@ -121,7 +121,7 @@ public class AukeraAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Hasiera.main(null);
+				Hasiera.bistaratu();;
 			}
 		});
 		menua.add(exit);

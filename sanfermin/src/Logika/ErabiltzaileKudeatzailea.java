@@ -73,10 +73,9 @@ public class ErabiltzaileKudeatzailea {
 		String kontsulta = "UPDATE erabiltzailea set pasahitza=? where iderabiltzailea=?";
 		String[] datuMotak={"String", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
-		Object[] datuakArrayObjects={izena, pasahitzBerria};
+		Object[] datuakArrayObjects={pasahitzBerria, izena};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
+		ResultSet rs=dbk.filter(kontsulta, bektorea, datuak);
 
 	}
 

@@ -54,18 +54,26 @@ public class Hasiera extends JFrame {
 	}
 
 	public Hasiera() {
-		new DatuBaseaKargatu();
 		gridBagHasieratu();
+	}
+	public static void kargatu() {
+		new DatuBaseaKargatu();
+
 	}
 
 	public static void main(String[] args) {
+		Hasiera.kargatu();
+		bistaratu();
+	}
+
+	public static void bistaratu() {
 		Hasiera hasiera = new Hasiera();
 		hasiera.setTitle("San Ferminak");
 		hasiera.setVisible(true);
 		hasiera.setSize(400, 200);
 		hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
 
+	}
 	private void gridBagHasieratu() {
 		edukiontzia = getContentPane();
 		eskema = new GridBagLayout();

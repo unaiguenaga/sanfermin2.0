@@ -58,6 +58,7 @@ public class DBKudeatzaile {
 			}
 			else{
 				System.out.println(kontsulta);
+				System.out.println("12");
 				pstmt.executeUpdate();
 				
 			}

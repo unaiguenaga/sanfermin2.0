@@ -95,7 +95,6 @@ public class PasahitzaAldatu extends JFrame {
 							era.pasahitzaAldatu(jtErabIzena.getText(),jtPasBerria.getText());
 							dispose();
 							era.hasieratuAdminEdoUser(jtErabIzena.getText(), jtPasBerria.getText());
-							System.out.println("0");
 							
 						}
 						else{
@@ -103,8 +102,7 @@ public class PasahitzaAldatu extends JFrame {
 									"Pasahitz berriak ez dira berdinak, berriro saiatu zaitez. ", "Desberdinak",
 									JOptionPane.ERROR_MESSAGE);
 							dispose();
-							Hasiera.main(null);
-							System.out.println("1");
+							Hasiera.bistaratu();
 
 						}
 					}
@@ -112,7 +110,7 @@ public class PasahitzaAldatu extends JFrame {
 						Errorea errorea = new Errorea();
 						errorea.pasahitza();
 						dispose();
-						Hasiera.main(null);
+						Hasiera.bistaratu();
 						System.out.println("2");
 
 					}

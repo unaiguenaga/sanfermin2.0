@@ -160,7 +160,7 @@ private static AukeraUser instantzia = new AukeraUser();
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Hasiera.main(null);
+				Hasiera.bistaratu();
 			}
 		});
 		menua.add(exit);
