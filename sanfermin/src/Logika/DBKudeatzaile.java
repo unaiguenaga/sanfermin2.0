@@ -114,21 +114,22 @@ public class DBKudeatzaile {
 	
 	public static void main(String[] args) {
 		DBKudeatzaile dbk=DBKudeatzaile.getInstantzia();
-		String kontsulta= "SELECT administratzailea FROM erabiltzailea WHERE iderabiltzailea=? and pasahitza=?";
-		String[] datuMotak={"String", "String"};
-		Vector <String> bektorea= new Vector<String>(Arrays.asList(datuMotak));
-		Object[] datuakArrayObjects={"leire", "leire"};
-		Vector<Object> datuak= new Vector<Object>(Arrays.asList(datuakArrayObjects));
+		String kontsulta = "INSERT INTO entzierroa set id=?, luzera=? ,fk_ganadutegia=?";
+		String[] datuMotak={"Date", "float", "int"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={2015-11-12, 12.09, 12};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		ResultSet rs=dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(rs);
+		System.out.println(kontsulta);
 		try {
-			while(rs.next()){
-				System.out.println(rs.getString("administratzailea"));
-
-			}
+			System.out.println(rs.next());
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+	
 	}
 }
