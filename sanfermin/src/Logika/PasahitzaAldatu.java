@@ -109,7 +109,8 @@ public class PasahitzaAldatu extends JFrame {
 						}
 					}
 					else{
-						ErroreaPasahitza errorea = new ErroreaPasahitza();
+						Errorea errorea = new Errorea();
+						errorea.pasahitza();
 						dispose();
 						Hasiera.main(null);
 						System.out.println("2");

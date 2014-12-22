@@ -25,7 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
-import Logika.ErroreaBozkaketa;
+import Logika.Errorea;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
@@ -313,7 +313,8 @@ private static AukeraUser instantzia = new AukeraUser();
 			public void actionPerformed(ActionEvent e) {
 				//3 boto baino gehiago eman ez direla konprobatzeko
 				if(bozkatuEskuina.getModel().getSize()>=3){
-					ErroreaBozkaketa er = new ErroreaBozkaketa();
+					Errorea er = new Errorea();
+					er.bozkaketa();
 				}
 				else{
 					//Hemen ezkerreko modelotik elementu bat ateratzen du eta eskuinekoan sartzen du.

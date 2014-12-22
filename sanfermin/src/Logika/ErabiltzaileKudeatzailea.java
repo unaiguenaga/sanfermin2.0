@@ -56,14 +56,11 @@ public class ErabiltzaileKudeatzailea {
 
 	public void izenaAldatu(String izena, String pasahitzBerria) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-//		String kontsulta = "UPDATE erabiltzailea set iderabiltzailea='"
-//				+ pasahitzBerria + "' where iderabiltzailea='" + izena + "'";
 		String kontsulta = "UPDATE erabiltzailea set iderabiltzailea=? and pasahitzBerria=? where iderabiltzailea=?";
 		String[] datuMotak={"String", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={pasahitzBerria,izena};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-//		dbk.execSQL(kontsulta);
 		
 		ResultSet rs = dbk.filter(kontsulta, bektorea, datuak);
 
@@ -112,9 +109,14 @@ public class ErabiltzaileKudeatzailea {
 
 	public void sortuErabiltzaileaEtaGehitu(String izena, String pasahitza) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "INSERT INTO erabiltzailea set iderabiltzailea='"+ izena+ "', pasahitza='" + pasahitza+"',administratzailea='ez'";
-		dbk.execSQL(kontsulta);
+		String kontsulta = "INSERT INTO erabiltzailea set iderabiltzailea=?, pasahitza=? ,administratzailea='ez'";
+		String[] datuMotak={"String", "String"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={izena, pasahitza};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
 		System.out.println(kontsulta);
+		
 	}
 
 	public boolean existitzenDa(String izena) {
@@ -140,8 +142,12 @@ public class ErabiltzaileKudeatzailea {
 
 	public void kenduErabiltzailea(String izena, String pasahitza) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "DELETE FROM erabiltzailea where iderabiltzailea='" + izena+ "' and pasahitza='" + pasahitza + "'";
-		dbk.execSQL(kontsulta);
+		String kontsulta = "DELETE FROM erabiltzailea where iderabiltzailea=? and pasahitza=?";
+		String[] datuMotak={"String", "String"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={izena, pasahitza};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
 		System.out.println(kontsulta);
 	}
 	
