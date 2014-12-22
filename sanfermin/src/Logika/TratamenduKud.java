@@ -28,8 +28,7 @@ public class TratamenduKud {
 	// METODOAK
 
 	public void gehitu(String data, int botika, Float dosia, int zezena) {
-		dbk.execSQL("INSERT INTO tratamendua (data, fk_botika, dosia, fk_zezena) VALUES ('" + data + "', '" + botika
-				+ "', '" + dosia + "', " + zezena + ");");
+		
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO tratamendua set data=?, fk_botika=?,dosia=?, fk_zezena=?";
 		String[] datuMotak={"String", "int", "float", "int"};
