@@ -221,7 +221,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuGanadutegia.main(null);
+				new SortuGanadutegia();
 			}
 		});
 		

@@ -2,6 +2,7 @@ package Logika;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 
 import administratzailea.AukeraAdmin;
 import user.AukeraUser;
@@ -127,5 +128,20 @@ public class ErabiltzaileKudeatzailea {
 		String kontsulta = "DELETE FROM erabiltzailea where iderabiltzailea='" + izena+ "' and pasahitza='" + pasahitza + "'";
 		dbk.execSQL(kontsulta);
 		System.out.println(kontsulta);
+	}
+	
+	public Vector<String> getIzenak(){
+		Vector<String> v = new Vector<String>();
+		ResultSet rs = DBKudeatzaile.getInstantzia().execSQL("SELECT iderabiltzailea FROM erabiltzailea");
+		try {
+			while (rs.next()) {
+				String izen = rs.getString("iderabiltzailea");
+				v.add(izen);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return v;
 	}
 }

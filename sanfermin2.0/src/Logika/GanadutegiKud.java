@@ -67,7 +67,7 @@ public class GanadutegiKud {
 	public Vector<String> getIzenak() {
 		Vector<String> v = new Vector<String>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT izena FROM ganadutegia;");
+			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia;");
 			while (rs.next()) {
 				v.add(rs.getString("izena"));
 			}
@@ -96,7 +96,7 @@ public class GanadutegiKud {
 	public Vector<Integer> getId() {
 		Vector<Integer> v = new Vector<Integer>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT id FROM ganadutegia;");
+			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia;");
 			while (rs.next()) {
 				v.add(rs.getInt("id"));
 			}
