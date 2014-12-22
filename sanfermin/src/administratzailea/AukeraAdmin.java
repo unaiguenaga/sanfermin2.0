@@ -21,6 +21,7 @@ import user.BotikaLag;
 import user.BotikaTableModel;
 import user.TratamenduTableModel;
 import Logika.EntzierroKud;
+import Logika.Errorea;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
@@ -201,6 +202,12 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+//			if (etm.getValueAt(tableEntzierroak.getTable().getSelectedRow(),0).toString().){
+//				System.out.println("errorea");
+//				Errorea errorea =new Errorea();
+//				errorea.aukeratu();
+//			}
+//			else
 				new EntzierroaAldatu(etm.getValueAt(tableEntzierroak.getTable().getSelectedRow(),0).toString());
 			}
 		});

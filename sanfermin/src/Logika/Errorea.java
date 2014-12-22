@@ -26,4 +26,11 @@ public class Errorea extends JFrame {
 
 	}
 	
+	public void aukeratu() {
+		JOptionPane.showMessageDialog(null,
+				"Ez duzu lerro bat aukeratu. Bat hautatu ezazu, mesedez.", "OOOOOPS",
+				JOptionPane.ERROR_MESSAGE);
+
+	}
+	
 }
