@@ -14,10 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.table.AbstractTableModel;
 
 import user.BotikaKud;
-import user.BotikaTableModel;
 
 public class SortuBotika extends JFrame{
 
@@ -36,15 +34,12 @@ public class SortuBotika extends JFrame{
 	
 	public SortuBotika() {
 		gridBagHasieratu();
+		setTitle("Gehitu botika");
+		setVisible(true);
+		setSize(250, 200);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
-	
-	public static void main(String[] args) {
-		SortuBotika hasiera = new SortuBotika();
-		hasiera.setTitle("Gehitu botika");
-		hasiera.setVisible(true);
-		hasiera.setSize(250, 200);
-		hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
+
 
 	private void gridBagHasieratu(){
 		edukiontzia = getContentPane();

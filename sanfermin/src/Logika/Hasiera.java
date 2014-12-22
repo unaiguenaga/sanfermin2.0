@@ -31,11 +31,6 @@ public class Hasiera extends JFrame {
 	JPanel panellag = new JPanel();
 	JLabel hutsunea = new JLabel(" ");
 	
-	///////////// Behin datu basia kargata gero, komenta hurrengo lerrua ///////////////////////////
-	
-	//DatuBaseaKargatu db = new DatuBaseaKargatu();
-	
-	////////////////////////////////////////////////////////////////////
 	private GridBagLayout eskema;
 	private Container edukiontzia;
 	private GridBagConstraints mugak;
@@ -43,7 +38,7 @@ public class Hasiera extends JFrame {
 	class Entzule implements ActionListener {
 		
 		public void actionPerformed(ActionEvent arg0) {
-			ErabiltzaileKudeatzailea era = new ErabiltzaileKudeatzailea();
+			ErabiltzaileKudeatzailea era = ErabiltzaileKudeatzailea.getInstantzia();
 			if(era.konprobatuPasahitzaEtaErabiltzailea(erabTestua.getText(),pasahitzaTestua.getText())){
 				era.hasieratuAdminEdoUser(erabTestua.getText(), pasahitzaTestua.getText());
 				dispose();
@@ -58,6 +53,7 @@ public class Hasiera extends JFrame {
 	}
 
 	public Hasiera() {
+		new DatuBaseaKargatu();
 		gridBagHasieratu();
 	}
 
@@ -115,6 +111,5 @@ public class Hasiera extends JFrame {
 
 		eskema.setConstraints(osagaia, mugak);
 		edukiontzia.add(osagaia);
-
 	}
 }

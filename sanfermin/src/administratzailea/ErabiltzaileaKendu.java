@@ -85,7 +85,7 @@ public class ErabiltzaileaKendu extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ErabiltzaileKudeatzailea erab=new ErabiltzaileKudeatzailea();
+				ErabiltzaileKudeatzailea erab = ErabiltzaileKudeatzailea.getInstantzia();
 				if(!erab.existitzenDa(erabTestua.getText())){
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzaile izen hori ez da existitzen, sartu ezazu egokia. ", "Ez dago",
@@ -112,8 +112,6 @@ public class ErabiltzaileaKendu extends JFrame{
 				}
 				}
 		});
-		
-	
 	}
 
 	private void gehituOsagaia(Component osagaia, int errenkada, int zutabea, int zabalera, int altuera) {

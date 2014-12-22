@@ -92,4 +92,8 @@ public class BotikaTableModel extends AbstractTableModel{
 		System.out.println("Gehitu eta gero: "+data.size());
 		fireTableDataChanged();
 	}
+
+	public Vector<BotikaLag> getData() {
+		return data;
+	}
 }

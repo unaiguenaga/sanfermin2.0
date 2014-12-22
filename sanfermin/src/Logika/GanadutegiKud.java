@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import javax.swing.DefaultListModel;
-
 import Logika.DBKudeatzaile;
 
 public class GanadutegiKud {
@@ -27,35 +25,37 @@ public class GanadutegiKud {
 
 	// METODOAK
 
-	public void gehitu(int id, String izena, String arduraduna, int tlf,
-			String helbidea) {
-		dbk.execSQL("INSERT INTO ganadutegia (id, helbidea, izena, arduraduna,tlf) VALUES ('"
-				+ id
-				+ "', '"
-				+ helbidea
-				+ "', '"
-				+ izena
-				+ "', '"
-				+ arduraduna
-				+ "', '" + tlf + "');");
+	public void gehitu(int id, String izena, String arduraduna, int tlf, String helbidea) {
+		dbk.execSQL("INSERT INTO ganadutegia (id, helbidea, izena, arduraduna,tlf) VALUES ('" + id + "', '" + helbidea
+				+ "', '" + izena + "', '" + arduraduna + "', '" + tlf + "');");
 	}
 
-	public void ezabatu(String id) {
-		dbk.execSQL("DELETE FROM ganadutegia WHERE izena='" + id +"'"+";");
+	public void ezabatu(int id) {
+		dbk.execSQL("DELETE FROM ganadutegia WHERE id='" + id + "';");
 	}
 
 	public void ezabatuDenak() {
 		dbk.execSQL("DELETE FROM ganadutegia;");
 	}
-
+	
+	public void aldatuArduraduna(int id, String ard){
+		dbk.execSQL("UPDATE `sanfermin`.`ganadutegia` SET `arduraduna`='"+ard+"' WHERE `id`='"+id+"';");
+	}
+	
+	public void aldatuTlf(int id, int tlf){
+		dbk.execSQL("UPDATE `sanfermin`.`ganadutegia` SET `tlf`='"+tlf+"' WHERE `id`='"+id+"';");
+	}
+	
+	public void aldatuHelbidea(int id, String helb){
+		dbk.execSQL("UPDATE `sanfermin`.`ganadutegia` SET `helbidea`='"+helb+"' WHERE `id`='"+id+"';");
+	}
+	
 	public Vector<GanadutegiLag> getLag() {
 		Vector<GanadutegiLag> v = new Vector<GanadutegiLag>();
 		try {
 			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia;");
 			while (rs.next()) {
-				v.add(new GanadutegiLag(rs.getString("izena"), rs
-						.getString("arduraduna"), rs.getInt("tlf"), rs
-						.getInt("id"), rs.getString("helbidea")));
+				v.add(new GanadutegiLag(rs.getString("izena"), rs.getString("arduraduna"), rs.getInt("tlf")));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -67,7 +67,7 @@ public class GanadutegiKud {
 	public Vector<String> getIzenak() {
 		Vector<String> v = new Vector<String>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT izena FROM ganadutegia;");
+			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia;");
 			while (rs.next()) {
 				v.add(rs.getString("izena"));
 			}
@@ -77,16 +77,12 @@ public class GanadutegiKud {
 		}
 		return v;
 	}
-
-	// Metodo honek bozkatu ahal diren Ganadutegiak aterako ditu, bozkatzen
-	// dagoena kenduta
-	public Vector<String> getBozkatzekoak(String izena) {
+	
+	public Vector<String> getIzenak(String erabiltzailea) {
 		Vector<String> v = new Vector<String>();
-
 		try {
-			ResultSet rs = dbk
-					.execSQL("SELECT izena FROM ganadutegia WHERE arduraduna!='"
-							+ izena + "'");
+			ResultSet rs = dbk.execSQL("SELECT izena FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
+			System.out.println("SELECT izena FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
 			while (rs.next()) {
 				v.add(rs.getString("izena"));
 			}
@@ -100,7 +96,7 @@ public class GanadutegiKud {
 	public Vector<Integer> getId() {
 		Vector<Integer> v = new Vector<Integer>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT id FROM ganadutegia;");
+			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia;");
 			while (rs.next()) {
 				v.add(rs.getInt("id"));
 			}
@@ -110,11 +106,32 @@ public class GanadutegiKud {
 		}
 		return v;
 	}
-
-	public static DefaultListModel kargatuModeloa(DefaultListModel model, Vector<String> data) {
-		for (int i = 0; i < data.size(); i++) {
-			model.addElement(data.get(i));
+	
+	public int getId(String erabiltzailea) {
+		Vector<Integer> v = new Vector<Integer>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT id FROM ganadutegia WHERE arduraduna = '"+erabiltzailea+"';");
+			while (rs.next()) {
+				return rs.getInt("id");
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
 		}
-		return model;
+		return 0;
 	}
+
+	public boolean badago(String erabIzena) {
+		String kontsulta= "Select iderabiltzailea From erabiltzailea where iderabiltzailea='" + erabIzena+ "'";
+		ResultSet rs=dbk.execSQL(kontsulta);
+		try {
+			if(rs.next())
+				return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

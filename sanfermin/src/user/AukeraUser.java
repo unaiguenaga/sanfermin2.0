@@ -29,19 +29,16 @@ import Logika.ErroreaBozkaketa;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
-import Logika.TratamenduBotikaTableModel;
-import Logika.TratamenduTableModel;
 import administratzailea.AukeraAdmin;
 import administratzailea.EntzierroTableModel;
 import administratzailea.ErabiltzaileBerria;
 import administratzailea.ErabiltzaileaKendu;
 import administratzailea.GanadutegiTableModel;
 import administratzailea.GehituAbereak;
-import administratzailea.SortuEntzierroa;
 
 public class AukeraUser extends JFrame {
 	
-	public static String erabiltzaileIzena = null;
+	private String erabiltzaileIzena;
 	
 	JButton bAbereaEzabatu = new JButton("Aberea Ezabatu");
 	JButton bAbereaGehitu = new JButton("Aberea Gehitu");
@@ -83,7 +80,7 @@ public class AukeraUser extends JFrame {
 	
 	private GanadutegiKud gk = GanadutegiKud.getInstantzia();
 	private BotoKud bk = BotoKud.getInstantzia();
-	private Vector<String> vIzenak = gk.getBozkatzekoak(erabiltzaileIzena);
+	private Vector<String> vIzenak = new Vector<String>();
 	
 	DefaultListModel modeloaEzkerra = new DefaultListModel();
 	DefaultListModel modeloaEskuina = new DefaultListModel();
@@ -100,14 +97,14 @@ public class AukeraUser extends JFrame {
 	TableDemo tableJoaldunak = new TableDemo(jtm);
 	
 	/////// Azken aldaketa //////
-	TratamenduBotikaTableModel tbtm = new TratamenduBotikaTableModel();
-	TableDemo tableTratamenduaBotikak = new TableDemo(tbtm);
+//	TratamenduBotikaTableModel tbtm = new TratamenduBotikaTableModel();
+//	TableDemo tableTratamenduaBotikak = new TableDemo(tbtm);
 	/////////////////////////////
 	
 	
 	///////Aldaketa///////
-	//TratamenduTableModel ttm = new TratamenduTableModel();
-	//TableDemo tableTratamenduak = new TableDemo(ttm);
+	TratamenduTableModel ttm = new TratamenduTableModel();
+	TableDemo tableTratamenduak = new TableDemo(ttm);
 	////////////////////
 	/*
 	BotikaTableModel btm = new BotikaTableModel();
@@ -122,7 +119,7 @@ public class AukeraUser extends JFrame {
 
 	JMenuBar barra= new JMenuBar();
 	JMenu menua=new JMenu("Menua");
-	JMenuItem atzera=new JMenuItem("Atzera");
+	JMenuItem atzera=new JMenuItem("Saioa itxi");
 	JMenuItem exit=new JMenuItem("Exit");
 	
 private static AukeraUser instantzia = new AukeraUser();
@@ -132,15 +129,22 @@ private static AukeraUser instantzia = new AukeraUser();
 	}
 	
 	public AukeraUser() {
-		hasieratu();
+		//hasieratu();
 	}
 
 	public void main(String izena) {
 		erabiltzaileIzena = izena;
+		System.out.println("User:"+erabiltzaileIzena);
+		hasieratu();
 		setTitle("San Ferminen kudeaketa ERABILTZAILEA: "+izena);
 		setVisible(true);
 		setSize(1000, 500);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+	}
+	
+	public String getErabiltzaileIzana(){
+		return erabiltzaileIzena;
 	}
 
 	private void hasieratu() {
@@ -167,14 +171,14 @@ private static AukeraUser instantzia = new AukeraUser();
 				dispose();				
 			}
 		});
-
+		
 
 		pestañak.setBounds(10, 11, 850, 350);
 		panela.add(pestañak);
 
 		pestañak.addTab("Abereak", null, abereakPestaña, null);
 		pestañak.addTab("Entzierroko Zezenak Kudeatu", null, zezenakPestaña, null);
-		pestañak.addTab("Botikak", null, botikaPestaña, null);
+		pestañak.addTab("Tratamenduak", null, botikaPestaña, null);
 		pestañak.addTab("Bozkak", null, bozkatuPestaña, null);
 
 
@@ -219,7 +223,7 @@ private static AukeraUser instantzia = new AukeraUser();
 		botikaPanela.setLayout(new BorderLayout());
 		
 		///////Aldaketa
-		JScrollPane jScrollPane3=new JScrollPane(tableTratamenduaBotikak);
+		JScrollPane jScrollPane3=new JScrollPane(tableTratamenduak);
 		/////////////
 		//JScrollPane jScrollPane3=new JScrollPane(tableBotikak);
 		botikaPanela.add(jScrollPane3);
@@ -242,12 +246,17 @@ private static AukeraUser instantzia = new AukeraUser();
 		botikaPanela.setLayout(new BorderLayout());
 		
 		///////Aldaketa///////
-		modeloaEzkerra = gk.kargatuModeloa(modeloaEzkerra, vIzenak);
+		vIzenak = gk.getIzenak(erabiltzaileIzena);
+		for (int i = 0; i < vIzenak.size(); i++) {
+			modeloaEzkerra.addElement(vIzenak.get(i));
+		}
+		//modeloaEzkerra = gk.kargatuModeloa(modeloaEzkerra, vIzenak);
+		System.out.println("Erab: "+erabiltzaileIzena);
 		modeloaEskuina = bk.kargatuModeloa(erabiltzaileIzena);
 		bozkatuEzkerra.setModel(modeloaEzkerra);
 		bozkatuEskuina.setModel(modeloaEskuina);
 		
-		botikaPanela.add(tableTratamenduaBotikak);
+		botikaPanela.add(tableTratamenduak);
 		////////////////////
 		
 		//botikaPanela.add(tableBotikak);
@@ -270,6 +279,9 @@ private static AukeraUser instantzia = new AukeraUser();
 		//bozkaTaulaPanela.add(bozkatuEskuina);
 		bozkatuPestaña.add(bozkatuTaulaEzkerra, BorderLayout.WEST);
 		bozkatuPestaña.add(bozkatuTaulaEskuina, BorderLayout.CENTER);
+		
+		
+
 
 		bAbereaGehitu.addActionListener(new ActionListener() {
 
@@ -283,7 +295,7 @@ private static AukeraUser instantzia = new AukeraUser();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BotikakKudeatu.main(null);
+				new BotikakKudeatu(erabiltzaileIzena);
 			}
 		});
 		
@@ -332,5 +344,4 @@ private static AukeraUser instantzia = new AukeraUser();
 			}
 		});
 	}
-
 }

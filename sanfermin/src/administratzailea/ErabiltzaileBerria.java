@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import Logika.ErabiltzaileKudeatzailea;
+import Logika.GanadutegiKud;
 
 public class ErabiltzaileBerria extends JFrame {
 	JLabel erabiltzailea = new JLabel("Erabiltzailea:");
@@ -85,7 +86,7 @@ public class ErabiltzaileBerria extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ErabiltzaileKudeatzailea erab=new ErabiltzaileKudeatzailea();
+				ErabiltzaileKudeatzailea erab=ErabiltzaileKudeatzailea.getInstantzia();
 				if(erab.existitzenDa(erabTestua.getText())){
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzaile izen hori jadanik existitzen da, berriro saiatu zaitez beste izen batekin. ", "Izen errepikatua",
@@ -95,12 +96,22 @@ public class ErabiltzaileBerria extends JFrame {
 					tpasahitzaBerriz.setText("");
 				}
 				else if(pasahitzaTestua.getText().equals(tpasahitzaBerriz.getText())){
-					erab.sortuErabiltzaileaEtaGehitu(erabTestua.getText(), pasahitzaTestua.getText());
+					dispose();
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzaile berria sortu da. ", "Erabiltzailea gehituta",
 							JOptionPane.INFORMATION_MESSAGE);
-					dispose();
-					SortuGanadutegia.main(null);
+					erab.sortuErabiltzaileaEtaGehitu(erabTestua.getText(), pasahitzaTestua.getText());
+					new SortuGanadutegia();
+//					boolean badago=GanadutegiKud.getInstantzia().badago(erabTestua.getText());
+//					System.out.println(badago);
+//					if (!badago){
+//						erab.kenduErabiltzailea(erabTestua.getText(), pasahitzaTestua.getText());
+//						System.out.println("ezDago");
+//					}
+//					else
+//						System.out.println("badago");
+
+					//lehengo leihora bidali
 
 					
 				}else{
