@@ -11,14 +11,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.KeyStroke;
 
 public class Hasiera extends JFrame {
 	JLabel erabiltzailea = new JLabel("Erabiltzailea:");
@@ -38,9 +42,8 @@ public class Hasiera extends JFrame {
 	class Entzule implements ActionListener {
 		
 		public void actionPerformed(ActionEvent arg0) {
-			ErabiltzaileKudeatzailea era = new ErabiltzaileKudeatzailea();
-			if(era.konprobatuPasahitzaEtaErabiltzailea(erabTestua.getText(),pasahitzaTestua.getText())){
-				era.hasieratuAdminEdoUser(erabTestua.getText(), pasahitzaTestua.getText());
+			if(ErabiltzaileKudeatzailea.getInstantzia().konprobatuPasahitzaEtaErabiltzailea(erabTestua.getText(),pasahitzaTestua.getText())){
+				ErabiltzaileKudeatzailea.getInstantzia().hasieratuAdminEdoUser(erabTestua.getText(), pasahitzaTestua.getText());
 				dispose();
 			}
 			else{
@@ -94,6 +97,7 @@ public class Hasiera extends JFrame {
 		
 		aldatuPasahitza.addActionListener(new ActionListener() {
 
+		
 			
 			public void actionPerformed(ActionEvent e) {
 				PasahitzaAldatu.main(null);

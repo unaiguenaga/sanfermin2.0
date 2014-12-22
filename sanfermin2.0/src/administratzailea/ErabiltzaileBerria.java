@@ -85,8 +85,7 @@ public class ErabiltzaileBerria extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ErabiltzaileKudeatzailea erab=new ErabiltzaileKudeatzailea();
-				if(erab.existitzenDa(erabTestua.getText())){
+				if(ErabiltzaileKudeatzailea.getInstantzia().existitzenDa(erabTestua.getText())){
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzaile izen hori jadanik existitzen da, berriro saiatu zaitez beste izen batekin. ", "Izen errepikatua",
 							JOptionPane.ERROR_MESSAGE);
@@ -95,7 +94,7 @@ public class ErabiltzaileBerria extends JFrame {
 					tpasahitzaBerriz.setText("");
 				}
 				else if(pasahitzaTestua.getText().equals(tpasahitzaBerriz.getText())){
-					erab.sortuErabiltzaileaEtaGehitu(erabTestua.getText(), pasahitza.getText());
+					ErabiltzaileKudeatzailea.getInstantzia().sortuErabiltzaileaEtaGehitu(erabTestua.getText(), pasahitza.getText());
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzaile berria sortu da. ", "Erabiltzailea gehituta",
 							JOptionPane.INFORMATION_MESSAGE);
