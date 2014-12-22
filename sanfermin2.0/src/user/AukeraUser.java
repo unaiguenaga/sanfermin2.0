@@ -346,42 +346,42 @@ private static AukeraUser instantzia = new AukeraUser();
 			}
 		});
 		
-		bBotoaEman.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//3 boto baino gehiago eman ez direla konprobatzeko
-				if(bozkatuEskuina.getModel().getSize()>=3){
-					ErroreaBozkaketa er = new ErroreaBozkaketa();
-				}
-				else{
-					//Hemen ezkerreko modelotik elementu bat ateratzen du eta eskuinekoan sartzen du.
-					
-					String aukera = (String) bozkatuEzkerra.getSelectedValue();
-					System.out.println("aukeratu: "+aukera);
-					int indizea = bozkatuEzkerra.getSelectedIndex();
-					
-					modeloaEskuina.addElement(aukera);
-					bozkatuEskuina.setModel(modeloaEskuina);
-					modeloaEzkerra.removeElementAt(indizea);
-					bozkatuEzkerra.setModel(modeloaEzkerra);
-
-					System.out.println("indizea :"+indizea);
-					
-//					if(indizea!=-1){
-//						bozkatuEzkerra.remove(indizea);
-//					}
-				}	
-			}
-		});
-		
-		bBotoaGorde.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				bk.gehituBotoak(modeloaEskuina, erabiltzaileIzena);
-			}
-		});
+//		bBotoaEman.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				//3 boto baino gehiago eman ez direla konprobatzeko
+//				if(bozkatuEskuina.getModel().getSize()>=3){
+//					ErroreaBozkaketa er = new ErroreaBozkaketa();
+//				}
+//				else{
+//					//Hemen ezkerreko modelotik elementu bat ateratzen du eta eskuinekoan sartzen du.
+//					
+//					String aukera = (String) bozkatuEzkerra.getSelectedValue();
+//					System.out.println("aukeratu: "+aukera);
+//					int indizea = bozkatuEzkerra.getSelectedIndex();
+//					
+//					modeloaEskuina.addElement(aukera);
+//					bozkatuEskuina.setModel(modeloaEskuina);
+//					modeloaEzkerra.removeElementAt(indizea);
+//					bozkatuEzkerra.setModel(modeloaEzkerra);
+//
+//					System.out.println("indizea :"+indizea);
+//					
+////					if(indizea!=-1){
+////						bozkatuEzkerra.remove(indizea);
+////					}
+//				}	
+//			}
+//		});
+//		
+//		bBotoaGorde.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				bk.gehituBotoak(modeloaEskuina, erabiltzaileIzena);
+//			}
+//		});
 		
 		botatu.addActionListener(new ActionListener() {
 			
@@ -397,6 +397,15 @@ private static AukeraUser instantzia = new AukeraUser();
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btmEzk.gehitu(btmEsk.kendu(t2.getTable().getSelectedRow()));
+			}
+		});
+		
+		botoaEman.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int gordeDa = BotoKud.getInstantzia().botoakGorge(AukeraUser.getInstantzia().erabiltzaileIzena, btmEsk.getData());
+				new ErroreaBozkaketa(gordeDa);
 			}
 		});
 	}

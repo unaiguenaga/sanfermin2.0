@@ -33,7 +33,6 @@ public class SortuGanadutegia extends JFrame {
 	JTextField izenTestua = new JTextField(10);
 	JTextField helbideTestua= new JTextField(10);
 	JComboBox arduradunBox;
-	JTextField arduradunTestua= new JTextField(10);
 	JTextField tlfTestua= new JTextField(10);
 	JPanel behekoPanela = new JPanel();
 	JButton gehitu= new JButton("Gehitu");

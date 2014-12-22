@@ -24,7 +24,7 @@ public class GanadutegiaAldatu extends JFrame {
 	JLabel arduraduna = new JLabel("Arduradun berria:");
 	JLabel tlf = new JLabel("Telefono berria:");
 	JLabel helbide = new JLabel("Helbide berria:");
-	JTextField arduradunaTestua = new JTextField(10);
+	JComboBox arduradunBox;
 	JTextField tlfTestua = new JTextField(10);
 	JTextField helbideTestua = new JTextField(10);
 	JPanel behekoPanela = new JPanel();
@@ -39,6 +39,9 @@ public class GanadutegiaAldatu extends JFrame {
 
 	public GanadutegiaAldatu(int row) {
 		ganadutegiId = gk.getId().get(row);
+		Vector<String> v = ErabiltzaileKudeatzailea.getInstantzia().getIzenak();
+		v.add("--------");
+		arduradunBox = new JComboBox(v);
 		gridBagHasieratu();
 	}
 
@@ -58,7 +61,7 @@ public class GanadutegiaAldatu extends JFrame {
 		gehituOsagaia(helbide, 4, 1, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 
-		gehituOsagaia(arduradunaTestua, 2, 5, 3, 1);
+		gehituOsagaia(arduradunBox, 2, 5, 3, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
 		gehituOsagaia(tlfTestua, 3, 5, 5, 1);
 		mugak.insets = new Insets(3, 3, 3, 3);
@@ -72,9 +75,9 @@ public class GanadutegiaAldatu extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!arduradunaTestua.getText().equals("")){
+				if (!arduradunBox.getSelectedItem().toString().equals("--------")){
 					String izenZaharra = AukeraAdmin.getInstantzia().gtm.getValueAt(AukeraAdmin.getInstantzia().tableGanadutegiak.getTable().getSelectedRow(),1).toString();
-					String izenBerria = arduradunaTestua.getText();
+					String izenBerria = arduradunBox.getSelectedItem().toString();
 					
 					ErabiltzaileKudeatzailea.getInstantzia().izenaAldatu(izenZaharra, izenBerria);
 				}if(!tlfTestua.getText().equals("")){
