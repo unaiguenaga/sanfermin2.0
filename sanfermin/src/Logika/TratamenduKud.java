@@ -30,8 +30,17 @@ public class TratamenduKud {
 	public void gehitu(String data, int botika, Float dosia, int zezena) {
 		dbk.execSQL("INSERT INTO tratamendua (data, fk_botika, dosia, fk_zezena) VALUES ('" + data + "', '" + botika
 				+ "', '" + dosia + "', " + zezena + ");");
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "INSERT INTO tratamendua set data=?, fk_botika=?,dosia=?, fk_zezena=?";
+		String[] datuMotak={"String", "int", "float", "int"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={data, botika, dosia, zezena};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
+		System.out.println(kontsulta);
 	}
 
+	//egiteke
 	private void ezabatu(Date data) {
 		dbk.execSQL("DELETE FROM tratamendua WHERE data='" + data + "';");
 	}
