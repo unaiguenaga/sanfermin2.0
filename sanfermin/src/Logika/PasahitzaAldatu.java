@@ -126,7 +126,7 @@ public class PasahitzaAldatu extends JFrame {
 				}
 			}
 			else{
-				Errorea errorea = new Errorea();
+				Leihoak errorea = new Leihoak();
 				errorea.pasahitza();
 				dispose();
 				Hasiera.bistaratu();

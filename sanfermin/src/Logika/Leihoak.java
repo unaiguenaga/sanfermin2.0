@@ -3,9 +3,9 @@ package Logika;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class Errorea extends JFrame {
+public class Leihoak extends JFrame {
 
-	public Errorea() {
+	public Leihoak() {
 		
 	}
 

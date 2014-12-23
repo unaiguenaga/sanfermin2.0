@@ -31,7 +31,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import Logika.EntzierroKud;
-import Logika.Errorea;
+import Logika.Leihoak;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
@@ -354,7 +354,11 @@ public class AukeraUser extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				btmEsk.gehitu(btmEzk.kendu(t1.getTable().getSelectedRow()));
 				botatu.setEnabled(false);
-
+				if (btmEsk.getRowCount()==3)
+					botoaEman.setEnabled(true);
+				else
+					botoaEman.setEnabled(false);
+				
 			}
 		});
 		ezeztatu.setEnabled(false);
@@ -363,7 +367,10 @@ public class AukeraUser extends JFrame {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				ezeztatu.setEnabled(true);
-				
+				if (btmEsk.getRowCount()==3)
+					botoaEman.setEnabled(true);
+				else
+					botoaEman.setEnabled(false);
 			}
 		});
 		ezeztatu.addActionListener(new ActionListener() {
@@ -374,7 +381,7 @@ public class AukeraUser extends JFrame {
 				ezeztatu.setEnabled(false);
 			}
 		});
-
+		botoaEman.setEnabled(false);
 		botoaEman.addActionListener(new ActionListener() {
 
 			@Override
@@ -382,8 +389,8 @@ public class AukeraUser extends JFrame {
 				int gordeDa = BotoKud.getInstantzia().botoakGorge(
 						AukeraUser.getInstantzia().erabiltzaileIzena,
 						btmEsk.getData());
-				Errorea errorea = new Errorea();
-				errorea.erroreaBozkaketa(gordeDa);
+				Leihoak leihoa = new Leihoak();
+				leihoa.erroreaBozkaketa(gordeDa);
 			}
 		});
 	}

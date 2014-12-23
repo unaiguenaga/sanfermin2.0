@@ -44,7 +44,7 @@ public class Hasiera extends JFrame {
 				dispose();
 			}
 			else{
-				Errorea errorea= new Errorea();
+				Leihoak errorea= new Leihoak();
 				errorea.pasahitza();
 				erabTestua.setText("");
 				pasahitzaTestua.setText("");

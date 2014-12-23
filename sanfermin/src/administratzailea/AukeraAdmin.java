@@ -29,7 +29,7 @@ import user.TratamenduTableModel;
 import Logika.DBKudeatzaile;
 import Logika.DatuBaseaKargatu;
 import Logika.EntzierroKud;
-import Logika.Errorea;
+import Logika.Leihoak;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;

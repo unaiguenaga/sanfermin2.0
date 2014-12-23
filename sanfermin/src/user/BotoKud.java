@@ -62,15 +62,16 @@ public class BotoKud {
 	// Hiru boto edo gutxiago badira eta erabiltzaileak aurten ez badu botoa eman, botoak datubasean gordeko dira.
 	public int botoakGorge(String emailea, Vector<BotoLag> vHartzaileak){
 		int e = GanadutegiKud.getInstantzia().getId(emailea);
+		System.out.println(vHartzaileak.get(0).getIzena());
+		System.out.println(vHartzaileak.get(1).getIzena());
+		System.out.println(vHartzaileak.get(2).getIzena());
 		if(vHartzaileak.size()<4){
-			if(aurtenBotatuDu(e)<3){
+			if(!aurtenBotatuDu(e)){
 				for(int i = 0; i < vHartzaileak.size(); i++){
-					System.out.println("INSERT INTO botoak (fk_emailea, fk_hartzailea, data) VALUES  ('"
-							+ e + "', '" + vHartzaileak.get(i).getId() + "', DATE(NOW()));");
 					dbk.execSQL("INSERT INTO botoak (fk_emailea, fk_hartzailea, data) VALUES  ('"
 							+ e + "', '" + vHartzaileak.get(i).getId() + "', DATE(NOW()));");
-					return 0;
 				}
+				return 0;
 			}
 			return 1;
 		}
@@ -78,21 +79,18 @@ public class BotoKud {
 	}
 	
 	// Erabiltzaileak bere ganadutegiaren izenean botoa aurten eman ote duen itsuliko du.
-	
-	private int aurtenBotatuDu(int id){
-		int zenbatDa=0;
+	private boolean aurtenBotatuDu(int id){
 		try {
-			ResultSet rs = dbk.execSQL("SELECT count(*) FROM botoak WHERE fk_emailea = '"+id+"' AND data > DATE_SUB(NOW(), INTERVAL 1 YEAR);");
+			ResultSet rs = dbk.execSQL("SELECT * FROM botoak WHERE fk_emailea = '"+id+"' AND data > DATE_SUB(NOW(), INTERVAL 1 YEAR);");
 			while (rs.next()) {
-				int zenbat = rs.getInt("count(*)");
-				zenbatDa=zenbat;
-				return zenbat;
+				return true;
 			}
 			rs.close();
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
-		return zenbatDa;
+		
+		return false;
 	}
 
 	//Bektore batetan gordetzen ditu Erabiltzaileak emandako botoak (Eskuineko JList-ekoak hain zuzen)
