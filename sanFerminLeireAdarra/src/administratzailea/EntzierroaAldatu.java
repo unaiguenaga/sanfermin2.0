@@ -18,11 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.toedter.calendar.JCalendar;
-
 import Logika.EntzierroKud;
 import Logika.EntzierroLag;
 import Logika.GanadutegiKud;
+
+import com.toedter.calendar.JCalendar;
 
 public class EntzierroaAldatu extends JFrame {
 

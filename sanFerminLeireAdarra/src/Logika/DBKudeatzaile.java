@@ -38,7 +38,7 @@ public class DBKudeatzaile {
 			case "String": 
 				pstmt.setString(i+1, datuak.get(i).toString());
 				break;
-			case "Float": 
+			case "float": 
 				pstmt.setFloat(i+1, (float) datuak.get(i) );
 				break;
 			case "Date":
@@ -57,10 +57,7 @@ public class DBKudeatzaile {
 				return pstmt.executeQuery();
 			}
 			else{
-				System.out.println(kontsulta);
-				System.out.println("12");
 				pstmt.executeUpdate();
-				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

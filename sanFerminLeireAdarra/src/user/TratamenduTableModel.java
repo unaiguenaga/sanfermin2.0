@@ -8,6 +8,7 @@ import Logika.TratamenduKud;
 import Logika.TratamenduLag;
 
 public class TratamenduTableModel extends AbstractTableModel {
+	private static String erabiltzailea=null;
 	
 	private Vector<String> columNames = new Vector<String>();
 	private TratamenduKud tk = TratamenduKud.getInstantzia();
@@ -16,7 +17,8 @@ public class TratamenduTableModel extends AbstractTableModel {
 	private int zezena = 0;
 	
 	
-	public TratamenduTableModel() {
+	public TratamenduTableModel(String erabiltzaileIzena) {
+		erabiltzailea=erabiltzaileIzena;
 		hasieratuZutabeIzenak();
 		kargatu();
 	}
@@ -64,7 +66,7 @@ public class TratamenduTableModel extends AbstractTableModel {
 	}
 	
 	public void kargatu(){
-		Vector<TratamenduLag> v3 = tk.getLag();
+		Vector<TratamenduLag> v3 = tk.getLag(erabiltzailea);
 		for (int i = 0; i<=v3.size()-1; i++){
 			data.addElement(v3.elementAt(i));
 		}

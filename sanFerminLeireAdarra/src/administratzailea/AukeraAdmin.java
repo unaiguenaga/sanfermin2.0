@@ -1,8 +1,11 @@
 package administratzailea;
 
 import java.awt.BorderLayout;
+import java.awt.dnd.DnDConstants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.Box;
@@ -12,16 +15,21 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import user.BotikaKud;
 import user.BotikaLag;
 import user.BotikaTableModel;
 import user.TratamenduTableModel;
+import Logika.DBKudeatzaile;
+import Logika.DatuBaseaKargatu;
 import Logika.EntzierroKud;
-import Logika.Errorea;
+import Logika.Leihoak;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
@@ -30,7 +38,6 @@ import Logika.TableDemo;
 public class AukeraAdmin extends JFrame {
 	private String erabiltzaileIzena;
 	
-	JButton bGanadutegiBerri = new JButton("Sortu ganadutegi berria");
 	JButton bGanadutegiaAldatu = new JButton("Datuak Aldatu");
 	JButton bGanadutegiaEzabatu = new JButton("Hautatutakoa ezabatu");
 	
@@ -59,6 +66,8 @@ public class AukeraAdmin extends JFrame {
 	JMenuItem erabBerria=new JMenuItem("Sortu erabiltzaile berria");
 	JMenuItem erabKendu=new JMenuItem("Erabiltzailea borratu");
 	
+	JMenu datuBase=new JMenu("Datu basea");
+	JMenuItem kargatu=new JMenuItem("Datu basea hasieratu");
 
 	JMenuItem atzera=new JMenuItem("Saioa itxi");
 	JMenuItem exit=new JMenuItem("Exit");
@@ -99,8 +108,22 @@ public class AukeraAdmin extends JFrame {
 		setJMenuBar(barra);
 		barra.add(menua);
 		barra.add(erabiltzailea);
+		barra.add(datuBase);
+
+		datuBase.add(kargatu);
+		kargatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				JOptionPane.showMessageDialog(null, "Datu basea birkargatzen ari da, segundu batzuk iraungo ditu. Exekutatu ezazu berriz programa.", "Kargatzen...",JOptionPane.INFORMATION_MESSAGE );
+				new DatuBaseaKargatu();
+				
+			}
+		});
 		erabiltzailea.add(erabBerria);
 		erabBerria.addActionListener(new ActionListener() {
+		
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -114,8 +137,10 @@ public class AukeraAdmin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ErabiltzaileaKendu.main(null);
 				
+				
 			}
 		});
+		
 		menua.add(atzera);
 		atzera.addActionListener(new ActionListener() {
 			
@@ -166,7 +191,6 @@ public class AukeraAdmin extends JFrame {
 		
 		eskumakoPanela2.setLayout(new BoxLayout(eskumakoPanela2, BoxLayout.PAGE_AXIS));
 		eskumakoPanela2.add(Box.createVerticalGlue());
-		eskumakoPanela2.add(bGanadutegiBerri);
 		eskumakoPanela2.add(bGanadutegiaEzabatu);
 		eskumakoPanela2.add(bGanadutegiaAldatu);
 		eskumakoPanela2.add(Box.createVerticalGlue());
@@ -186,9 +210,7 @@ public class AukeraAdmin extends JFrame {
 		eskumakoPanela3.add(bBotikaAldatu);
 		eskumakoPanela3.add(Box.createVerticalGlue());
 
-		// LISTENERS
-		
-		
+				
 		// ENTZIERROAK
 		bEntzierroBerri.addActionListener(new ActionListener() {
 
@@ -197,18 +219,26 @@ public class AukeraAdmin extends JFrame {
 				new EntzierroaSortu();
 			}
 		});
-
+		
+		bEntzierroaAldatu.setEnabled(false);
+		tableEntzierroak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				bEntzierroaAldatu.setEnabled(true);
+			}
+		});
+		
 		bEntzierroaAldatu.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//			if (etm.getValueAt(tableEntzierroak.getTable().getSelectedRow(),0).toString().){
-//				System.out.println("errorea");
-//				Errorea errorea =new Errorea();
-//				errorea.aukeratu();
-//			}
-//			else
-				new EntzierroaAldatu(etm.getValueAt(tableEntzierroak.getTable().getSelectedRow(),0).toString());
+				try {
+					new EntzierroaAldatu(etm.getValueAt(tableEntzierroak.getTable().getSelectedRow(),0).toString());
+
+				} catch (Exception e2) {
+					System.out.println("ez du klikatu");
+				}
 			}
 		});
 		
@@ -224,14 +254,15 @@ public class AukeraAdmin extends JFrame {
 		
 		//GANADUTEGIAK
 
-		bGanadutegiBerri.addActionListener(new ActionListener() {
-
+		
+		bGanadutegiaAldatu.setEnabled(false);
+		tableGanadutegiak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				new SortuGanadutegia();
+			public void valueChanged(ListSelectionEvent e) {
+				bGanadutegiaAldatu.setEnabled(true);
 			}
 		});
-		
 		bGanadutegiaAldatu.addActionListener(new ActionListener() {
 
 			@Override
@@ -259,7 +290,17 @@ public class AukeraAdmin extends JFrame {
 				new SortuBotika();
 			}
 		});
+		
 
+		bBotikaAldatu.setEnabled(false);
+		tableBotikak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				bBotikaAldatu.setEnabled(true);
+				bBotikaEzabatu.setEnabled(true);
+			}
+		});
 		bBotikaAldatu.addActionListener(new ActionListener() {
 
 			@Override
@@ -267,6 +308,7 @@ public class AukeraAdmin extends JFrame {
 				BotikaKud.getInstantzia().gordeDBan(btm.getData());
 			}
 		});
+		bBotikaEzabatu.setEnabled(false);
 		
 		bBotikaEzabatu.addActionListener(new ActionListener() {
 			

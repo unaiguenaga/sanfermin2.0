@@ -31,7 +31,7 @@ public class TratamenduKud {
 		
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO tratamendua set data=?, fk_botika=?,dosia=?, fk_zezena=?";
-		String[] datuMotak={"String", "int", "float", "int"};
+		String[] datuMotak={"String", "Integer", "float", "Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={data, botika, dosia, zezena};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -47,10 +47,11 @@ public class TratamenduKud {
 		dbk.execSQL("DELETE FROM tratamendua;");
 	}
 
-	public Vector<TratamenduLag> getLag() {
+	public Vector<TratamenduLag> getLag(String erabiltzailea) {
+		int kodea = GanadutegiKud.getInstantzia().getId(erabiltzailea);
 		Vector<TratamenduLag> v = new Vector<TratamenduLag>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM tratamendua;");
+			ResultSet rs = dbk.execSQL("SELECT data,fk_botika,dosia,fk_zezena FROM tratamendua WHERE fk_zezena IN (SELECT id FROM zezena WHERE fk_ganadutegia="+kodea+");");
 			while (rs.next()) {
 				v.add(new TratamenduLag(getIzena(rs.getInt("fk_botika")), rs.getFloat("dosia"), ZezenKud.getInstantzia().getIzena(rs.getInt("fk_zezena")) ,rs.getDate("data"),rs.getInt("fk_zezena") ,rs.getInt("fk_botika")));
 			}

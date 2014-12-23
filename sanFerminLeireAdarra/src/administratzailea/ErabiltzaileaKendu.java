@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import Logika.ErabiltzaileKudeatzailea;
+import Logika.GanadutegiKud;
 
 public class ErabiltzaileaKendu extends JFrame{
 	JLabel erabiltzailea = new JLabel("Erabiltzailea:");
@@ -95,7 +96,11 @@ public class ErabiltzaileaKendu extends JFrame{
 					tpasahitzaBerriz.setText("");
 				}
 				else if(pasahitzaTestua.getText().equals(tpasahitzaBerriz.getText())){
-					erab.kenduErabiltzailea(erabTestua.getText(), pasahitza.getText());
+					erab.kenduErabiltzailea(erabTestua.getText(), pasahitzaTestua.getText());
+					System.out.println(pasahitzaTestua.getText());
+					//kendu ganadutegia
+					int kodea =GanadutegiKud.getInstantzia().getId(erabTestua.getText());
+					GanadutegiKud.getInstantzia().ezabatu(kodea);
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzailea borratu da. ", "Erabiltzailea kenduta",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -110,7 +115,9 @@ public class ErabiltzaileaKendu extends JFrame{
 					pasahitzaTestua.setText("");
 					tpasahitzaBerriz.setText("");
 				}
+				AukeraAdmin.getInstantzia().gtm.eguneratu();
 				}
+				
 		});
 	}
 

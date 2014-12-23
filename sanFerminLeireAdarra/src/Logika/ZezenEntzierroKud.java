@@ -30,8 +30,8 @@ public class ZezenEntzierroKud {
 
 	// METODOAK
 
+	//egiteke
 	public void gehitu(String parteHartu, Time denbora, int zezena, Date entzierroa) {
-		System.out.println(parteHartu+" "+denbora+" "+zezena+" "+entzierroa);
 		dbk.execSQL("INSERT INTO zezenaEntzierroa (parteHartu, denbora, fk_zezena, fk_entzierroa) VALUES ('"
 				+ parteHartu
 				+ "', '"
@@ -43,8 +43,10 @@ public class ZezenEntzierroKud {
 				+ "')");
 	}
 
-	private void ezabatu(Date data) {
+	public void ezabatu(String data) {
+		System.out.println("DELETE FROM zezenaEntzierroa WHERE fk_entzierroa='" + data + "';");
 		dbk.execSQL("DELETE FROM zezenaEntzierroa WHERE fk_entzierroa='" + data + "';");
+		
 	}
 
 	public void ezabatuDenak() {

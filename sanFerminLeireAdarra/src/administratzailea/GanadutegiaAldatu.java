@@ -21,7 +21,7 @@ import Logika.ErabiltzaileKudeatzailea;
 import Logika.GanadutegiKud;
 
 public class GanadutegiaAldatu extends JFrame {
-	JLabel arduraduna = new JLabel("Arduradun berria:");
+	JLabel arduraduna = new JLabel("Izen berria:");
 	JLabel tlf = new JLabel("Telefono berria:");
 	JLabel helbide = new JLabel("Helbide berria:");
 	JTextField arduradunaTestua = new JTextField(10);
@@ -77,9 +77,11 @@ public class GanadutegiaAldatu extends JFrame {
 					String izenBerria = arduradunaTestua.getText();
 					
 					ErabiltzaileKudeatzailea.getInstantzia().izenaAldatu(izenZaharra, izenBerria);
-				}if(!tlfTestua.getText().equals("")){
+				}
+				if(!tlfTestua.getText().equals("")){
 					gk.aldatuTlf(ganadutegiId, Integer.parseInt(tlfTestua.getText()));
-				}if(!helbideTestua.getText().equals("")){
+				}
+				if(!helbideTestua.getText().equals("")){
 					gk.aldatuHelbidea(ganadutegiId, helbideTestua.getText());
 				}
 				AukeraAdmin.getInstantzia().gtm.eguneratu();
