@@ -55,13 +55,7 @@ public class Hasiera extends JFrame {
 	public Hasiera() {
 		gridBagHasieratu();
 	}
-	public static void kargatu() {
-		new DatuBaseaKargatu();
-
-	}
-
-	public static void main(String[] args) {
-		Hasiera.kargatu();
+	 public static void main(String[] args) {
 		bistaratu();
 	}
 

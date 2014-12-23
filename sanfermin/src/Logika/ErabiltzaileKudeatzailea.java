@@ -130,6 +130,7 @@ public class ErabiltzaileKudeatzailea {
 	}
 
 	public void kenduErabiltzailea(String izena, String pasahitza) {
+		System.out.println(izena+pasahitza);
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "DELETE FROM erabiltzailea where iderabiltzailea=? and pasahitza=?";
 		String[] datuMotak={"String", "String"};

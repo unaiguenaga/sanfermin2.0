@@ -4,38 +4,27 @@ import java.sql.Date;
 
 public class BotoLag {
 
-	private Integer emailea;
-	private Integer jasotakoa;
-	private String data;
+	private Integer id;
+	private String izena;
 
-	public BotoLag(Integer emailea, Integer jasotakoa, String data) {
-		this.emailea = emailea;
-		this.jasotakoa = jasotakoa;
-		this.data = data;
+	public BotoLag(Integer id, String izena) {
+		this.id = id;
+		this.izena = izena;
 
 	}
 	
-	public Integer getEmailea() {
-		return emailea;
+	public Integer getId() {
+		return id;
 	}
 
-	public Integer getJasotakoa() {
-		return jasotakoa;
+	public String getIzena() {
+		return izena;
 	}
-
-	public String getData() {
-		return data;
-	}
-
-
+	
 	public Object getBalioa(int i) {
 		switch (i) {
 		case 0:
-			return emailea;
-		case 1:
-			return jasotakoa;
-		case 2:
-			return data;
+			return izena;
 		}
 		return null;
 	}
@@ -43,13 +32,7 @@ public class BotoLag {
 	public void insertElementAt(Object value, int i) {
 		switch (i) {
 		case 0:
-			emailea = (Integer) value;
-			break;
-		case 1:
-			jasotakoa = (Integer) value;
-			break;
-		case 2:
-			data = (String) value;
+			izena = (String) value;
 			break;
 		}
 	}

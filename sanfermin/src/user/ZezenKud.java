@@ -55,10 +55,12 @@ public class ZezenKud  {
 	}
 	
 
-	public Vector<ZezenLag> getLag() {
+	public Vector<ZezenLag> getLag(String erab) {
+		int kodea = GanadutegiKud.getInstantzia().getId(erab);
 		Vector<ZezenLag> v = new Vector<ZezenLag>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM zezena;");
+			//System.out.println("SELECT * FROM zezena WHERE fk_ganadutegia="+kodea+"");
+			ResultSet rs = dbk.execSQL("SELECT * FROM zezena WHERE fk_ganadutegia="+kodea+"");
 			while (rs.next()) {
 				v.add(new ZezenLag(rs.getInt("id"), rs.getString("izena"), rs.getString("jaiotzeData"), rs.getFloat("pisua"), rs.getFloat("altuera"), rs.getFloat("adarrenLuzera")));
 			}
@@ -145,7 +147,7 @@ public class ZezenKud  {
 	public Vector<String> getZezenak(int ganadutegia, String data) {
 		Vector<String> v = new Vector<String>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT z.izena FROM zezena z, zezenaEntzierroa ze WHERE ze.fk_zezena != z.id AND z.fk_ganadutegia="+ganadutegia+" AND ze.fk_entzierroa='"+data+"'"+ "GROUP BY izena");
+			ResultSet rs = dbk.execSQL("SELECT izena FROM zezena WHERE fk_ganadutegia="+ganadutegia+" AND id NOT IN (SELECT fk_zezena FROM zezenaEntzierroa)");
 			while (rs.next()) {
 				v.add(rs.getString("izena"));
 			}
@@ -156,10 +158,10 @@ public class ZezenKud  {
 		return v;
 	}
 	
-	public int getZezena(int ganadutegia) {
+	public int getZezena(int ganadutegia, String zezena) {
 		int kodea = 0;
 		try {
-			ResultSet rs = dbk.execSQL("SELECT id FROM zezena WHERE fk_ganadutegia="+ganadutegia+";");
+			ResultSet rs = dbk.execSQL("SELECT id FROM zezena WHERE izena='"+zezena+"'"+"AND fk_ganadutegia="+ganadutegia+";");
 			while (rs.next()) {
 				int zezen = rs.getInt("id");
 				kodea=zezen;

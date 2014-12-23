@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import Logika.DBKudeatzaile;
 import Logika.ErabiltzaileKudeatzailea;
+import Logika.GanadutegiKud;
 
 public class JoaldunKud  {
 
@@ -54,10 +55,11 @@ public class JoaldunKud  {
 	}
 
 	
-	public Vector<JoaldunLag> getLag() {
+	public Vector<JoaldunLag> getLag(String erabiltzailea) {
+		int kodea = GanadutegiKud.getInstantzia().getId(erabiltzailea);
 		Vector<JoaldunLag> v = new Vector<JoaldunLag>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM Joalduna;");
+			ResultSet rs = dbk.execSQL("SELECT * FROM Joalduna WHERE fk_ganadutegia="+kodea);
 			while (rs.next()) {
 				v.add(new JoaldunLag(rs.getInt("id"), rs.getString("jaiotzeData"), rs.getFloat("pisua"), rs.getFloat("altuera"), rs.getString("kolorea")));
 			}
