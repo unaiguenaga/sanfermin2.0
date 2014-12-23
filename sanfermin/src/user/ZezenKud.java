@@ -193,7 +193,7 @@ public class ZezenKud  {
 	}
 	public String getGanadutegia(String erab){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "select id from ganadutegia where arduraduna='"+erab+"'";
+		String kontsulta = "select id from ganadutegia where arduraduna= '"+erab+"'";
 		ResultSet rs = dbk.execSQL(kontsulta);
 		String emaitza=null;
 		try {
