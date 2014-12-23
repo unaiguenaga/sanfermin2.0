@@ -55,7 +55,7 @@ public class GehituAbereak extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuZezena.main(null);
+				SortuZezena.main(erabiltzailea);
 				dispose();
 			}
 		});
@@ -64,7 +64,7 @@ public class GehituAbereak extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuJoalduna.main(null);
+				SortuJoalduna.main(erabiltzailea);
 				dispose();
 			}
 		});

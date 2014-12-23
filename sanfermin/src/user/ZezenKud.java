@@ -29,14 +29,17 @@ public class ZezenKud  {
 
 	// METODOAK
 
-	public void gehitu(int kodea, String izena, String jaiotzeData, String pisua, String altuera, String adarLuzera, String ganadutegiaKode) {
+	public void gehitu(int kodea, String izena, String jaiotzeData, float pisua, float altuera, float adarLuzera, int ganadutegiaKode) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "INSERT INTO zezena set id=?, izena=?, jaiotzeData=?, pisua=?, altuera=?, adarrenLuzera=?, fk_ganadutegia=?";
-		String[] datuMotak={"int", "String", "String", "String", "String", "String", "String"};
-		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
-		Object[] datuakArrayObjects={kodea, izena,jaiotzeData, pisua, altuera, adarLuzera, ganadutegiaKode};
-		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		dbk.filter(kontsulta, bektorea, datuak);
+//		String kontsulta = "INSERT INTO zezena set id=?, izena=?, jaiotzeData=?, pisua=?, altuera=?, adarrenLuzera=?, fk_ganadutegia=?";
+//		String[] datuMotak={"int", "String", "String", "float", "float", "float", "int"};
+//		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+//		Object[] datuakArrayObjects={kodea, izena,jaiotzeData, pisua, altuera, adarLuzera, ganadutegiaKode};
+//		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+//		dbk.filter(kontsulta, bektorea, datuak);
+		
+		String kontsulta2 = "INSERT INTO zezena SET id="+kodea+", izena='"+izena+"'"+", jaiotzeData='"+jaiotzeData+"'"+", pisua="+pisua+", altuera="+altuera+", adarrenLuzera="+adarLuzera+", fk_ganadutegia="+ganadutegiaKode;           
+		dbk.execSQL(kontsulta2);
 	}
 	
 
@@ -172,7 +175,7 @@ public class ZezenKud  {
 		}
 		return kodea;
 	}
-	public boolean existitzenDa(String kodea) {
+	public boolean existitzenDaZezena(String kodea) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "SELECT * FROM zezena WHERE id='"
 				+ kodea+ "'";
@@ -191,19 +194,49 @@ public class ZezenKud  {
 		}
 		return false;
 	}
-	public String getGanadutegia(String erab){
+	
+	public boolean existitzenDaJoalduna(String kodea) {
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "SELECT * FROM Joalduna WHERE id='"
+				+ kodea+ "'";
+		ResultSet rs = dbk.execSQL(kontsulta);
+		try {
+			while (rs.next()) {
+				String id = rs.getString("id");
+				if (kodea.equals(id))
+					return true;
+				else
+					return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public int getGanadutegia(String erab){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "select id from ganadutegia where arduraduna= '"+erab+"'";
+		System.out.println("select id from ganadutegia where arduraduna= '"+erab+"'");
 		ResultSet rs = dbk.execSQL(kontsulta);
-		String emaitza=null;
+		int emaitza=0;
 		try {
-			rs.next();
-			emaitza = rs.getString("id");
+			if(rs.next());
+				int emaitz = rs.getInt("id");
+				emaitza=emaitz;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return emaitza;
+	}
+
+	public void gehituJoalduna(int kod, String jaiotzeData, float pisua,
+			float altuera, String kolorea, int ganaduKod) {
+		
+		String kontsulta2 = "INSERT INTO Joalduna SET id="+kod+", jaiotzeData='"+jaiotzeData+"'"+", pisua="+pisua+", altuera="+altuera+", kolorea='"+kolorea+"'"+", fk_ganadutegia="+ganaduKod;           
+		dbk.execSQL(kontsulta2);
+		
 	}
 	
 }

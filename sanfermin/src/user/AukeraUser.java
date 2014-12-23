@@ -120,7 +120,7 @@ public class AukeraUser extends JFrame {
 	public ZezenaTableModel ztm;
 	TableDemo tableZezenak;
 
-	JoaldunTableModel jtm;
+	public JoaldunTableModel jtm;
 	TableDemo tableJoaldunak;
 
 	// /////Aldaketa///////
@@ -354,7 +354,7 @@ public class AukeraUser extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GehituAbereak.main(null);
+				GehituAbereak.main(erabiltzaileIzena);
 			}
 		});
 
@@ -372,6 +372,7 @@ public class AukeraUser extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				GehituZezena.main(erabiltzaileIzena,
 						(String) dataCombo.getSelectedItem());
+				
 			}
 		});
 
