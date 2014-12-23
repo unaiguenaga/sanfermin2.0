@@ -37,7 +37,6 @@ public class ZezenKud  {
 		Object[] datuakArrayObjects={kodea, izena,jaiotzeData, pisua, altuera, adarLuzera, ganadutegiaKode};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 	
 
@@ -142,4 +141,69 @@ public class ZezenKud  {
 		}
 		return v;
 	}
+
+	public Vector<String> getZezenak(int ganadutegia, String data) {
+		Vector<String> v = new Vector<String>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT z.izena FROM zezena z, zezenaEntzierroa ze WHERE ze.fk_zezena != z.id AND z.fk_ganadutegia="+ganadutegia+" AND ze.fk_entzierroa='"+data+"'"+ "GROUP BY izena");
+			while (rs.next()) {
+				v.add(rs.getString("izena"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
+	
+	public int getZezena(int ganadutegia) {
+		int kodea = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT id FROM zezena WHERE fk_ganadutegia="+ganadutegia+";");
+			while (rs.next()) {
+				int zezen = rs.getInt("id");
+				kodea=zezen;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return kodea;
+	}
+	
+	public boolean existitzenDa(String kodea) {
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "SELECT * FROM zezena WHERE id='"
+				+ kodea+ "'";
+		ResultSet rs = dbk.execSQL(kontsulta);
+		try {
+			while (rs.next()) {
+				String id = rs.getString("iderabiltzailea");
+				if (kodea.equals(id))
+					return true;
+				else
+					return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public String getGanadutegia(String erab){
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "select id from ganadutegia where arduraduna='"+erab+"'";
+		ResultSet rs = dbk.execSQL(kontsulta);
+		String emaitza=null;
+		try {
+			rs.next();
+			emaitza = rs.getString("id");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return emaitza;
+	}
+
 }

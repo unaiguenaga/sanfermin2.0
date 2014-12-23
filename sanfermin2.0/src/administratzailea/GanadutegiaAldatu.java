@@ -77,9 +77,11 @@ public class GanadutegiaAldatu extends JFrame {
 					String izenBerria = arduradunaTestua.getText();
 					
 					ErabiltzaileKudeatzailea.getInstantzia().izenaAldatu(izenZaharra, izenBerria);
-				}if(!tlfTestua.getText().equals("")){
+				}
+				if(!tlfTestua.getText().equals("")){
 					gk.aldatuTlf(ganadutegiId, Integer.parseInt(tlfTestua.getText()));
-				}if(!helbideTestua.getText().equals("")){
+				}
+				if(!helbideTestua.getText().equals("")){
 					gk.aldatuHelbidea(ganadutegiId, helbideTestua.getText());
 				}
 				AukeraAdmin.getInstantzia().gtm.eguneratu();

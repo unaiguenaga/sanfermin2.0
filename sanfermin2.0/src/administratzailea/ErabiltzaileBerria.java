@@ -86,12 +86,12 @@ public class ErabiltzaileBerria extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			sortu(erabTestua.getText(),pasahitzaTestua.getText(),tpasahitzaBerriz.getText());
-				}
+				sortu(erabTestua.getText(),pasahitzaTestua.getText(),tpasahitzaBerriz.getText());
+			}
 		});
+		
 	
 	}
-	
 	public void sortu(String erabiltzailea, String pasahitza, String pasahitzKonpr){
 		ErabiltzaileKudeatzailea erab=ErabiltzaileKudeatzailea.getInstantzia();
 		if(erab.existitzenDa(erabiltzailea)){
@@ -107,8 +107,7 @@ public class ErabiltzaileBerria extends JFrame {
 			JOptionPane.showMessageDialog(null,
 					"Erabiltzaile berria sortu da. ", "Erabiltzailea gehituta",
 					JOptionPane.INFORMATION_MESSAGE);
-			erab.sortuErabiltzaileaEtaGehitu(erabiltzailea, pasahitza);
-			new SortuGanadutegia();		
+			new SortuGanadutegia(erabiltzailea, pasahitza);				
 		}else{
 			JOptionPane.showMessageDialog(null,
 					"Pasahitz berriak ez dira berdinak, berriro saiatu zaitez. ", "Desberdinak",
@@ -118,8 +117,6 @@ public class ErabiltzaileBerria extends JFrame {
 			tpasahitzaBerriz.setText("");
 		}
 	}
-		
-	
 
 	private void gehituOsagaia(Component osagaia, int errenkada, int zutabea, int zabalera, int altuera) {
 		mugak.gridx = zutabea;

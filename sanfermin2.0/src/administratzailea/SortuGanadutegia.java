@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -40,20 +41,28 @@ public class SortuGanadutegia extends JFrame {
 	private GridBagLayout eskema;
 	private Container edukiontzia;
 	private GridBagConstraints mugak;
+	private static String erabiltzailea=null;
+	private static String pasahitz=null;
 	
 	private GanadutegiKud gk = GanadutegiKud.getInstantzia();
 	
 
-	public SortuGanadutegia() {
-		arduradunBox = new JComboBox(ErabiltzaileKudeatzailea.getInstantzia().getIzenak());
-		botoiakHasieratu();
+	public SortuGanadutegia(String erab, String pasahitza) {
+		erabiltzailea=erab;
+		pasahitz=pasahitza;
+		Vector<String> bektorea= new Vector<String>();
+		bektorea.add(erab);
+		arduradunBox = new JComboBox(bektorea);
 		gridBagHasieratu();
 		setTitle("Gehitu Ganadutegia");
 		setVisible(true);
 		setSize(300, 200);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
+	
 
+		
+	
 	private void gridBagHasieratu(){
 		edukiontzia = getContentPane();
 		eskema= new GridBagLayout();
@@ -85,21 +94,21 @@ public class SortuGanadutegia extends JFrame {
 		behekoPanela.add(BorderLayout.SOUTH, gehitu);
 		gehituOsagaia(behekoPanela,16, 3, 9, 1);
 		
-	}
-	
-	private void botoiakHasieratu(){
 		gehitu.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				ErabiltzaileKudeatzailea.getInstantzia().sortuErabiltzaileaEtaGehitu(erabiltzailea, pasahitz);
 				gk.gehitu(Integer.parseInt(kodeTestua.getText()), izenTestua.getText(), arduradunBox.getSelectedItem().toString(), Integer.parseInt(tlfTestua.getText()), helbideTestua.getText());
 				AukeraAdmin.getInstantzia().gtm.eguneratu();
-				//AukeraAdmin.getInstantzia().tableGanadutegiak.repaint();
 				dispose();
 				
 			}
 		});
+	
+		
 	}
+	
 	
 	
 	private void gehituOsagaia(Component osagaia, int errenkada, int zutabea, int zabalera, int altuera) {

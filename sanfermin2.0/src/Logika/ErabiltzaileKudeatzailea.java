@@ -22,17 +22,11 @@ public class ErabiltzaileKudeatzailea {
 	public static boolean konprobatuPasahitzaEtaErabiltzailea(String izen,
 			String pasahitz) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-
-//		String kontsulta = "SELECT * FROM erabiltzailea WHERE iderabiltzailea='"
-//				+ izen + "'" + " and " + "pasahitza='" + pasahitz + "'";
 		String kontsulta = "SELECT * FROM erabiltzailea WHERE iderabiltzailea=? and pasahitza=?";
 		String[] datuMotak={"String", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={izen, pasahitz};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		System.out.println(kontsulta);
-//		ResultSet rs = dbk.execSQL(kontsulta);
-
 		ResultSet rs = dbk.filter(kontsulta, bektorea, datuak);
 
 		boolean aurkitua=false;
@@ -54,17 +48,15 @@ public class ErabiltzaileKudeatzailea {
 		return datuak;
 	}
 
-	public void izenaAldatu(String izena, String pasahitzBerria) {
+	public void izenaAldatu(String izenZaharra, String izenBerria) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "UPDATE erabiltzailea set iderabiltzailea=? and pasahitzBerria=? where iderabiltzailea=?";
+		String kontsulta = "UPDATE erabiltzailea set iderabiltzailea=? where iderabiltzailea=?";
 		String[] datuMotak={"String", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
-		Object[] datuakArrayObjects={pasahitzBerria,izena};
+		Object[] datuakArrayObjects={izenBerria,izenZaharra};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		
-		ResultSet rs = dbk.filter(kontsulta, bektorea, datuak);
+		dbk.filter(kontsulta, bektorea, datuak);
 
-		System.out.println(kontsulta);
 
 	}
 		
@@ -75,7 +67,7 @@ public class ErabiltzaileKudeatzailea {
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={pasahitzBerria, izena};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		ResultSet rs=dbk.filter(kontsulta, bektorea, datuak);
+		dbk.filter(kontsulta, bektorea, datuak);
 
 	}
 
@@ -114,7 +106,6 @@ public class ErabiltzaileKudeatzailea {
 		Object[] datuakArrayObjects={izena, pasahitza};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 		
 	}
 
@@ -122,7 +113,6 @@ public class ErabiltzaileKudeatzailea {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "SELECT * FROM erabiltzailea WHERE iderabiltzailea='"
 				+ izena+ "'";
-		System.out.println(kontsulta);
 		ResultSet rs = dbk.execSQL(kontsulta);
 		try {
 			while (rs.next()) {
@@ -147,7 +137,6 @@ public class ErabiltzaileKudeatzailea {
 		Object[] datuakArrayObjects={izena, pasahitza};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 	
 	public Vector<String> getIzenak(){

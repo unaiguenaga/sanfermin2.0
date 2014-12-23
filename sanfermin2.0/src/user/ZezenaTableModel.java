@@ -46,12 +46,6 @@ public class ZezenaTableModel extends AbstractTableModel{
 	}
 	
 	public boolean isCellEditable(int row, int col){
-		/*int ler = 0, zut = 3;
-		if (row >= ler && col >= zut){
-			return true;
-		}else{
-			return false;
-		}*/
 		return true;
 	}
 	
@@ -76,10 +70,7 @@ public class ZezenaTableModel extends AbstractTableModel{
 	}
 	
 	public void gehitu(ZezenLag lag){
-		
-		System.out.println("Gehitu aurretik: "+data.size());
 		data.addElement(lag);
-		System.out.println("Gehitu eta gero: "+data.size());
 		fireTableDataChanged();
 	}
 }

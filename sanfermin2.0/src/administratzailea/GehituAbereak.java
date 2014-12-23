@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class GehituAbereak extends JFrame {
+	private static String erabiltzailea=null;
 
 	JButton zezena = new JButton("Zezena");
 	JButton joalduna = new JButton("Joalduna");
@@ -29,7 +30,8 @@ public class GehituAbereak extends JFrame {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String erabiltzaileIzena) {
+		erabiltzailea=erabiltzaileIzena;
 		GehituAbereak hasiera = new GehituAbereak();
 		hasiera.setTitle("Gehitu Aberea");
 		hasiera.setVisible(true);
@@ -53,7 +55,7 @@ public class GehituAbereak extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuZezena.main(null);
+				SortuZezena.main(erabiltzailea);
 				dispose();
 			}
 		});
@@ -62,7 +64,7 @@ public class GehituAbereak extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuJoalduna.main(null);
+				SortuJoalduna.main(erabiltzailea);
 				dispose();
 			}
 		});

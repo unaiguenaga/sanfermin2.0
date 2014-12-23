@@ -7,11 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 
 import Logika.DBKudeatzaile;
 import Logika.ErabiltzaileKudeatzailea;
-import Logika.Errorea;
 
 public class BotoKud {
 
@@ -40,7 +38,7 @@ public class BotoKud {
 	private void ezabatu(int emailea) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "DELETE FROM botoak WHERE fk_emailea=?";
-		String[] datuMotak={"int"};
+		String[] datuMotak={"Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={emailea};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -101,8 +99,7 @@ public class BotoKud {
 				ResultSet rs = dbk
 						.execSQL("SELECT id FROM ganadutegia WHERE arduraduna='"
 								+ izena + "'");
-				System.out.println("SELECT id FROM ganadutegia WHERE arduraduna='"
-								+ izena + "'");
+				
 				int id =0;
 				try {
 					while (rs.next()) {
@@ -178,31 +175,5 @@ public class BotoKud {
 					+ ",fk_hartzailea=" + id1 + ",data=NOW()";
 			dbk.execSQL(kontsulta);
 		}
-	}
-	
-	public void botoaEman(JList bozkatuEskuina, JList bozkatuEzkerra,DefaultListModel modeloaEskuina,
-			DefaultListModel modeloaEzkerra){
-		if(bozkatuEskuina.getModel().getSize()>=3){
-			Errorea er = new Errorea();
-			er.bozkaketa();
-		}
-		else{
-			//Hemen ezkerreko modelotik elementu bat ateratzen du eta eskuinekoan sartzen du.
-			
-			String aukera = (String) bozkatuEzkerra.getSelectedValue();
-			System.out.println("aukeratu: "+aukera);
-			int indizea = bozkatuEzkerra.getSelectedIndex();
-			
-			modeloaEskuina.addElement(aukera);
-			bozkatuEskuina.setModel(modeloaEskuina);
-			modeloaEzkerra.removeElementAt(indizea);
-			bozkatuEzkerra.setModel(modeloaEzkerra);
-
-			System.out.println("indizea :"+indizea);
-			
-//			if(indizea!=-1){
-//				bozkatuEzkerra.remove(indizea);
-//			}
-		}	
 	}
 }

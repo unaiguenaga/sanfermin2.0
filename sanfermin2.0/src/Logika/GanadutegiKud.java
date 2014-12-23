@@ -28,18 +28,17 @@ public class GanadutegiKud {
 	public void gehitu(int id, String izena, String arduraduna, int tlf, String helbidea) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO ganadutegia set id=?, helbidea=? ,izena=?, arduraduna=?, tlf=?";
-		String[] datuMotak={"int","String", "String","String","int"};
+		String[] datuMotak={"Integer","String", "String","String","Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id, helbidea, izena, arduraduna, tlf};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 
 	public void ezabatu(int id) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "DELETE FROM ganadutegia WHERE id=?";
-		String[] datuMotak={"int"};
+		String[] datuMotak={"Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -53,34 +52,31 @@ public class GanadutegiKud {
 	public void aldatuArduraduna(int id, String ard){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "UPDATE ganadutegia set arduraduna=? where id=?";
-		String[] datuMotak={"int", "String"};
+		String[] datuMotak={"Integer", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id,ard};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 	
 	public void aldatuTlf(int id, int tlf){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "UPDATE ganadutegia set tlf=? where id=?";
-		String[] datuMotak={"int", "String"};
+		String[] datuMotak={"Integer", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id,tlf};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 	
 	public void aldatuHelbidea(int id, String helb){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "UPDATE ganadutegia set helbidea=? where id=?";
-		String[] datuMotak={"int", "String"};
+		String[] datuMotak={"Integer", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id,helb};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 	
 	public Vector<GanadutegiLag> getLag() {
@@ -115,7 +111,6 @@ public class GanadutegiKud {
 		Vector<String> v = new Vector<String>();
 		try {
 			ResultSet rs = dbk.execSQL("SELECT izena FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
-			System.out.println("SELECT izena FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
 			while (rs.next()) {
 				v.add(rs.getString("izena"));
 			}
@@ -165,6 +160,21 @@ public class GanadutegiKud {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public int getIdGanadutegia(String izena) {
+		int kodea =0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT id FROM ganadutegia WHERE arduraduna='"+izena+"'"+";");
+			while (rs.next()) {
+				int kode = rs.getInt("id");
+				kodea=kode;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return kodea;
 	}
 
 }

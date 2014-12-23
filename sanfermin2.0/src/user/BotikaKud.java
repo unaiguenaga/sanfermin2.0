@@ -30,19 +30,18 @@ public class BotikaKud  {
 	public void gehituBotika(int kodea, String izena) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO botika set kodea=?, izena=?";
-		String[] datuMotak={"int", "String"};
+		String[] datuMotak={"Integer", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={kodea, izena};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 
 	
 	public void ezabatu(int kodea) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "DELETE FROM botika WHERE kodea=?";
-		String[] datuMotak={"int"};
+		String[] datuMotak={"Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={kodea};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -99,7 +98,7 @@ public class BotikaKud  {
 
 	public void gordeDBan(Vector<BotikaLag> datuak) {
 		for (int i = 0; i<datuak.size();i++){
-			ResultSet rs = dbk.execSQL("UPDATE `sanfermin`.`botika` SET `izena`='"+datuak.get(i).getIzena()+"' WHERE `kodea`='"+datuak.get(i).getKodea()+"';");
+			dbk.execSQL("UPDATE botika SET izena='"+datuak.get(i).getIzena()+"' WHERE kodea='"+datuak.get(i).getKodea()+"';");
 		}
 	}
 	
