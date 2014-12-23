@@ -67,7 +67,7 @@ public class ErabiltzaileKudeatzailea {
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={pasahitzBerria, izena};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		ResultSet rs=dbk.filter(kontsulta, bektorea, datuak);
+		dbk.filter(kontsulta, bektorea, datuak);
 
 	}
 

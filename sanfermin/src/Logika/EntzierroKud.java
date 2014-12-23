@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import javax.swing.ComboBoxModel;
+
 import Logika.DBKudeatzaile;
 
 public class EntzierroKud {
@@ -65,7 +67,6 @@ public class EntzierroKud {
 		Object[] datuakArrayObjects={id, ganadutegia};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 	
 	public void aldatu(String id, int ganadutegia, float luzera){
@@ -76,7 +77,6 @@ public class EntzierroKud {
 		Object[] datuakArrayObjects={id, ganadutegia, luzera};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 
 	public Vector<EntzierroLag> getLag() {
@@ -121,4 +121,34 @@ public class EntzierroKud {
 		}
 		return v;
 	}
+
+	//Erabiltzaileari dagokion entzierroen datak bueltatuko ditu
+			public Vector<String> getDataEntzierro(String izena) {
+				
+				ResultSet rs1 = dbk.execSQL("SELECT id FROM ganadutegia WHERE arduraduna='"+izena+"'");
+				System.out.println("Arduradun: "+"SELECT id FROM ganadutegia WHERE arduraduna='"+izena+"'");
+				int kodea = 0;
+				try {
+					while(rs1.next()){
+						int kode = rs1.getInt("id");
+						kodea=kode;
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				Vector<String> v = new Vector<String>();
+				try {
+					ResultSet rs = dbk.execSQL("SELECT id FROM entzierroa WHERE fk_ganadutegia="+kodea+";");
+					System.out.println("Entzierroa: "+"SELECT id FROM entzierroa WHERE fk_ganadutegia="+kodea+";");
+					while (rs.next()) {
+						v.add(rs.getString("id"));
+					}
+					rs.close();
+				} catch (SQLException e) {
+					System.out.println(e);
+				}
+				return v;
+			}
 }

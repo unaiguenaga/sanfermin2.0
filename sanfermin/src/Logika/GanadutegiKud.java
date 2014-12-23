@@ -164,4 +164,19 @@ public class GanadutegiKud {
 		return false;
 	}
 
+	public int getIdGanadutegia(String izena) {
+		int kodea =0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT id FROM ganadutegia WHERE arduraduna='"+izena+"'"+";");
+			while (rs.next()) {
+				int kode = rs.getInt("id");
+				kodea=kode;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return kodea;
+	}
+
 }

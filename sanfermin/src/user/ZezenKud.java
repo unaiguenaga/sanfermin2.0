@@ -32,7 +32,7 @@ public class ZezenKud  {
 	public void gehitu(int kodea, String izena, String jaiotzeData, String pisua, String altuera, String adarLuzera, String ganadutegiaKode) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO zezena set id=?, izena=?, jaiotzeData=?, pisua=?, altuera=?, adarrenLuzera=?, fk_ganadutegia=?";
-		String[] datuMotak={"Integer", "String", "String", "String", "String", "String", "String"};
+		String[] datuMotak={"int", "String", "String", "String", "String", "String", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={kodea, izena,jaiotzeData, pisua, altuera, adarLuzera, ganadutegiaKode};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -131,6 +131,7 @@ public class ZezenKud  {
 		int id = GanadutegiKud.getInstantzia().getId(arduraduna);
 		try {
 			ResultSet rs = dbk.execSQL("SELECT z.izena FROM zezena z INNER JOIN ganadutegia g ON z.fk_ganadutegia = g.id AND g.arduraduna= '"+arduraduna+"';");
+			//ResultSet rs = dbk.execSQL("SELECT izena FROM zezena WHERE fk_ganadutegia = '"+id+"';");
 			while (rs.next()) {
 				v.add(rs.getString("z.izena"));
 			}
@@ -139,5 +140,35 @@ public class ZezenKud  {
 			System.out.println(e);
 		}
 		return v;
+	}
+
+	public Vector<String> getZezenak(int ganadutegia, String data) {
+		Vector<String> v = new Vector<String>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT z.izena FROM zezena z, zezenaEntzierroa ze WHERE ze.fk_zezena != z.id AND z.fk_ganadutegia="+ganadutegia+" AND ze.fk_entzierroa='"+data+"'"+ "GROUP BY izena");
+			System.out.println("SELECT z.izena FROM zezena z , zezenaEntzierroa ze WHERE ze.fk_zezena != z.id AND fk_ganadutegia="+ganadutegia+" AND fk_entzierroa='"+data+"'"+ "GROUP BY izena;");
+			while (rs.next()) {
+				v.add(rs.getString("izena"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
+	
+	public int getZezena(int ganadutegia) {
+		int kodea = 0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT id FROM zezena WHERE fk_ganadutegia="+ganadutegia+";");
+			while (rs.next()) {
+				int zezen = rs.getInt("id");
+				kodea=zezen;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return kodea;
 	}
 }
