@@ -36,7 +36,6 @@ public class TratamenduKud {
 		Object[] datuakArrayObjects={data, botika, dosia, zezena};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 
 	//egiteke

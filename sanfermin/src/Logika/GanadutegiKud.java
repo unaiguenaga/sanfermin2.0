@@ -33,7 +33,6 @@ public class GanadutegiKud {
 		Object[] datuakArrayObjects={id, helbidea, izena, arduraduna, tlf};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 
 	public void ezabatu(int id) {
@@ -58,7 +57,6 @@ public class GanadutegiKud {
 		Object[] datuakArrayObjects={id,ard};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 	
 	public void aldatuTlf(int id, int tlf){
@@ -69,7 +67,6 @@ public class GanadutegiKud {
 		Object[] datuakArrayObjects={id,tlf};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 	
 	public void aldatuHelbidea(int id, String helb){
@@ -80,7 +77,6 @@ public class GanadutegiKud {
 		Object[] datuakArrayObjects={id,helb};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 	
 	public Vector<GanadutegiLag> getLag() {

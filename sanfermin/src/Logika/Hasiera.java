@@ -49,7 +49,6 @@ public class Hasiera extends JFrame {
 				erabTestua.setText("");
 				pasahitzaTestua.setText("");
 			}
-			System.out.println("Erabiltzailea: "+erabTestua.getText());	
 		}
 	}
 

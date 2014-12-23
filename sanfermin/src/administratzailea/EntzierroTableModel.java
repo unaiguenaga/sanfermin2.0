@@ -46,12 +46,6 @@ public class EntzierroTableModel extends AbstractTableModel{
 	}
 	
 	public boolean isCellEditable(int row, int col){
-		/*int ler = 0, zut = 3;
-		if (row >= ler && col >= zut){
-			return true;
-		}else{
-			return false;
-		}*/
 		return false;
 	}
 	

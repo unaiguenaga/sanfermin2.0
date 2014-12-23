@@ -94,7 +94,6 @@ public class SortuGanadutegia extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				gk.gehitu(Integer.parseInt(kodeTestua.getText()), izenTestua.getText(), arduradunBox.getSelectedItem().toString(), Integer.parseInt(tlfTestua.getText()), helbideTestua.getText());
 				AukeraAdmin.getInstantzia().gtm.eguneratu();
-				//AukeraAdmin.getInstantzia().tableGanadutegiak.repaint();
 				dispose();
 				
 			}

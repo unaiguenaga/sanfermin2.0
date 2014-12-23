@@ -105,17 +105,12 @@ public class AukeraUser extends JFrame {
 	///////Aldaketa///////
 	TratamenduTableModel ttm = new TratamenduTableModel();
 	TableDemo tableTratamenduak = new TableDemo(ttm);
-	////////////////////
-	/*
-	BotikaTableModel btm = new BotikaTableModel();
-	TableDemo tableBotikak = new TableDemo(btm);
-	*/
+	
 
 	JLabel hutsunea = new JLabel("     ");
 	JLabel hutsunea2 = new JLabel("     ");
 	
 	//Bozkaketa JList bidez egingo dira
-	//JTable tableBozkak = new JTable(new TaulaBozkaketa());
 
 	JMenuBar barra= new JMenuBar();
 	JMenu menua=new JMenu("Menua");
@@ -129,7 +124,6 @@ private static AukeraUser instantzia = new AukeraUser();
 	}
 	
 	public AukeraUser() {
-		//hasieratu();
 	}
 
 	public void main(String izena) {
@@ -187,16 +181,10 @@ private static AukeraUser instantzia = new AukeraUser();
 		aberealPanela.setLayout(new BoxLayout(aberealPanela, BoxLayout.Y_AXIS));
 		zezenPanela.setLayout(new BorderLayout());
 		joaldunPanela.setLayout(new BorderLayout());
-		//abereakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
-//		JScrollPane jScrollPane1 = new JScrollPane(tableZezenak);
-//		JScrollPane jScrollPane2 = new JScrollPane(tableJoaldunak);
+		
 		aberealPanela.add(tableZezenak);
 		aberealPanela.add(tableJoaldunak);
-//		zezenPanela.add(jScrollPane1);
-//		joaldunPanela.add(jScrollPane2);
-		///////////// Panelak bat bestearen gainean jarri///////////////
-		//abereakPestaña.add(zezenPanela, BorderLayout.WEST);
-		//abereakPestaña.add(joaldunPanela);
+//		
 		abereakPestaña.add(aberealPanela);
 		abereakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
 		////////////////////////////////////////////////////////////////7
@@ -224,8 +212,7 @@ private static AukeraUser instantzia = new AukeraUser();
 		
 		///////Aldaketa
 		JScrollPane jScrollPane3=new JScrollPane(tableTratamenduak);
-		/////////////
-		//JScrollPane jScrollPane3=new JScrollPane(tableBotikak);
+	
 		botikaPanela.add(jScrollPane3);
 		botikaPestaña.add(botikaPanela);
 		botikaPestaña.add(eskumakoPanela3, BorderLayout.EAST);
@@ -250,8 +237,6 @@ private static AukeraUser instantzia = new AukeraUser();
 		for (int i = 0; i < vIzenak.size(); i++) {
 			modeloaEzkerra.addElement(vIzenak.get(i));
 		}
-		//modeloaEzkerra = gk.kargatuModeloa(modeloaEzkerra, vIzenak);
-		System.out.println("Erab: "+erabiltzaileIzena);
 		modeloaEskuina = bk.kargatuModeloa(erabiltzaileIzena);
 		bozkatuEzkerra.setModel(modeloaEzkerra);
 		bozkatuEskuina.setModel(modeloaEskuina);
@@ -259,7 +244,6 @@ private static AukeraUser instantzia = new AukeraUser();
 		botikaPanela.add(tableTratamenduak);
 		////////////////////
 		
-		//botikaPanela.add(tableBotikak);
 		botikaPestaña.add(botikaPanela);
 		eskumakoPanela4.setLayout(new BoxLayout(eskumakoPanela4, BoxLayout.Y_AXIS));
 		eskumakoPanela4.add(Box.createVerticalGlue());
@@ -272,11 +256,8 @@ private static AukeraUser instantzia = new AukeraUser();
 		bozkatuEzkerra.setLayout(new BorderLayout());
 		bozkatuEskuina.setLayout(new BorderLayout());
 		
-		//bozkaTaulaPanela.add(tableBozkak);
 		bozkatuTaulaEzkerra.add(bozkatuEzkerra);
 		bozkatuTaulaEskuina.add(bozkatuEskuina);
-		//bozkaTaulaPanela.add(bozkatuEzkerra, BorderLayout.WEST);
-		//bozkaTaulaPanela.add(bozkatuEskuina);
 		bozkatuPestaña.add(bozkatuTaulaEzkerra, BorderLayout.WEST);
 		bozkatuPestaña.add(bozkatuTaulaEskuina, BorderLayout.CENTER);
 		
@@ -328,11 +309,8 @@ private static AukeraUser instantzia = new AukeraUser();
 					modeloaEzkerra.removeElementAt(indizea);
 					bozkatuEzkerra.setModel(modeloaEzkerra);
 
-					System.out.println("indizea :"+indizea);
+
 					
-//					if(indizea!=-1){
-//						bozkatuEzkerra.remove(indizea);
-//					}
 				}	
 			}
 		});

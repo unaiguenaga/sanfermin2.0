@@ -99,8 +99,7 @@ public class BotoKud {
 				ResultSet rs = dbk
 						.execSQL("SELECT id FROM ganadutegia WHERE arduraduna='"
 								+ izena + "'");
-				System.out.println("SELECT id FROM ganadutegia WHERE arduraduna='"
-								+ izena + "'");
+				
 				int id =0;
 				try {
 					while (rs.next()) {

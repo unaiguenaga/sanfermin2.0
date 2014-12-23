@@ -28,8 +28,6 @@ public class JoaldunKud  {
 
 	
 	public void gehituJoalduna(int kodea, String jaiotzeData, String pisua, String altuera, String kolorea, String ganadutegiaKode) {
-//		dbk.execSQL("INSERT INTO Joalduna (id, jaiotzeData, pisua, altuera,adarrenLuzera, fk_ganadutegia) VALUES  ('" + kodea + "', '" + jaiotzeData
-//				+ "', '" + pisua + "', '" + altuera + "', '" + kolorea + "', '" + ganadutegiaKode +"');");
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO joalduna set id=?, jaiotzeData=?, pisua=?, altuera=?, adarrenLuzera=?, fk_ganadutegia=?";
 		String[] datuMotak={"int", "String", "String", "String", "String", "String"};
@@ -37,7 +35,6 @@ public class JoaldunKud  {
 		Object[] datuakArrayObjects={kodea, jaiotzeData, pisua, altuera, kolorea, ganadutegiaKode};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 
 	

@@ -35,7 +35,6 @@ public class BotikaKud  {
 		Object[] datuakArrayObjects={kodea, izena};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 
 	

@@ -85,8 +85,6 @@ public class PasahitzaAldatu extends JFrame {
 				
 				public void actionPerformed(ActionEvent e) {
 					ErabiltzaileKudeatzailea era = ErabiltzaileKudeatzailea.getInstantzia();
-					System.out.println(jtPasBerria.getText().toString());
-					System.out.println(jtPasBerriaKonprobatu.getText());
 					if(era.konprobatuPasahitzaEtaErabiltzailea(jtErabIzena.getText(), jtPasZahar.getText())){
 						if(jtPasBerria.getText().equals(jtPasBerriaKonprobatu.getText())){
 							JOptionPane.showMessageDialog(null,
@@ -111,7 +109,6 @@ public class PasahitzaAldatu extends JFrame {
 						errorea.pasahitza();
 						dispose();
 						Hasiera.bistaratu();
-						System.out.println("2");
 
 					}
 				}

@@ -236,7 +236,6 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//GanadutegiaAldatu.main(null);
 				new GanadutegiaAldatu(tableGanadutegiak.getTable().getSelectedRow());
 			}
 		});

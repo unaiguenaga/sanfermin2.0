@@ -33,9 +33,6 @@ public class EntzierroKud {
 	}
 
 	public void gehitu(String id, float luzera, int ganadutegia) {
-//		dbk.execSQL("INSERT INTO entzierroa (id, luzera, fk_ganadutegia) VALUES ('" + id + "', '" + luzera + "', '"
-//				+ ganadutegia + "');");
-//		
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO entzierroa set id=?, luzera=? ,fk_ganadutegia=?";
 		String[] datuMotak={"String", "float", "int"};

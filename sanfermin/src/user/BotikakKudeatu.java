@@ -56,16 +56,9 @@ public class BotikakKudeatu  extends JFrame{
 	
 	
 	public BotikakKudeatu(String erabIzena) {
-		////////////////////////// Zezenak eta Botikak kargatu /////////////////////////////////
-		//db.zenzenakKargartu();
-		//db.joaldunakKargartu();
-		//db.botikakKargatu();
-		//db.tratamenduakKargartu();
-		///////////////////////////////////////////////////////////////////////////////////////
-		System.out.println("ErabIzena: " +erabIzena);
+		
 		erabiltzailea = erabIzena;
 		cbZezena = new JComboBox(ZezenKud.getInstantzia().getIzenak(erabIzena));
-		System.out.println("Bilatzen duena: "+AukeraUser.getInstantzia().getErabiltzaileIzana());
 		gridBagHasieratu();
 		setTitle("Tratamendu berria gehitu");
 		setVisible(true);
