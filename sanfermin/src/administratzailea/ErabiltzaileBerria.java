@@ -86,33 +86,36 @@ public class ErabiltzaileBerria extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ErabiltzaileKudeatzailea erab=ErabiltzaileKudeatzailea.getInstantzia();
-				if(erab.existitzenDa(erabTestua.getText())){
-					JOptionPane.showMessageDialog(null,
-							"Erabiltzaile izen hori jadanik existitzen da, berriro saiatu zaitez beste izen batekin. ", "Izen errepikatua",
-							JOptionPane.ERROR_MESSAGE);
-					erabTestua.setText("");
-					pasahitzaTestua.setText("");
-					tpasahitzaBerriz.setText("");
-				}
-				else if(pasahitzaTestua.getText().equals(tpasahitzaBerriz.getText())){
-					dispose();
-					JOptionPane.showMessageDialog(null,
-							"Erabiltzaile berria sortu da. ", "Erabiltzailea gehituta",
-							JOptionPane.INFORMATION_MESSAGE);
-					new SortuGanadutegia(erabTestua.getText(), pasahitzaTestua.getText());				
-				}else{
-					JOptionPane.showMessageDialog(null,
-							"Pasahitz berriak ez dira berdinak, berriro saiatu zaitez. ", "Desberdinak",
-							JOptionPane.ERROR_MESSAGE);
-					erabTestua.setText("");
-					pasahitzaTestua.setText("");
-					tpasahitzaBerriz.setText("");
-				}
-				}
+				sortu(erabTestua.getText(),pasahitzaTestua.getText(),tpasahitzaBerriz.getText());
+			}
 		});
 		
 	
+	}
+	public void sortu(String erabiltzailea, String pasahitza, String pasahitzKonpr){
+		ErabiltzaileKudeatzailea erab=ErabiltzaileKudeatzailea.getInstantzia();
+		if(erab.existitzenDa(erabiltzailea)){
+			JOptionPane.showMessageDialog(null,
+					"Erabiltzaile izen hori jadanik existitzen da, berriro saiatu zaitez beste izen batekin. ", "Izen errepikatua",
+					JOptionPane.ERROR_MESSAGE);
+			erabTestua.setText("");
+			pasahitzaTestua.setText("");
+			tpasahitzaBerriz.setText("");
+		}
+		else if(pasahitza.equals(pasahitzKonpr)){
+			dispose();
+			JOptionPane.showMessageDialog(null,
+					"Erabiltzaile berria sortu da. ", "Erabiltzailea gehituta",
+					JOptionPane.INFORMATION_MESSAGE);
+			new SortuGanadutegia(erabiltzailea, pasahitza);				
+		}else{
+			JOptionPane.showMessageDialog(null,
+					"Pasahitz berriak ez dira berdinak, berriro saiatu zaitez. ", "Desberdinak",
+					JOptionPane.ERROR_MESSAGE);
+			erabTestua.setText("");
+			pasahitzaTestua.setText("");
+			tpasahitzaBerriz.setText("");
+		}
 	}
 
 	private void gehituOsagaia(Component osagaia, int errenkada, int zutabea, int zabalera, int altuera) {
