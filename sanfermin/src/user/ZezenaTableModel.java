@@ -75,4 +75,9 @@ public class ZezenaTableModel extends AbstractTableModel{
 		data.addElement(lag);
 		fireTableDataChanged();
 	}
+	public void eguneratu(){
+		this.data = new Vector<ZezenLag>();
+		this.kargatu();
+		fireTableDataChanged();
+	}
 }

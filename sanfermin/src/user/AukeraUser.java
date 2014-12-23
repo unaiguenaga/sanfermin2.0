@@ -35,6 +35,7 @@ import Logika.Leihoak;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
+import Logika.ZezenEntzierroKud;
 import Logika.ZezenEntzierroTableModel;
 import administratzailea.AukeraAdmin;
 import administratzailea.EntzierroTableModel;
@@ -46,8 +47,8 @@ import administratzailea.GehituAbereak;
 public class AukeraUser extends JFrame {
 
 	private String erabiltzaileIzena;
-
-	JButton bAbereaEzabatu = new JButton("Aberea Ezabatu");
+	JButton bZezenEzabatu = new JButton("Zezena Ezabatu");
+	JButton bJoaldunaEzabatu = new JButton("Joalduna Ezabatu");
 	JButton bAbereaGehitu = new JButton("Aberea Gehitu");
 	JButton bGehituZezena = new JButton("Gehitu Zezena");
 	JButton bZezenaEzabatu = new JButton("Ezabatu Zezena");
@@ -116,7 +117,7 @@ public class AukeraUser extends JFrame {
 	ZezenEntzierroTableModel zetm;
 	// ///////////////////////////////
 
-	ZezenaTableModel ztm;
+	public ZezenaTableModel ztm;
 	TableDemo tableZezenak;
 
 	JoaldunTableModel jtm;
@@ -218,8 +219,11 @@ public class AukeraUser extends JFrame {
 
 		eskumakoPanela1.setLayout(new BoxLayout(eskumakoPanela1,
 				BoxLayout.Y_AXIS));
+		
 		eskumakoPanela1.add(Box.createVerticalGlue());
-		eskumakoPanela1.add(bAbereaEzabatu);
+		eskumakoPanela1.add(bZezenEzabatu);
+		eskumakoPanela1.add(hutsunea);
+		eskumakoPanela1.add(bJoaldunaEzabatu);
 		eskumakoPanela1.add(hutsunea2);
 		eskumakoPanela1.add(bAbereaGehitu);
 		eskumakoPanela1.add(Box.createVerticalGlue());
@@ -229,13 +233,12 @@ public class AukeraUser extends JFrame {
 				.getDataEntzierro(erabiltzaileIzena));
 		final ZezenEntzierroTableModel zetm = new ZezenEntzierroTableModel(
 				(String) dataCombo.getSelectedItem());
-		TableDemo tableZezenaEntzierro = new TableDemo(zetm);
+		final TableDemo tableZezenaEntzierro = new TableDemo(zetm);
 		dataCombo.setSize(10, 20);
 		zezenEntzierroCombo.setLayout(new GridLayout(10, 0));
 		zezenEntzierro
 				.setLayout(new BoxLayout(zezenEntzierro, BoxLayout.Y_AXIS));
-		// zezenEntzierro.setLayout(new BoxLayout(zezenEntzierro,
-		// BoxLayout.Y_AXIS));
+		
 		zezenEntzierro.add(dataCombo);
 		zezenEntzierro.setBorder(BorderFactory
 				.createTitledBorder("Entzierroak"));
@@ -295,16 +298,58 @@ public class AukeraUser extends JFrame {
 		bozkatuPestaña.add(botoakErd);
 		bozkatuPestaña.add(botoakEsk);
 		bozkatuPestaña.add(Box.createVerticalGlue());
-
-		bAbereaEzabatu.addActionListener(new ActionListener() {
-
+		
+				
+		bZezenaEzabatu.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				ZezenEntzierroKud.getInstantzia().ezabatu(zetm.getValueAt(tableZezenaEntzierro.getTable().getSelectedRow(), 3).toString());
 			}
 		});
 
+		
+		bZezenEzabatu.setEnabled(false);
+		tableZezenak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				bZezenEzabatu.setEnabled(true);
+			}
+		});
+		bZezenEzabatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int id = ZezenKud.getInstantzia().getId().get(tableZezenak.getTable().getSelectedRow());
+				ZezenKud.getInstantzia().ezabatu(id);
+				ztm.eguneratu();
+				bZezenEzabatu.setEnabled(false);
+
+			}
+		});
+		bJoaldunaEzabatu.setEnabled(false);
+		tableJoaldunak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				bJoaldunaEzabatu.setEnabled(true);
+				
+			}
+		});
+		bJoaldunaEzabatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int id2 = JoaldunKud.getInstantzia().getKod().get(tableJoaldunak.getTable().getSelectedRow());
+				System.out.println(id2);
+				JoaldunKud.getInstantzia().ezabatu(id2);
+				jtm.eguneratu();
+				bJoaldunaEzabatu.setEnabled(false);
+
+			}
+		});
+		
 		bAbereaGehitu.addActionListener(new ActionListener() {
 
 			@Override
@@ -330,21 +375,14 @@ public class AukeraUser extends JFrame {
 			}
 		});
 
-		// bEntzierroaAldatu.setEnabled(false);
-		// tableEntzierroak.getTable().getSelectionModel().addListSelectionListener(new
-		// ListSelectionListener() {
-		//
-		// @Override
-		// public void valueChanged(ListSelectionEvent e) {
-		// bEntzierroaAldatu.setEnabled(true);
-		// }
-		// });
+		
 		botatu.setEnabled(false);
 		t1.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				botatu.setEnabled(true);
+				if(t2.getTable().getRowCount()!=3)
+					botatu.setEnabled(true);
 				
 			}
 		});
@@ -367,10 +405,12 @@ public class AukeraUser extends JFrame {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				ezeztatu.setEnabled(true);
-				if (btmEsk.getRowCount()==3)
+				if (btmEsk.getRowCount()==3){
 					botoaEman.setEnabled(true);
-				else
+
+				}else{
 					botoaEman.setEnabled(false);
+				}
 			}
 		});
 		ezeztatu.addActionListener(new ActionListener() {
@@ -378,7 +418,9 @@ public class AukeraUser extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				btmEzk.gehitu(btmEsk.kendu(t2.getTable().getSelectedRow()));
-				ezeztatu.setEnabled(false);
+				if(t2.getTable().getRowCount()!=3)
+					ezeztatu.setEnabled(false);
+
 			}
 		});
 		botoaEman.setEnabled(false);
@@ -393,5 +435,12 @@ public class AukeraUser extends JFrame {
 				leihoa.erroreaBozkaketa(gordeDa);
 			}
 		});
+	}
+
+	public void eguneratu(String zeinData) {
+		zetm.eguneratu(zeinData);
+		zetm.kargatu(zeinData);	
+		zetm.fireTableDataChanged();
+		
 	}
 }

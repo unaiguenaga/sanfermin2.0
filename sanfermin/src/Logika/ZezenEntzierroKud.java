@@ -43,7 +43,8 @@ public class ZezenEntzierroKud {
 				+ "')");
 	}
 
-	private void ezabatu(Date data) {
+	public void ezabatu(String data) {
+		System.out.println("DELETE FROM zezenaEntzierroa WHERE fk_entzierroa='" + data + "';");
 		dbk.execSQL("DELETE FROM zezenaEntzierroa WHERE fk_entzierroa='" + data + "';");
 		
 	}

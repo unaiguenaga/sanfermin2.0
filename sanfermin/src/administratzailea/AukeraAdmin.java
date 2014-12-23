@@ -137,6 +137,7 @@ public class AukeraAdmin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ErabiltzaileaKendu.main(null);
 				
+				
 			}
 		});
 		

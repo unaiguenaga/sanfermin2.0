@@ -115,7 +115,9 @@ public class ErabiltzaileaKendu extends JFrame{
 					pasahitzaTestua.setText("");
 					tpasahitzaBerriz.setText("");
 				}
+				AukeraAdmin.getInstantzia().gtm.eguneratu();
 				}
+				
 		});
 	}
 

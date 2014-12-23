@@ -60,14 +60,17 @@ public class ZezenEntzierroTableModel extends AbstractTableModel {
 	}
 	
 	public void eguneratu(String zeinData){
-		this.data = new Vector<ZezenEntzierroLag>();
-		this.kargatu(zeinData);
-		this.fireTableDataChanged();
+		System.out.println(zeinData);
+		data = new Vector<ZezenEntzierroLag>();
+		System.out.println(data.get(0));
+		//kargatu(zeinData);
+		//fireTableDataChanged();
 	}
 
 	public void kargatu(String zeinData) {
 		Vector<ZezenEntzierroLag> v3 = zek.getLag(zeinData);
 		for (int i = 0; i <= v3.size() - 1; i++) {
+			System.out.println(i);
 			data.addElement(v3.elementAt(i));
 		}
 	}

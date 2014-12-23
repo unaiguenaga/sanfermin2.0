@@ -21,7 +21,7 @@ import Logika.ErabiltzaileKudeatzailea;
 import Logika.GanadutegiKud;
 
 public class GanadutegiaAldatu extends JFrame {
-	JLabel arduraduna = new JLabel("Arduradun berria:");
+	JLabel arduraduna = new JLabel("Izen berria:");
 	JLabel tlf = new JLabel("Telefono berria:");
 	JLabel helbide = new JLabel("Helbide berria:");
 	JTextField arduradunaTestua = new JTextField(10);

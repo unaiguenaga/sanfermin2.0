@@ -88,13 +88,19 @@ public class BotoTableModel extends AbstractTableModel{
 				data.addElement(v1.elementAt(i));
 			}	
 		}
+		else{
+			Vector<BotoLag> v1 = gk.BotoLagEskuina(AukeraUser.getInstantzia().getErabiltzaileIzana());
+			for (int i = 0; i<=v1.size()-1; i++){
+				data.addElement(v1.elementAt(i));
+			}
+		}
 	}
 	
 	public void gehitu(BotoLag lag){
 		
-		System.out.println("Gehitu aurretik: "+data.size());
+		//System.out.println("Gehitu aurretik: "+data.size());
 		data.addElement(lag);
-		System.out.println("Gehitu eta gero: "+data.size());
+		//System.out.println("Gehitu eta gero: "+data.size());
 		fireTableDataChanged();
 	}
 	

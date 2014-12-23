@@ -72,4 +72,10 @@ public class JoaldunTableModel extends AbstractTableModel{
 		data.addElement(lag);
 		fireTableDataChanged();
 	}
+	
+	public void eguneratu(){
+		data = new Vector<JoaldunLag>();
+		kargatu();
+		fireTableDataChanged();
+	}
 }

@@ -84,11 +84,14 @@ public class GehituZezena extends JFrame {
 				}
 				java.sql.Date data = new java.sql.Date(date.getTime());
 				String zezena = (String) zezenak.getSelectedItem();
-				ZezenEntzierroKud.getInstantzia().gehitu("bai",denbora, ZezenKud.getInstantzia().getZezena(kode,zezena), data);
-				AukeraUser.getInstantzia().zetm.eguneratu(zeinData);
+				ZezenEntzierroKud.getInstantzia().gehitu("bai",denbora, ZezenKud.getInstantzia().getZezena(kode,zezena), data);		
+//				AukeraUser.getInstantzia().eguneratu(zeinData);
 				dispose();
 			}
-		});
+
+					
+
+			});
 
 	}
 

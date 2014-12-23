@@ -39,9 +39,9 @@ public class JoaldunKud  {
 	}
 
 	
-	private void ezabatu(int kodea) {
+	public void ezabatu(int kodea) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "DELETE FROM Joalduna WHERE kodea=?";
+		String kontsulta = "DELETE FROM Joalduna WHERE id=?";
 		String[] datuMotak={"Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={kodea};
@@ -74,9 +74,9 @@ public class JoaldunKud  {
 	public Vector<Integer> getKod() {
 		Vector<Integer> v = new Vector<Integer>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT kodea FROM Joalduna;");
+			ResultSet rs = dbk.execSQL("SELECT id FROM Joalduna;");
 			while (rs.next()) {
-				v.add(rs.getInt("kodea"));
+				v.add(rs.getInt("id"));
 			}
 			rs.close();
 		} catch (SQLException e) {

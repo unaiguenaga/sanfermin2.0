@@ -40,10 +40,10 @@ public class ZezenKud  {
 	}
 	
 
-	private void ezabatu(int kodea) {
+	public void ezabatu(int kodea) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "DELETE FROM zezena WHERE kodea=?";
-		String[] datuMotak={"int"};
+		String kontsulta = "DELETE FROM zezena WHERE id=?";
+		String[] datuMotak={"Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={kodea};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -172,4 +172,38 @@ public class ZezenKud  {
 		}
 		return kodea;
 	}
+	public boolean existitzenDa(String kodea) {
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "SELECT * FROM zezena WHERE id='"
+				+ kodea+ "'";
+		ResultSet rs = dbk.execSQL(kontsulta);
+		try {
+			while (rs.next()) {
+				String id = rs.getString("id");
+				if (kodea.equals(id))
+					return true;
+				else
+					return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public String getGanadutegia(String erab){
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "select id from ganadutegia where arduraduna='"+erab+"'";
+		ResultSet rs = dbk.execSQL(kontsulta);
+		String emaitza=null;
+		try {
+			rs.next();
+			emaitza = rs.getString("id");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return emaitza;
+	}
+	
 }
