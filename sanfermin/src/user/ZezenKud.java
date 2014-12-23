@@ -146,7 +146,6 @@ public class ZezenKud  {
 		Vector<String> v = new Vector<String>();
 		try {
 			ResultSet rs = dbk.execSQL("SELECT z.izena FROM zezena z, zezenaEntzierroa ze WHERE ze.fk_zezena != z.id AND z.fk_ganadutegia="+ganadutegia+" AND ze.fk_entzierroa='"+data+"'"+ "GROUP BY izena");
-			System.out.println("SELECT z.izena FROM zezena z , zezenaEntzierroa ze WHERE ze.fk_zezena != z.id AND fk_ganadutegia="+ganadutegia+" AND fk_entzierroa='"+data+"'"+ "GROUP BY izena;");
 			while (rs.next()) {
 				v.add(rs.getString("izena"));
 			}

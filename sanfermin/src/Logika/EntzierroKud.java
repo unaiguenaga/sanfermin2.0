@@ -42,7 +42,6 @@ public class EntzierroKud {
 		Object[] datuakArrayObjects={id, luzera, ganadutegia};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
 		dbk.filter(kontsulta, bektorea, datuak);
-		System.out.println(kontsulta);
 	}
 
 	public void ezabatu(String id) {
@@ -126,7 +125,6 @@ public class EntzierroKud {
 			public Vector<String> getDataEntzierro(String izena) {
 				
 				ResultSet rs1 = dbk.execSQL("SELECT id FROM ganadutegia WHERE arduraduna='"+izena+"'");
-				System.out.println("Arduradun: "+"SELECT id FROM ganadutegia WHERE arduraduna='"+izena+"'");
 				int kodea = 0;
 				try {
 					while(rs1.next()){
@@ -141,7 +139,6 @@ public class EntzierroKud {
 				Vector<String> v = new Vector<String>();
 				try {
 					ResultSet rs = dbk.execSQL("SELECT id FROM entzierroa WHERE fk_ganadutegia="+kodea+";");
-					System.out.println("Entzierroa: "+"SELECT id FROM entzierroa WHERE fk_ganadutegia="+kodea+";");
 					while (rs.next()) {
 						v.add(rs.getString("id"));
 					}

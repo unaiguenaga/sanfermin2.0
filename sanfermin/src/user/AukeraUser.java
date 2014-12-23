@@ -132,7 +132,6 @@ public class AukeraUser extends JFrame {
 
 	public void main(String izena) {
 		erabiltzaileIzena = izena;
-		System.out.println("User:" + erabiltzaileIzena);
 		hasieratu();
 		setTitle("San Ferminen kudeaketa ERABILTZAILEA: " + izena);
 		setVisible(true);
@@ -319,7 +318,6 @@ public class AukeraUser extends JFrame {
 					// eskuinekoan sartzen du.
 
 					String aukera = (String) bozkatuEzkerra.getSelectedValue();
-					System.out.println("aukeratu: " + aukera);
 					int indizea = bozkatuEzkerra.getSelectedIndex();
 
 					modeloaEskuina.addElement(aukera);

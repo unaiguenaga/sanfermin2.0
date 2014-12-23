@@ -42,7 +42,6 @@ public class GanadutegiKud {
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		System.out.println(bektorea + " "+ datuak);
 		dbk.filter(kontsulta, bektorea, datuak);
 	}
 
@@ -112,7 +111,6 @@ public class GanadutegiKud {
 		Vector<String> v = new Vector<String>();
 		try {
 			ResultSet rs = dbk.execSQL("SELECT izena FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
-			System.out.println("SELECT izena FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
 			while (rs.next()) {
 				v.add(rs.getString("izena"));
 			}
