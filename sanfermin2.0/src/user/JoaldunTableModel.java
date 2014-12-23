@@ -4,15 +4,15 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import Logika.ZezenEntzierroLag;
-
 public class JoaldunTableModel extends AbstractTableModel{
+	private static String erabiltzailea=null;
 	
 	private Vector<String> columNames = new Vector<String>();
 	private JoaldunKud jk = JoaldunKud.getInstantzia();
 	private Vector<JoaldunLag> data = new Vector<JoaldunLag>();
 
-	public JoaldunTableModel() {
+	public JoaldunTableModel(String erabiltzaileIzena) {
+		erabiltzailea = erabiltzaileIzena;
 		hasieratuZutabeIzenak();
 		kargatu();
 		
@@ -61,7 +61,7 @@ public class JoaldunTableModel extends AbstractTableModel{
 	}
 	
 	public void kargatu(){
-		Vector<JoaldunLag> v1 = jk.getLag();
+		Vector<JoaldunLag> v1 = jk.getLag(erabiltzailea);
 		for (int i = 0; i<=v1.size()-1; i++){
 			data.addElement(v1.elementAt(i));
 		}
@@ -72,9 +72,10 @@ public class JoaldunTableModel extends AbstractTableModel{
 		data.addElement(lag);
 		fireTableDataChanged();
 	}
+	
 	public void eguneratu(){
-		this.data = new Vector<JoaldunLag>();
-		this.kargatu();
-		this.fireTableDataChanged();
+		data = new Vector<JoaldunLag>();
+		kargatu();
+		fireTableDataChanged();
 	}
 }

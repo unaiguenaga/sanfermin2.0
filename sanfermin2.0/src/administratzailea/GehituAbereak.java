@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class GehituAbereak extends JFrame {
-	private static String erabiltzailea=null;
 
+	private static String erabiltzailea=null;
 	JButton zezena = new JButton("Zezena");
 	JButton joalduna = new JButton("Joalduna");
 	private GridBagLayout eskema;
@@ -30,8 +30,8 @@ public class GehituAbereak extends JFrame {
 
 	}
 
-	public static void main(String erabiltzaileIzena) {
-		erabiltzailea=erabiltzaileIzena;
+	public static void main(String erab) {
+		erabiltzailea=erab;
 		GehituAbereak hasiera = new GehituAbereak();
 		hasiera.setTitle("Gehitu Aberea");
 		hasiera.setVisible(true);

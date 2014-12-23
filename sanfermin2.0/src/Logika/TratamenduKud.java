@@ -47,10 +47,11 @@ public class TratamenduKud {
 		dbk.execSQL("DELETE FROM tratamendua;");
 	}
 
-	public Vector<TratamenduLag> getLag() {
+	public Vector<TratamenduLag> getLag(String erabiltzailea) {
+		int kodea = GanadutegiKud.getInstantzia().getId(erabiltzailea);
 		Vector<TratamenduLag> v = new Vector<TratamenduLag>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM tratamendua;");
+			ResultSet rs = dbk.execSQL("SELECT data,fk_botika,dosia,fk_zezena FROM tratamendua WHERE fk_zezena IN (SELECT id FROM zezena WHERE fk_ganadutegia="+kodea+");");
 			while (rs.next()) {
 				v.add(new TratamenduLag(getIzena(rs.getInt("fk_botika")), rs.getFloat("dosia"), ZezenKud.getInstantzia().getIzena(rs.getInt("fk_zezena")) ,rs.getDate("data"),rs.getInt("fk_zezena") ,rs.getInt("fk_botika")));
 			}

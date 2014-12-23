@@ -68,7 +68,7 @@ public class sortuErabiltzaileTest {
 			lag = rs.getString("pasahitza");
 		} catch (SQLException e) {
 		}
-		assertEquals(null, lag); //ezin bai da erabiltzailea ganadutegi gabe sortu.
+		assertEquals("palotes", lag);
 		dbk.execSQL(ezabatzeko);
 
 		eb.sortu(erab2, pasahitza2, pasahitzaKonpr2);

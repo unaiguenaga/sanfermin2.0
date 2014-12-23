@@ -62,13 +62,16 @@ public class BotoKud {
 	// Hiru boto edo gutxiago badira eta erabiltzaileak aurten ez badu botoa eman, botoak datubasean gordeko dira.
 	public int botoakGorge(String emailea, Vector<BotoLag> vHartzaileak){
 		int e = GanadutegiKud.getInstantzia().getId(emailea);
+		System.out.println(vHartzaileak.get(0).getIzena());
+		System.out.println(vHartzaileak.get(1).getIzena());
+		System.out.println(vHartzaileak.get(2).getIzena());
 		if(vHartzaileak.size()<4){
 			if(!aurtenBotatuDu(e)){
 				for(int i = 0; i < vHartzaileak.size(); i++){
 					dbk.execSQL("INSERT INTO botoak (fk_emailea, fk_hartzailea, data) VALUES  ('"
 							+ e + "', '" + vHartzaileak.get(i).getId() + "', DATE(NOW()));");
-					return 0;
 				}
+				return 0;
 			}
 			return 1;
 		}

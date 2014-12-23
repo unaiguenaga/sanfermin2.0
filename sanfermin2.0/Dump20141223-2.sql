@@ -108,8 +108,8 @@ CREATE TABLE `botoak` (
   `data` date NOT NULL,
   PRIMARY KEY (`fk_emailea`,`fk_hartzailea`,`data`),
   KEY `fk_botoak_2_idx` (`fk_hartzailea`),
-  CONSTRAINT `fk_botoak_1` FOREIGN KEY (`fk_emailea`) REFERENCES `ganadutegia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_botoak_2` FOREIGN KEY (`fk_hartzailea`) REFERENCES `ganadutegia` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_botoak_1` FOREIGN KEY (`fk_emailea`) REFERENCES `ganadutegia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_botoak_2` FOREIGN KEY (`fk_hartzailea`) REFERENCES `ganadutegia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -119,6 +119,7 @@ CREATE TABLE `botoak` (
 
 LOCK TABLES `botoak` WRITE;
 /*!40000 ALTER TABLE `botoak` DISABLE KEYS */;
+INSERT INTO `botoak` VALUES (1,2,'2014-12-23');
 /*!40000 ALTER TABLE `botoak` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,8 +245,8 @@ CREATE TABLE `tratamendua` (
   PRIMARY KEY (`data`,`fk_botika`,`fk_zezena`),
   KEY `fk_tratamendua_1_idx` (`fk_zezena`),
   KEY `fk_tratamendua_2_idx` (`fk_botika`),
-  CONSTRAINT `fk_tratamendua_2` FOREIGN KEY (`fk_botika`) REFERENCES `botika` (`kodea`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_tratamendua_1` FOREIGN KEY (`fk_zezena`) REFERENCES `zezena` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_tratamendua_1` FOREIGN KEY (`fk_zezena`) REFERENCES `zezena` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_tratamendua_2` FOREIGN KEY (`fk_botika`) REFERENCES `botika` (`kodea`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -327,4 +328,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-23 11:29:52
+-- Dump completed on 2014-12-23 14:52:46

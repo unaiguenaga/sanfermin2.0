@@ -96,11 +96,11 @@ public class SortuZezena extends JFrame {
 		gehitu.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+public void actionPerformed(ActionEvent e) {
 				
 				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 				String data = formato.format(jaiotzeTestua.getDate());
-				String ganadutegiKod = ZezenKud.getInstantzia().getGanadutegia(erabiltzailea);
+				int ganadutegiKod = ZezenKud.getInstantzia().getGanadutegia(erabiltzailea);
 				
 				sortu(Integer.parseInt(kodeTestua.getText()), izenatestua.getText(), data, pisuaTestua.getText(), 
 						altueraTestua.getText(), adarTestua.getText(), ganadutegiKod);
@@ -122,10 +122,10 @@ public class SortuZezena extends JFrame {
 
 	}
 	
-	public void sortu(int kod, String izena, String jaiotzeData, String pisua, String altuera, String adarluzera, String ganaduKod){
+	public void sortu(int kod, String izena, String jaiotzeData, String pisua, String altuera, String adarluzera, int ganaduKod){
 		ZezenKud zk = ZezenKud.getInstantzia();
 		String kodigu = ""+kod;
-		if(zk.existitzenDa(kodigu)){
+		if(zk.existitzenDaZezena(kodigu)){
 			JOptionPane.showMessageDialog(null,
 					"Zezenaren kode hori jadanik existitzen da, saia zaitez berriro beste kode batekin. ", "Kode errepikatua",
 					JOptionPane.ERROR_MESSAGE);
@@ -135,7 +135,7 @@ public class SortuZezena extends JFrame {
 					this.pisuaTestua.setText("");
 					this.altueraTestua.setText("");
 		}else{
-			zk.gehitu(kod, izena, jaiotzeData, pisua, altuera, adarluzera, ganaduKod);
+			zk.gehitu(kod, izena, jaiotzeData, Float.parseFloat(pisua), Float.parseFloat(altuera), Float.parseFloat(adarluzera), ganaduKod);
 			dispose();
 			JOptionPane.showMessageDialog(null, "Zezena gehitu da.");
 			AukeraUser.getInstantzia().ztm.eguneratu();

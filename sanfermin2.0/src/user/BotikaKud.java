@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import Logika.DBKudeatzaile;
-import Logika.ErabiltzaileKudeatzailea;
 
 public class BotikaKud  {
 
@@ -28,24 +27,12 @@ public class BotikaKud  {
 
 	
 	public void gehituBotika(int kodea, String izena) {
-		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "INSERT INTO botika set kodea=?, izena=?";
-		String[] datuMotak={"Integer", "String"};
-		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
-		Object[] datuakArrayObjects={kodea, izena};
-		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		dbk.filter(kontsulta, bektorea, datuak);
+		dbk.execSQL("INSERT INTO botika (kodea, izena) VALUES  ('" + kodea + "', '" + izena+"');");
 	}
 
 	
 	public void ezabatu(int kodea) {
-		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "DELETE FROM botika WHERE kodea=?";
-		String[] datuMotak={"Integer"};
-		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
-		Object[] datuakArrayObjects={kodea};
-		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		dbk.filter(kontsulta, bektorea, datuak);
+		dbk.execSQL("DELETE FROM botika WHERE kodea='" + kodea + "';");
 	}
 
 	
@@ -98,7 +85,7 @@ public class BotikaKud  {
 
 	public void gordeDBan(Vector<BotikaLag> datuak) {
 		for (int i = 0; i<datuak.size();i++){
-			dbk.execSQL("UPDATE botika SET izena='"+datuak.get(i).getIzena()+"' WHERE kodea='"+datuak.get(i).getKodea()+"';");
+			ResultSet rs = dbk.execSQL("UPDATE `sanfermin`.`botika` SET `izena`='"+datuak.get(i).getIzena()+"' WHERE `kodea`='"+datuak.get(i).getKodea()+"';");
 		}
 	}
 	

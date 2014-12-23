@@ -3,9 +3,9 @@ package Logika;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import user.BotoLag;
 
 import Logika.DBKudeatzaile;
-import user.BotoLag;
 
 public class GanadutegiKud {
 
@@ -177,7 +177,7 @@ public class GanadutegiKud {
 		}
 		return kodea;
 	}
-	
+
 	public Vector<BotoLag> BotoLag(String erabiltzailea) {
 		Vector<BotoLag> v = new Vector<BotoLag>();
 		try {
@@ -191,5 +191,19 @@ public class GanadutegiKud {
 		}
 		return v;
 	}
-
+	
+	public Vector<BotoLag> BotoLagEskuina(String erabiltzailea) {
+		int kodea = GanadutegiKud.getInstantzia().getId(erabiltzailea);
+		Vector<BotoLag> v = new Vector<BotoLag>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT g.id, g.izena FROM ganadutegia g WHERE g.id IN (SELECT fk_hartzailea FROM botoak WHERE fk_emailea="+kodea+")");
+			while (rs.next()) {
+				v.add(new BotoLag(rs.getInt("id"), rs.getString("izena")));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
 }

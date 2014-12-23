@@ -1,6 +1,7 @@
 package administratzailea;
 
 import java.awt.BorderLayout;
+import java.awt.dnd.DnDConstants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -24,8 +26,10 @@ import user.BotikaKud;
 import user.BotikaLag;
 import user.BotikaTableModel;
 import user.TratamenduTableModel;
+import Logika.DBKudeatzaile;
+import Logika.DatuBaseaKargatu;
 import Logika.EntzierroKud;
-import Logika.Errorea;
+import Logika.Leihoak;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
@@ -62,6 +66,8 @@ public class AukeraAdmin extends JFrame {
 	JMenuItem erabBerria=new JMenuItem("Sortu erabiltzaile berria");
 	JMenuItem erabKendu=new JMenuItem("Erabiltzailea borratu");
 	
+	JMenu datuBase=new JMenu("Datu basea");
+	JMenuItem kargatu=new JMenuItem("Datu basea hasieratu");
 
 	JMenuItem atzera=new JMenuItem("Saioa itxi");
 	JMenuItem exit=new JMenuItem("Exit");
@@ -102,8 +108,22 @@ public class AukeraAdmin extends JFrame {
 		setJMenuBar(barra);
 		barra.add(menua);
 		barra.add(erabiltzailea);
+		barra.add(datuBase);
+
+		datuBase.add(kargatu);
+		kargatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				JOptionPane.showMessageDialog(null, "Datu basea birkargatzen ari da, segundu batzuk iraungo ditu. Exekutatu ezazu berriz programa.", "Kargatzen...",JOptionPane.INFORMATION_MESSAGE );
+				new DatuBaseaKargatu();
+				
+			}
+		});
 		erabiltzailea.add(erabBerria);
 		erabBerria.addActionListener(new ActionListener() {
+		
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -117,8 +137,10 @@ public class AukeraAdmin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ErabiltzaileaKendu.main(null);
 				
+				
 			}
 		});
+		
 		menua.add(atzera);
 		atzera.addActionListener(new ActionListener() {
 			
