@@ -4,6 +4,8 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
+import Logika.ZezenEntzierroLag;
+
 public class JoaldunTableModel extends AbstractTableModel{
 	
 	private Vector<String> columNames = new Vector<String>();
@@ -69,5 +71,10 @@ public class JoaldunTableModel extends AbstractTableModel{
 		
 		data.addElement(lag);
 		fireTableDataChanged();
+	}
+	public void eguneratu(){
+		this.data = new Vector<JoaldunLag>();
+		this.kargatu();
+		this.fireTableDataChanged();
 	}
 }

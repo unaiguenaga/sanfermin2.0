@@ -29,7 +29,7 @@ public class JoaldunKud  {
 	
 	public void gehituJoalduna(int kodea, String jaiotzeData, String pisua, String altuera, String kolorea, String ganadutegiaKode) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "INSERT INTO joalduna set id=?, jaiotzeData=?, pisua=?, altuera=?, adarrenLuzera=?, fk_ganadutegia=?";
+		String kontsulta = "INSERT INTO Joalduna set id=?, jaiotzeData=?, pisua=?, altuera=?, kolorea=?, fk_ganadutegia=?";
 		String[] datuMotak={"Integer", "String", "String", "String", "String", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={kodea, jaiotzeData, pisua, altuera, kolorea, ganadutegiaKode};
@@ -38,9 +38,9 @@ public class JoaldunKud  {
 	}
 
 	
-	private void ezabatu(int kodea) {
+	public void ezabatu(int kodea) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "DELETE FROM Joalduna WHERE kodea=?";
+		String kontsulta = "DELETE FROM Joalduna WHERE id=?";
 		String[] datuMotak={"Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={kodea};
@@ -72,9 +72,9 @@ public class JoaldunKud  {
 	public Vector<Integer> getKod() {
 		Vector<Integer> v = new Vector<Integer>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT kodea FROM Joalduna;");
+			ResultSet rs = dbk.execSQL("SELECT id FROM Joalduna;");
 			while (rs.next()) {
-				v.add(rs.getInt("kodea"));
+				v.add(rs.getInt("id"));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -82,6 +82,38 @@ public class JoaldunKud  {
 		}
 		return v;
 	}
-
+	public boolean existitzenDa(String kodea) {
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "SELECT * FROM zezena WHERE id='"
+				+ kodea+ "'";
+		ResultSet rs = dbk.execSQL(kontsulta);
+		try {
+			while (rs.next()) {
+				String konprobatzeko = rs.getString("id");
+				if (kodea.equals(konprobatzeko))
+					return true;
+				else
+					return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public String getGanadutegia(String erab){
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "select id from ganadutegia where arduraduna='"+erab+"'";
+		ResultSet rs = dbk.execSQL(kontsulta);
+		String emaitza=null;
+		try {
+			rs.next();
+			emaitza = rs.getString("id");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return emaitza;
+	}
 	
 }

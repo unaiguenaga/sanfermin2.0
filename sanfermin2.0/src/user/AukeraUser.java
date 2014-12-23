@@ -1,25 +1,17 @@
 package user;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,25 +19,22 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import Logika.EntzierroKud;
-import Logika.Errorea;
-import Logika.GanadutegiKud;
+import Logika.ErroreaBozkaketa;
 import Logika.Hasiera;
 import Logika.TableDemo;
 import Logika.ZezenEntzierroTableModel;
-import administratzailea.AukeraAdmin;
-import administratzailea.EntzierroTableModel;
-import administratzailea.ErabiltzaileBerria;
-import administratzailea.ErabiltzaileaKendu;
-import administratzailea.GanadutegiTableModel;
 import administratzailea.GehituAbereak;
 
 public class AukeraUser extends JFrame {
 
 	private String erabiltzaileIzena;
 
-	JButton bAbereaEzabatu = new JButton("Aberea Ezabatu");
+	JButton bZezenEzabatu = new JButton("Zezena Ezabatu");
+	JButton bJoaldunaEzabatu = new JButton("Joalduna Ezabatu");
 	JButton bAbereaGehitu = new JButton("Aberea Gehitu");
 	JButton bGehituZezena = new JButton("Gehitu Zezena");
 	JButton bZezenaEzabatu = new JButton("Ezabatu Zezena");
@@ -77,37 +66,29 @@ public class AukeraUser extends JFrame {
 	JPanel aberealPanela = new JPanel();
 	JPanel bozkaTaulaPanela = new JPanel();
 
-	// ////Bozkatu Aldaketa 2 panel sartzeko
+	JPanel botoakEsk = new JPanel();
+	JPanel botoakErd = new JPanel();
+	JPanel botoakEzk = new JPanel();
+	JButton botatu = new JButton("       ---->       ");
+	JButton ezeztatu = new JButton("       <----       ");
+	JButton botoaEman = new JButton("Botoa eman");
+	BotoTableModel btmEsk;
+	BotoTableModel btmEzk;
+	TableDemo t1;
+	TableDemo t2;
+
 	JPanel bozkatuTaulaEzkerra = new JPanel();
 	JPanel bozkatuTaulaEskuina = new JPanel();
 
-	// /////////Bozkaketak JList batetik bestera egiteko
-	// ////////////////////////
-
-	private GanadutegiKud gk = GanadutegiKud.getInstantzia();
-	private BotoKud bk = BotoKud.getInstantzia();
-	private Vector<String> vIzenak = new Vector<String>();
-
-	DefaultListModel modeloaEzkerra = new DefaultListModel();
-	DefaultListModel modeloaEskuina = new DefaultListModel();
-
-	JList bozkatuEzkerra = new JList();
-	JList bozkatuEskuina = new JList();
-	// ///////////////////////////////////////////////////////////
-
-	// //////////Data Combo//////////
 	JPanel zezenEntzierro = new JPanel();
 	JPanel zezenEntzierroCombo = new JPanel();
-	JComboBox dataCombo = new JComboBox();
-	// ///////////////////////////////
 
-	ZezenaTableModel ztm = new ZezenaTableModel();
+	public ZezenaTableModel ztm = new ZezenaTableModel();
 	TableDemo tableZezenak = new TableDemo(ztm);
 
-	JoaldunTableModel jtm = new JoaldunTableModel();
+	public JoaldunTableModel jtm = new JoaldunTableModel();
 	TableDemo tableJoaldunak = new TableDemo(jtm);
 
-	// /////Aldaketa///////
 	TratamenduTableModel ttm = new TratamenduTableModel();
 	TableDemo tableTratamenduak = new TableDemo(ttm);
 
@@ -173,8 +154,7 @@ public class AukeraUser extends JFrame {
 		panela.add(pestañak);
 
 		pestañak.addTab("Abereak", null, abereakPestaña, null);
-		pestañak.addTab("Entzierroko Zezenak Kudeatu", null, zezenakPestaña,
-				null);
+		pestañak.addTab("Entzierroko Zezenak Kudeatu", null, zezenakPestaña, null);
 		pestañak.addTab("Tratamenduak", null, botikaPestaña, null);
 		pestañak.addTab("Bozkak", null, bozkatuPestaña, null);
 
@@ -183,44 +163,33 @@ public class AukeraUser extends JFrame {
 		aberealPanela.setLayout(new BoxLayout(aberealPanela, BoxLayout.Y_AXIS));
 		zezenPanela.setLayout(new BorderLayout());
 		joaldunPanela.setLayout(new BorderLayout());
-
 		aberealPanela.add(tableZezenak);
 		aberealPanela.add(tableJoaldunak);
-		//
 		abereakPestaña.add(aberealPanela);
 		abereakPestaña.add(eskumakoPanela1, BorderLayout.EAST);
-		// //////////////////////////////////////////////////////////////7
-
-		eskumakoPanela1.setLayout(new BoxLayout(eskumakoPanela1,
-				BoxLayout.Y_AXIS));
+		eskumakoPanela1.setLayout(new BoxLayout(eskumakoPanela1, BoxLayout.Y_AXIS));
 		eskumakoPanela1.add(Box.createVerticalGlue());
-		eskumakoPanela1.add(bAbereaEzabatu);
+		eskumakoPanela1.add(bZezenEzabatu);
+		eskumakoPanela1.add(bJoaldunaEzabatu);
 		eskumakoPanela1.add(hutsunea2);
 		eskumakoPanela1.add(bAbereaGehitu);
 		eskumakoPanela1.add(Box.createVerticalGlue());
 
 		// ENTZIERRO ZERRENDAK
-		final JComboBox dataCombo = new JComboBox(EntzierroKud.getInstantzia()
-				.getDataEntzierro(erabiltzaileIzena));
-		final ZezenEntzierroTableModel zetm = new ZezenEntzierroTableModel(
-				(String) dataCombo.getSelectedItem());
+		final JComboBox dataCombo = new JComboBox(EntzierroKud.getInstantzia().getDataEntzierro(erabiltzaileIzena));
+		final ZezenEntzierroTableModel zetm = new ZezenEntzierroTableModel((String) dataCombo.getSelectedItem());
 		TableDemo tableZezenaEntzierro = new TableDemo(zetm);
 		dataCombo.setSize(10, 20);
 		zezenEntzierroCombo.setLayout(new GridLayout(10, 0));
-		zezenEntzierro
-				.setLayout(new BoxLayout(zezenEntzierro, BoxLayout.Y_AXIS));
-		// zezenEntzierro.setLayout(new BoxLayout(zezenEntzierro,
-		// BoxLayout.Y_AXIS));
+		zezenEntzierro.setLayout(new BoxLayout(zezenEntzierro, BoxLayout.Y_AXIS));
 		zezenEntzierro.add(dataCombo);
-		zezenEntzierro.setBorder(BorderFactory
-				.createTitledBorder("Entzierroak"));
+		zezenEntzierro.setBorder(BorderFactory.createTitledBorder("Entzierroak"));
 		zezenEntzierro.add(tableZezenaEntzierro, BorderLayout.SOUTH);
-		// ///////////////////////////////////////////////////////////////////////////////////////
+
 		zezenakPestaña.setLayout(new BorderLayout());
 		zezenakPestaña.add(eskumakoPanela2, BorderLayout.EAST);
 		zezenakPestaña.add(zezenEntzierro);
-		eskumakoPanela2.setLayout(new BoxLayout(eskumakoPanela2,
-				BoxLayout.Y_AXIS));
+		eskumakoPanela2.setLayout(new BoxLayout(eskumakoPanela2, BoxLayout.Y_AXIS));
 		eskumakoPanela2.add(Box.createVerticalGlue());
 		eskumakoPanela2.add(bGehituZezena);
 		eskumakoPanela2.add(hutsunea);
@@ -237,8 +206,7 @@ public class AukeraUser extends JFrame {
 		botikaPestaña.add(botikaPanela);
 		botikaPestaña.add(eskumakoPanela3, BorderLayout.EAST);
 
-		eskumakoPanela3.setLayout(new BoxLayout(eskumakoPanela3,
-				BoxLayout.PAGE_AXIS));
+		eskumakoPanela3.setLayout(new BoxLayout(eskumakoPanela3, BoxLayout.PAGE_AXIS));
 		eskumakoPanela3.add(Box.createVerticalGlue());
 
 		eskumakoPanela3.add(bBotikakKudeatu);
@@ -247,38 +215,34 @@ public class AukeraUser extends JFrame {
 
 		// BOZKAKETAK
 		bozkatuPestaña.setLayout(new BorderLayout());
-		bozkatuPestaña.add(eskumakoPanela4, BorderLayout.EAST);
-		botikaPanela.setLayout(new BorderLayout());
+		bozkatuPestaña.setLayout(new BoxLayout(bozkatuPestaña, BoxLayout.X_AXIS));
+		botoakEsk.setLayout(new BorderLayout());
+		botoakEzk.setLayout(new BorderLayout());
 
-		// /////Aldaketa///////
-		vIzenak = gk.getIzenak(erabiltzaileIzena);
-		for (int i = 0; i < vIzenak.size(); i++) {
-			modeloaEzkerra.addElement(vIzenak.get(i));
-		}
-		modeloaEskuina = bk.kargatuModeloa(erabiltzaileIzena);
-		bozkatuEzkerra.setModel(modeloaEzkerra);
-		bozkatuEskuina.setModel(modeloaEskuina);
+		btmEzk = new BotoTableModel(false);
+		btmEsk = new BotoTableModel(true);
+		t1 = new TableDemo(btmEzk);
+		t2 = new TableDemo(btmEsk);
 
-		botikaPanela.add(tableTratamenduak);
-		// //////////////////
+		t1.getTable().setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		t2.getTable().setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		t1.getTable().getColumnModel().getColumn(0).setPreferredWidth(359);
+		t2.getTable().getColumnModel().getColumn(0).setPreferredWidth(359);
 
-		botikaPestaña.add(botikaPanela);
-		eskumakoPanela4.setLayout(new BoxLayout(eskumakoPanela4,
-				BoxLayout.Y_AXIS));
-		eskumakoPanela4.add(Box.createVerticalGlue());
-		eskumakoPanela4.add(bBotoaGorde);
-		eskumakoPanela4.add(bBotoaEman);
-		eskumakoPanela4.add(Box.createVerticalGlue());
-		bozkaTaulaPanela.setLayout(new BorderLayout());
+		botoakEzk.add(t1, BorderLayout.CENTER);
+		botoakErd.setLayout(new BoxLayout(botoakErd, BoxLayout.PAGE_AXIS));
+		botoakErd.add(Box.createVerticalGlue());
+		botoakErd.add(botatu);
+		botoakErd.add(ezeztatu);
+		botoakErd.add(botoaEman);
+		botoakErd.add(Box.createVerticalGlue());
+		botoakEsk.add(t2, BorderLayout.CENTER);
 
-		// Panel bi sartu
-		bozkatuEzkerra.setLayout(new BorderLayout());
-		bozkatuEskuina.setLayout(new BorderLayout());
-
-		bozkatuTaulaEzkerra.add(bozkatuEzkerra);
-		bozkatuTaulaEskuina.add(bozkatuEskuina);
-		bozkatuPestaña.add(bozkatuTaulaEzkerra, BorderLayout.WEST);
-		bozkatuPestaña.add(bozkatuTaulaEskuina, BorderLayout.CENTER);
+		bozkatuPestaña.add(Box.createVerticalGlue());
+		bozkatuPestaña.add(botoakEzk);
+		bozkatuPestaña.add(botoakErd);
+		bozkatuPestaña.add(botoakEsk);
+		bozkatuPestaña.add(Box.createVerticalGlue());
 
 		bAbereaGehitu.addActionListener(new ActionListener() {
 
@@ -287,6 +251,46 @@ public class AukeraUser extends JFrame {
 				GehituAbereak.main(erabiltzaileIzena);
 			}
 		});
+		bZezenEzabatu.setEnabled(false);
+		tableZezenak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				bZezenEzabatu.setEnabled(true);
+			}
+		});
+		bZezenEzabatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int id = ZezenKud.getInstantzia().getId().get(tableZezenak.getTable().getSelectedRow());
+				ZezenKud.getInstantzia().ezabatu(id);
+				ztm.eguneratu();
+				bZezenEzabatu.setEnabled(false);
+
+			}
+		});
+		bJoaldunaEzabatu.setEnabled(false);
+		tableJoaldunak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				bJoaldunaEzabatu.setEnabled(true);
+				
+			}
+		});
+		bJoaldunaEzabatu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int id2 = JoaldunKud.getInstantzia().getKod().get(tableJoaldunak.getTable().getSelectedRow());
+				JoaldunKud.getInstantzia().ezabatu(id2);
+				jtm.eguneratu();
+				bJoaldunaEzabatu.setEnabled(false);
+
+			}
+		});
+		
 
 		bBotikakKudeatu.addActionListener(new ActionListener() {
 
@@ -300,40 +304,34 @@ public class AukeraUser extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GehituZezena.main(erabiltzaileIzena,
-						(String) dataCombo.getSelectedItem());
+				GehituZezena.main(erabiltzaileIzena, (String) dataCombo.getSelectedItem());
 			}
 		});
 
-		bBotoaEman.addActionListener(new ActionListener() {
+		botatu.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// 3 boto baino gehiago eman ez direla konprobatzeko
-				if (bozkatuEskuina.getModel().getSize() >= 3) {
-					Errorea er = new Errorea();
-					er.bozkaketa();
-				} else {
-					// Hemen ezkerreko modelotik elementu bat ateratzen du eta
-					// eskuinekoan sartzen du.
+				btmEsk.gehitu(btmEzk.kendu(t1.getTable().getSelectedRow()));
 
-					String aukera = (String) bozkatuEzkerra.getSelectedValue();
-					int indizea = bozkatuEzkerra.getSelectedIndex();
-
-					modeloaEskuina.addElement(aukera);
-					bozkatuEskuina.setModel(modeloaEskuina);
-					modeloaEzkerra.removeElementAt(indizea);
-					bozkatuEzkerra.setModel(modeloaEzkerra);
-
-				}
 			}
 		});
 
-		bBotoaGorde.addActionListener(new ActionListener() {
+		ezeztatu.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				bk.gehituBotoak(modeloaEskuina, erabiltzaileIzena);
+				btmEzk.gehitu(btmEsk.kendu(t2.getTable().getSelectedRow()));
+			}
+		});
+
+		botoaEman.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int gordeDa = BotoKud.getInstantzia().botoakGorge(AukeraUser.getInstantzia().erabiltzaileIzena,
+						btmEsk.getData());
+				new ErroreaBozkaketa(gordeDa);
 			}
 		});
 	}

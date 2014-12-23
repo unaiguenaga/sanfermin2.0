@@ -17,7 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import user.AukeraUser;
 import user.ZezenKud;
+import user.ZezenaTableModel;
 
 import com.toedter.calendar.JCalendar;
 
@@ -98,9 +100,11 @@ public class SortuZezena extends JFrame {
 				
 				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 				String data = formato.format(jaiotzeTestua.getDate());
-				String ganadutegia = ZezenKud.getInstantzia().getGanadutegia(erabiltzailea);
+				String ganadutegiKod = ZezenKud.getInstantzia().getGanadutegia(erabiltzailea);
+				
 				sortu(Integer.parseInt(kodeTestua.getText()), izenatestua.getText(), data, pisuaTestua.getText(), 
-						altueraTestua.getText(), adarTestua.getText(), ganadutegia);
+						altueraTestua.getText(), adarTestua.getText(), ganadutegiKod);
+				
 			}
 		});
 
@@ -126,12 +130,15 @@ public class SortuZezena extends JFrame {
 					"Zezenaren kode hori jadanik existitzen da, saia zaitez berriro beste kode batekin. ", "Kode errepikatua",
 					JOptionPane.ERROR_MESSAGE);
 					this.kodeTestua.setText("");
+					this.izenatestua.setText("");
 					this.adarTestua.setText("");
 					this.pisuaTestua.setText("");
 					this.altueraTestua.setText("");
 		}else{
 			zk.gehitu(kod, izena, jaiotzeData, pisua, altuera, adarluzera, ganaduKod);
 			dispose();
+			JOptionPane.showMessageDialog(null, "Zezena gehitu da.");
+			AukeraUser.getInstantzia().ztm.eguneratu();
 		}
 	}
 	

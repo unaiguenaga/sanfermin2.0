@@ -9,7 +9,7 @@ import java.util.Vector;
 import javax.swing.DefaultListModel;
 
 import Logika.DBKudeatzaile;
-import Logika.ErabiltzaileKudeatzailea;
+import Logika.GanadutegiKud;
 
 public class BotoKud {
 
@@ -36,33 +36,14 @@ public class BotoKud {
 	}
 
 	private void ezabatu(int emailea) {
-		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "DELETE FROM botoak WHERE fk_emailea=?";
-		String[] datuMotak={"Integer"};
-		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
-		Object[] datuakArrayObjects={emailea};
-		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		dbk.filter(kontsulta, bektorea, datuak);
+		dbk.execSQL("DELETE FROM botoak WHERE fk_emailea='" + emailea + "';");
 	}
 
 	public void ezabatuDenak() {
 		dbk.execSQL("DELETE FROM botoak;");
 	}
 
-	public Vector<BotoLag> getLag() {
-		Vector<BotoLag> v = new Vector<BotoLag>();
-		try {
-			ResultSet rs = dbk.execSQL("SELECT * FROM botoak;");
-			while (rs.next()) {
-				v.add(new BotoLag(rs.getInt("fk_emailea"), rs
-						.getInt("fk_hartzailea"), rs.getString("data")));
-			}
-			rs.close();
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
-		return v;
-	}
+
 
 	public Vector<Integer> getEmailea() {
 		Vector<Integer> v = new Vector<Integer>();
@@ -76,6 +57,37 @@ public class BotoKud {
 			System.out.println(e);
 		}
 		return v;
+	}
+	
+	// Hiru boto edo gutxiago badira eta erabiltzaileak aurten ez badu botoa eman, botoak datubasean gordeko dira.
+	public int botoakGorge(String emailea, Vector<BotoLag> vHartzaileak){
+		int e = GanadutegiKud.getInstantzia().getId(emailea);
+		if(vHartzaileak.size()<4){
+			if(!aurtenBotatuDu(e)){
+				for(int i = 0; i < vHartzaileak.size(); i++){
+					dbk.execSQL("INSERT INTO botoak (fk_emailea, fk_hartzailea, data) VALUES  ('"
+							+ e + "', '" + vHartzaileak.get(i).getId() + "', DATE(NOW()));");
+					return 0;
+				}
+			}
+			return 1;
+		}
+		return 2;
+	}
+	
+	// Erabiltzaileak bere ganadutegiaren izenean botoa aurten eman ote duen itsuliko du.
+	private boolean aurtenBotatuDu(int id){
+		try {
+			ResultSet rs = dbk.execSQL("SELECT * FROM botoak WHERE fk_emailea = '"+id+"' AND data > DATE_SUB(NOW(), INTERVAL 1 YEAR);");
+			while (rs.next()) {
+				return true;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		
+		return false;
 	}
 
 	//Bektore batetan gordetzen ditu Erabiltzaileak emandako botoak (Eskuineko JList-ekoak hain zuzen)
@@ -99,7 +111,8 @@ public class BotoKud {
 				ResultSet rs = dbk
 						.execSQL("SELECT id FROM ganadutegia WHERE arduraduna='"
 								+ izena + "'");
-				
+				System.out.println("SELECT id FROM ganadutegia WHERE arduraduna='"
+								+ izena + "'");
 				int id =0;
 				try {
 					while (rs.next()) {

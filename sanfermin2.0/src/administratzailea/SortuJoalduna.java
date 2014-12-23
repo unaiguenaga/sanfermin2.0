@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import user.AukeraUser;
+import user.JoaldunKud;
 import user.ZezenKud;
 
 import com.toedter.calendar.JCalendar;
@@ -97,9 +99,10 @@ public class SortuJoalduna extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 				String data = formato.format(jaiotzeTestua.getDate());
-				String ganadutegia = ZezenKud.getInstantzia().getGanadutegia(erabiltzailea);
+				String ganadutegia = JoaldunKud.getInstantzia().getGanadutegia(erabiltzailea);
 				sortu(Integer.parseInt(kodeTestua.getText()), izenaTestua.getText(), data, pisuaTestua.getText(), 
 						altueraTestua.getText(), koloreaTestua.getText(), ganadutegia);
+
 			}
 		});
 
@@ -118,19 +121,23 @@ public class SortuJoalduna extends JFrame {
 	}
 	
 	public void sortu(int kod, String izena, String jaiotzeData, String pisua, String altuera, String kolorea, String ganaduKod){
-		ZezenKud zk = ZezenKud.getInstantzia();
+		JoaldunKud jk = JoaldunKud.getInstantzia();
 		String kodigu = ""+kod;
-		if(zk.existitzenDa(kodigu)){
+		if(jk.existitzenDa(kodigu)){
 			JOptionPane.showMessageDialog(null,
 					"Zezenaren kode hori jadanik existitzen da, saia zaitez berriro beste kode batekin. ", "Kode errepikatua",
 					JOptionPane.ERROR_MESSAGE);
 					this.kodeTestua.setText("");
+					this.izenaTestua.setText("");
 					this.koloreaTestua.setText("");
 					this.pisuaTestua.setText("");
 					this.altueraTestua.setText("");
 		}else{
-			zk.gehitu(kod, izena, jaiotzeData, pisua, altuera, kolorea, ganaduKod);
+			jk.gehituJoalduna(kod, jaiotzeData, pisua, altuera, kolorea, ganaduKod);
 			dispose();
+			JOptionPane.showMessageDialog(null, "Joalduna gehitu da.");
+			AukeraUser.getInstantzia().jtm.eguneratu();
+
 		}
 	}
 }
