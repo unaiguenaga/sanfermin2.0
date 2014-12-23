@@ -10,11 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Logika.ErabiltzaileKudeatzailea;
 import Logika.GanadutegiKud;
 import Logika.GanadutegiLag;
 
@@ -30,6 +32,7 @@ public class SortuGanadutegia extends JFrame {
 	JTextField kodeTestua= new JTextField(10);
 	JTextField izenTestua = new JTextField(10);
 	JTextField helbideTestua= new JTextField(10);
+	JComboBox arduradunBox;
 	JTextField arduradunTestua= new JTextField(10);
 	JTextField tlfTestua= new JTextField(10);
 	JPanel behekoPanela = new JPanel();
@@ -42,16 +45,13 @@ public class SortuGanadutegia extends JFrame {
 	
 
 	public SortuGanadutegia() {
+		arduradunBox = new JComboBox(ErabiltzaileKudeatzailea.getInstantzia().getIzenak());
 		botoiakHasieratu();
 		gridBagHasieratu();
-	}
-	
-	public static void main(String[] args) {
-		SortuGanadutegia hasiera = new SortuGanadutegia();
-		hasiera.setTitle("Gehitu Ganadutegia");
-		hasiera.setVisible(true);
-		hasiera.setSize(300, 200);
-		hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setTitle("Gehitu Ganadutegia");
+		setVisible(true);
+		setSize(300, 200);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	private void gridBagHasieratu(){
@@ -77,7 +77,7 @@ public class SortuGanadutegia extends JFrame {
 		mugak.insets=new Insets(3, 3, 3, 3);
 		gehituOsagaia(helbideTestua, 3, 5, 5, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
-		gehituOsagaia(arduradunTestua, 4, 5, 3, 1);
+		gehituOsagaia(arduradunBox, 4, 5, 3, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
 		gehituOsagaia(tlfTestua, 5, 5, 5, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
@@ -92,7 +92,7 @@ public class SortuGanadutegia extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				gk.gehitu(Integer.parseInt(kodeTestua.getText()), izenTestua.getText(), arduradunTestua.getText(), Integer.parseInt(tlfTestua.getText()), helbideTestua.getText());
+				gk.gehitu(Integer.parseInt(kodeTestua.getText()), izenTestua.getText(), arduradunBox.getSelectedItem().toString(), Integer.parseInt(tlfTestua.getText()), helbideTestua.getText());
 				AukeraAdmin.getInstantzia().gtm.eguneratu();
 				//AukeraAdmin.getInstantzia().tableGanadutegiak.repaint();
 				dispose();

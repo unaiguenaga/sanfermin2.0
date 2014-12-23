@@ -1,6 +1,9 @@
+
 package Logika;
 
 import java.sql.*;
+import java.util.Arrays;
+import java.util.Vector;
 
 public class DBKudeatzaile {
 
@@ -19,6 +22,53 @@ public class DBKudeatzaile {
 		}
 	}
 
+	private PreparedStatement filtratu(String kontsulta, Vector<String> bektorea, Vector<Object> datuak) throws SQLException {
+		PreparedStatement pstmt=null;
+		try {
+			pstmt = conn.prepareStatement(kontsulta);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i=0; i<bektorea.size(); i++) {
+			switch (bektorea.get(i)) {
+			case "Integer":
+				pstmt.setInt(i+1, (Integer) datuak.get(i));
+				break;
+			case "String": 
+				pstmt.setString(i+1, datuak.get(i).toString());
+				break;
+			case "Float": 
+				pstmt.setFloat(i+1, (float) datuak.get(i) );
+				break;
+			case "Date":
+				pstmt.setDate(i+1, (Date) datuak.get(i));
+			default:
+				break;
+			}
+		}
+		return pstmt;
+	}
+	public ResultSet filter(String kontsulta, Vector<String> bektorea, Vector<Object> datuak) {
+		PreparedStatement pstmt=null;
+		try {
+			pstmt= filtratu(kontsulta, bektorea, datuak);
+			if(kontsulta.toLowerCase().contains("select")){
+				return pstmt.executeQuery();
+			}
+			else{
+				System.out.println(kontsulta);
+				System.out.println("12");
+				pstmt.executeUpdate();
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	private ResultSet query(Statement s, String query) {
 
 		ResultSet rs = null;
@@ -61,5 +111,26 @@ public class DBKudeatzaile {
 			e.printStackTrace();
 		}
 		return rs;
+	}
+	
+	public static void main(String[] args) {
+		DBKudeatzaile dbk=DBKudeatzaile.getInstantzia();
+		String kontsulta = "INSERT INTO entzierroa set id=?, luzera=? ,fk_ganadutegia=?";
+		String[] datuMotak={"Date", "float", "int"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={2015-11-12, 12.09, 12};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		ResultSet rs=dbk.filter(kontsulta, bektorea, datuak);
+		System.out.println(kontsulta);
+		try {
+			System.out.println(rs.next());
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	
 	}
 }

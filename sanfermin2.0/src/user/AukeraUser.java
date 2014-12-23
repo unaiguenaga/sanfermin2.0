@@ -25,7 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
-import Logika.ErroreaBozkaketa;
+import Logika.Errorea;
 import Logika.GanadutegiKud;
 import Logika.Hasiera;
 import Logika.TableDemo;
@@ -38,7 +38,7 @@ import administratzailea.GehituAbereak;
 
 public class AukeraUser extends JFrame {
 	
-	public String erabiltzaileIzena = null;
+	private String erabiltzaileIzena;
 	
 	JButton bAbereaEzabatu = new JButton("Aberea Ezabatu");
 	JButton bAbereaGehitu = new JButton("Aberea Gehitu");
@@ -119,7 +119,7 @@ public class AukeraUser extends JFrame {
 
 	JMenuBar barra= new JMenuBar();
 	JMenu menua=new JMenu("Menua");
-	JMenuItem atzera=new JMenuItem("Atzera");
+	JMenuItem atzera=new JMenuItem("Saioa itxi");
 	JMenuItem exit=new JMenuItem("Exit");
 	
 private static AukeraUser instantzia = new AukeraUser();
@@ -142,6 +142,10 @@ private static AukeraUser instantzia = new AukeraUser();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 	}
+	
+	public String getErabiltzaileIzana(){
+		return erabiltzaileIzena;
+	}
 
 	private void hasieratu() {
 		
@@ -156,7 +160,7 @@ private static AukeraUser instantzia = new AukeraUser();
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Hasiera.main(null);
+				Hasiera.bistaratu();
 			}
 		});
 		menua.add(exit);
@@ -174,7 +178,7 @@ private static AukeraUser instantzia = new AukeraUser();
 
 		pestañak.addTab("Abereak", null, abereakPestaña, null);
 		pestañak.addTab("Entzierroko Zezenak Kudeatu", null, zezenakPestaña, null);
-		pestañak.addTab("Botikak", null, botikaPestaña, null);
+		pestañak.addTab("Tratamenduak", null, botikaPestaña, null);
 		pestañak.addTab("Bozkak", null, bozkatuPestaña, null);
 
 
@@ -291,7 +295,7 @@ private static AukeraUser instantzia = new AukeraUser();
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				BotikakKudeatu.main(null);
+				new BotikakKudeatu(erabiltzaileIzena);
 			}
 		});
 		
@@ -302,33 +306,12 @@ private static AukeraUser instantzia = new AukeraUser();
 				GehituZezena.main(null);
 			}
 		});
-		
+	
 		bBotoaEman.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//3 boto baino gehiago eman ez direla konprobatzeko
-				if(bozkatuEskuina.getModel().getSize()>=3){
-					ErroreaBozkaketa er = new ErroreaBozkaketa();
-				}
-				else{
-					//Hemen ezkerreko modelotik elementu bat ateratzen du eta eskuinekoan sartzen du.
-					
-					String aukera = (String) bozkatuEzkerra.getSelectedValue();
-					System.out.println("aukeratu: "+aukera);
-					int indizea = bozkatuEzkerra.getSelectedIndex();
-					
-					modeloaEskuina.addElement(aukera);
-					bozkatuEskuina.setModel(modeloaEskuina);
-					modeloaEzkerra.removeElementAt(indizea);
-					bozkatuEzkerra.setModel(modeloaEzkerra);
-
-					System.out.println("indizea :"+indizea);
-					
-//					if(indizea!=-1){
-//						bozkatuEzkerra.remove(indizea);
-//					}
-				}	
+				BotoKud.getInstantzia().botoaEman(bozkatuEskuina, bozkatuEzkerra, modeloaEskuina, modeloaEzkerra);
 			}
 		});
 		
@@ -341,3 +324,4 @@ private static AukeraUser instantzia = new AukeraUser();
 		});
 	}
 }
+

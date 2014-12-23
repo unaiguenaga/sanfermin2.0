@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Logika.ErabiltzaileKudeatzailea;
 import Logika.GanadutegiKud;
 
 public class GanadutegiaAldatu extends JFrame {
@@ -72,7 +73,10 @@ public class GanadutegiaAldatu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!arduradunaTestua.getText().equals("")){
-					gk.aldatuArduraduna(ganadutegiId, arduradunaTestua.getText());
+					String izenZaharra = AukeraAdmin.getInstantzia().gtm.getValueAt(AukeraAdmin.getInstantzia().tableGanadutegiak.getTable().getSelectedRow(),1).toString();
+					String izenBerria = arduradunaTestua.getText();
+					
+					ErabiltzaileKudeatzailea.getInstantzia().izenaAldatu(izenZaharra, izenBerria);
 				}if(!tlfTestua.getText().equals("")){
 					gk.aldatuTlf(ganadutegiId, Integer.parseInt(tlfTestua.getText()));
 				}if(!helbideTestua.getText().equals("")){

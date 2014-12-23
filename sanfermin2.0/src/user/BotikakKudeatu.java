@@ -35,14 +35,13 @@ public class BotikakKudeatu  extends JFrame{
 	private Vector<String> vIzenakBotikak = bk.getIzenak();
 	
 	private ZezenKud zk = ZezenKud.getInstantzia();
-	private Vector<String> vIzenakZezenak = zk.getIzenak();
 
 	JLabel lBotika = new JLabel("Botika:");
 	JLabel lZezena = new JLabel("Zezena:");
 	JLabel lNoiz = new JLabel("Noiz:");
 	JLabel lDosia = new JLabel("Dosia:");
 	JComboBox cbBotika = new JComboBox(vIzenakBotikak);
-	JComboBox cbZezena = new JComboBox(vIzenakZezenak);
+	JComboBox cbZezena;
 	JCalendar cal = new JCalendar();
 	JTextField tfDosia = new JTextField(10);
 	JPanel behekoPanela = new JPanel();
@@ -52,17 +51,27 @@ public class BotikakKudeatu  extends JFrame{
 	private GridBagConstraints mugak;
 	String[] args = null;
 	
+	private String erabiltzailea;
 	
 	
-	public BotikakKudeatu() {
+	
+	public BotikakKudeatu(String erabIzena) {
 		////////////////////////// Zezenak eta Botikak kargatu /////////////////////////////////
 		//db.zenzenakKargartu();
 		//db.joaldunakKargartu();
 		//db.botikakKargatu();
 		//db.tratamenduakKargartu();
 		///////////////////////////////////////////////////////////////////////////////////////
+		System.out.println("ErabIzena: " +erabIzena);
+		erabiltzailea = erabIzena;
+		cbZezena = new JComboBox(ZezenKud.getInstantzia().getIzenak(erabIzena));
+		System.out.println("Bilatzen duena: "+AukeraUser.getInstantzia().getErabiltzaileIzana());
+		gridBagHasieratu();
+		setTitle("Tratamendu berria gehitu");
+		setVisible(true);
+		setSize(550, 300);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		gridBagHasieratu();	
 	}
 
 	private void gridBagHasieratu() {
@@ -105,7 +114,9 @@ public class BotikakKudeatu  extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 				String data = formato.format(cal.getDate());
-				TratamenduKud.getInstantzia().gehituTratamendua(data, cbZezena.getSelectedItem(), cbBotika.getSelectedItem(), Float.parseFloat(tfDosia.getText()));
+				int botika = BotikaKud.getInstantzia().getKod().get(cbBotika.getSelectedIndex());
+				int zezena = ZezenKud.getInstantzia().getId(erabiltzailea).get(cbZezena.getSelectedIndex());
+				TratamenduKud.getInstantzia().gehitu(data, botika, Float.parseFloat(tfDosia.getText()), zezena);
 				AukeraUser.getInstantzia().ttm.eguneratu();
 				
 				dispose();
@@ -124,15 +135,4 @@ public class BotikakKudeatu  extends JFrame{
 		edukiontzia.add(osagaia);
 
 	}
-
-	public static void main(String[] args) {
-		
-		BotikakKudeatu botikakKudeatu = new BotikakKudeatu();
-		botikakKudeatu.setTitle("Tratamendu berria gehitu");
-		botikakKudeatu.setVisible(true);
-		botikakKudeatu.setSize(550, 300);
-		botikakKudeatu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	
-	}
-
 }

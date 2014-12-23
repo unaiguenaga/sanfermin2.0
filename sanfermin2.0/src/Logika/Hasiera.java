@@ -11,18 +11,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.InputMap;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.KeyStroke;
 
 public class Hasiera extends JFrame {
 	JLabel erabiltzailea = new JLabel("Erabiltzailea:");
@@ -42,12 +38,14 @@ public class Hasiera extends JFrame {
 	class Entzule implements ActionListener {
 		
 		public void actionPerformed(ActionEvent arg0) {
-			if(ErabiltzaileKudeatzailea.getInstantzia().konprobatuPasahitzaEtaErabiltzailea(erabTestua.getText(),pasahitzaTestua.getText())){
-				ErabiltzaileKudeatzailea.getInstantzia().hasieratuAdminEdoUser(erabTestua.getText(), pasahitzaTestua.getText());
+			ErabiltzaileKudeatzailea era = ErabiltzaileKudeatzailea.getInstantzia();
+			if(era.konprobatuPasahitzaEtaErabiltzailea(erabTestua.getText(),pasahitzaTestua.getText())){
+				era.hasieratuAdminEdoUser(erabTestua.getText(), pasahitzaTestua.getText());
 				dispose();
 			}
 			else{
-				ErroreaPasahitza errorea= new ErroreaPasahitza();
+				Errorea errorea= new Errorea();
+				errorea.pasahitza();
 				erabTestua.setText("");
 				pasahitzaTestua.setText("");
 			}
@@ -58,16 +56,24 @@ public class Hasiera extends JFrame {
 	public Hasiera() {
 		gridBagHasieratu();
 	}
+	public static void kargatu() {
+		new DatuBaseaKargatu();
+
+	}
 
 	public static void main(String[] args) {
-		new DatuBaseaKargatu();
+		Hasiera.kargatu();
+		bistaratu();
+	}
+
+	public static void bistaratu() {
 		Hasiera hasiera = new Hasiera();
 		hasiera.setTitle("San Ferminak");
 		hasiera.setVisible(true);
 		hasiera.setSize(400, 200);
 		hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
 
+	}
 	private void gridBagHasieratu() {
 		edukiontzia = getContentPane();
 		eskema = new GridBagLayout();
@@ -97,7 +103,6 @@ public class Hasiera extends JFrame {
 		
 		aldatuPasahitza.addActionListener(new ActionListener() {
 
-		
 			
 			public void actionPerformed(ActionEvent e) {
 				PasahitzaAldatu.main(null);
@@ -115,6 +120,5 @@ public class Hasiera extends JFrame {
 
 		eskema.setConstraints(osagaia, mugak);
 		edukiontzia.add(osagaia);
-
 	}
 }

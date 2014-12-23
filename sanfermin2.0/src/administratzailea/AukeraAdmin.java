@@ -27,6 +27,8 @@ import Logika.TableDemo;
 
 
 public class AukeraAdmin extends JFrame {
+	private String erabiltzaileIzena;
+	
 	JButton bGanadutegiBerri = new JButton("Sortu ganadutegi berria");
 	JButton bGanadutegiaAldatu = new JButton("Datuak Aldatu");
 	JButton bGanadutegiaEzabatu = new JButton("Hautatutakoa ezabatu");
@@ -56,9 +58,8 @@ public class AukeraAdmin extends JFrame {
 	JMenuItem erabBerria=new JMenuItem("Sortu erabiltzaile berria");
 	JMenuItem erabKendu=new JMenuItem("Erabiltzailea borratu");
 	
-	String[] args = null;
 
-	JMenuItem atzera=new JMenuItem("Sesioa itxi");
+	JMenuItem atzera=new JMenuItem("Saioa itxi");
 	JMenuItem exit=new JMenuItem("Exit");
 	
 	GanadutegiTableModel gtm = new GanadutegiTableModel();
@@ -78,8 +79,13 @@ public class AukeraAdmin extends JFrame {
 		hasieratu();
 	}
 	
+	public String getErabiltzaileIzena(){
+		return erabiltzaileIzena;
+	}
+	
 	public void bistaratu(String izena) {
 		setTitle("San Ferminen kudeaketa ADMINISTRATZAILEA:"+izena);
+		erabiltzaileIzena = izena;
 		setVisible(true);
 		setSize(900, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -115,7 +121,7 @@ public class AukeraAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Hasiera.main(null);
+				Hasiera.bistaratu();;
 			}
 		});
 		menua.add(exit);
@@ -187,7 +193,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EntzierroaSortu.main(args);
+				new EntzierroaSortu();
 			}
 		});
 
@@ -215,7 +221,7 @@ public class AukeraAdmin extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SortuGanadutegia.main(null);
+				new SortuGanadutegia();
 			}
 		});
 		

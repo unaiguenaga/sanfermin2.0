@@ -40,6 +40,9 @@ public class EntzierroaSortu extends JFrame{
 	public EntzierroaSortu() {
 		botoiakHasieratu();
 		gridBagHasieratu();
+		setSize(300, 250);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 	}
 	
 	private void gridBagHasieratu() {
@@ -58,14 +61,6 @@ public class EntzierroaSortu extends JFrame{
 		mugak.insets=new Insets(3, 3, 3, 3);
 		gehituOsagaia(gehitu, 4, 1, 8, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
-	}
-	
-	public static void main(String[] args) {
-		
-		EntzierroaSortu it = new EntzierroaSortu();
-		it.setSize(300, 250);
-		it.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		it.setVisible(true);
 	}
 	
 	private void botoiakHasieratu(){

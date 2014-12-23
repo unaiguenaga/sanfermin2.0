@@ -85,7 +85,8 @@ public class ErabiltzaileaKendu extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!ErabiltzaileKudeatzailea.getInstantzia().existitzenDa(erabTestua.getText())){
+				ErabiltzaileKudeatzailea erab = ErabiltzaileKudeatzailea.getInstantzia();
+				if(!erab.existitzenDa(erabTestua.getText())){
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzaile izen hori ez da existitzen, sartu ezazu egokia. ", "Ez dago",
 							JOptionPane.ERROR_MESSAGE);
@@ -94,7 +95,7 @@ public class ErabiltzaileaKendu extends JFrame{
 					tpasahitzaBerriz.setText("");
 				}
 				else if(pasahitzaTestua.getText().equals(tpasahitzaBerriz.getText())){
-					ErabiltzaileKudeatzailea.getInstantzia().kenduErabiltzailea(erabTestua.getText(), pasahitza.getText());
+					erab.kenduErabiltzailea(erabTestua.getText(), pasahitza.getText());
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzailea borratu da. ", "Erabiltzailea kenduta",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -111,8 +112,6 @@ public class ErabiltzaileaKendu extends JFrame{
 				}
 				}
 		});
-		
-	
 	}
 
 	private void gehituOsagaia(Component osagaia, int errenkada, int zutabea, int zabalera, int altuera) {
