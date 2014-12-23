@@ -31,7 +31,7 @@ public class TratamenduKud {
 		
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO tratamendua set data=?, fk_botika=?,dosia=?, fk_zezena=?";
-		String[] datuMotak={"String", "int", "float", "int"};
+		String[] datuMotak={"String", "Integer", "float", "Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={data, botika, dosia, zezena};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 

@@ -131,7 +131,6 @@ public class ZezenKud  {
 		int id = GanadutegiKud.getInstantzia().getId(arduraduna);
 		try {
 			ResultSet rs = dbk.execSQL("SELECT z.izena FROM zezena z INNER JOIN ganadutegia g ON z.fk_ganadutegia = g.id AND g.arduraduna= '"+arduraduna+"';");
-			//ResultSet rs = dbk.execSQL("SELECT izena FROM zezena WHERE fk_ganadutegia = '"+id+"';");
 			while (rs.next()) {
 				v.add(rs.getString("z.izena"));
 			}

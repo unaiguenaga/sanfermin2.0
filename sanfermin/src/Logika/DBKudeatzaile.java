@@ -38,7 +38,7 @@ public class DBKudeatzaile {
 			case "String": 
 				pstmt.setString(i+1, datuak.get(i).toString());
 				break;
-			case "Float": 
+			case "float": 
 				pstmt.setFloat(i+1, (float) datuak.get(i) );
 				break;
 			case "Date":

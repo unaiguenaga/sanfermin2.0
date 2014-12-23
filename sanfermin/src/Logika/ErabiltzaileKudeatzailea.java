@@ -48,15 +48,14 @@ public class ErabiltzaileKudeatzailea {
 		return datuak;
 	}
 
-	public void izenaAldatu(String izena, String pasahitzBerria) {
+	public void izenaAldatu(String izenZaharra, String izenBerria) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
-		String kontsulta = "UPDATE erabiltzailea set iderabiltzailea=? and pasahitzBerria=? where iderabiltzailea=?";
+		String kontsulta = "UPDATE erabiltzailea set iderabiltzailea=? where iderabiltzailea=?";
 		String[] datuMotak={"String", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
-		Object[] datuakArrayObjects={pasahitzBerria,izena};
+		Object[] datuakArrayObjects={izenBerria,izenZaharra};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
-		
-		ResultSet rs = dbk.filter(kontsulta, bektorea, datuak);
+		dbk.filter(kontsulta, bektorea, datuak);
 
 
 	}
