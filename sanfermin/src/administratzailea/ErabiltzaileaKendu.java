@@ -96,6 +96,7 @@ public class ErabiltzaileaKendu extends JFrame{
 				}
 				else if(pasahitzaTestua.getText().equals(tpasahitzaBerriz.getText())){
 					erab.kenduErabiltzailea(erabTestua.getText(), pasahitza.getText());
+					//kendu ganadutegia
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzailea borratu da. ", "Erabiltzailea kenduta",
 							JOptionPane.INFORMATION_MESSAGE);
