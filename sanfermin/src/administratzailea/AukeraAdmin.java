@@ -17,6 +17,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import user.BotikaKud;
 import user.BotikaLag;
@@ -197,6 +199,14 @@ public class AukeraAdmin extends JFrame {
 		});
 		
 		bEntzierroaAldatu.setEnabled(false);
+		tableEntzierroak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				bEntzierroaAldatu.setEnabled(true);
+			}
+		});
+		
 		bEntzierroaAldatu.addActionListener(new ActionListener() {
 
 			@Override
@@ -205,7 +215,7 @@ public class AukeraAdmin extends JFrame {
 					new EntzierroaAldatu(etm.getValueAt(tableEntzierroak.getTable().getSelectedRow(),0).toString());
 
 				} catch (Exception e2) {
-					// TODO: handle exception
+					System.out.println("ez du klikatu");
 				}
 			}
 		});
@@ -223,7 +233,14 @@ public class AukeraAdmin extends JFrame {
 		//GANADUTEGIAK
 
 		
-		
+		bGanadutegiaAldatu.setEnabled(false);
+		tableGanadutegiak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				bGanadutegiaAldatu.setEnabled(true);
+			}
+		});
 		bGanadutegiaAldatu.addActionListener(new ActionListener() {
 
 			@Override
@@ -251,7 +268,17 @@ public class AukeraAdmin extends JFrame {
 				new SortuBotika();
 			}
 		});
+		
 
+		bBotikaAldatu.setEnabled(false);
+		tableBotikak.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				bBotikaAldatu.setEnabled(true);
+				bBotikaEzabatu.setEnabled(true);
+			}
+		});
 		bBotikaAldatu.addActionListener(new ActionListener() {
 
 			@Override
@@ -259,6 +286,7 @@ public class AukeraAdmin extends JFrame {
 				BotikaKud.getInstantzia().gordeDBan(btm.getData());
 			}
 		});
+		bBotikaEzabatu.setEnabled(false);
 		
 		bBotikaEzabatu.addActionListener(new ActionListener() {
 			
