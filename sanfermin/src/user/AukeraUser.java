@@ -96,11 +96,6 @@ public class AukeraUser extends JFrame {
 	JoaldunTableModel jtm = new JoaldunTableModel();
 	TableDemo tableJoaldunak = new TableDemo(jtm);
 	
-	/////// Azken aldaketa //////
-//	TratamenduBotikaTableModel tbtm = new TratamenduBotikaTableModel();
-//	TableDemo tableTratamenduaBotikak = new TableDemo(tbtm);
-	/////////////////////////////
-	
 	
 	///////Aldaketa///////
 	TratamenduTableModel ttm = new TratamenduTableModel();

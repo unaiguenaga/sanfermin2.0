@@ -35,7 +35,7 @@ public class EntzierroKud {
 	public void gehitu(String id, float luzera, int ganadutegia) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO entzierroa set id=?, luzera=? ,fk_ganadutegia=?";
-		String[] datuMotak={"String", "float", "int"};
+		String[] datuMotak={"String", "float", "Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id, luzera, ganadutegia};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -60,7 +60,7 @@ public class EntzierroKud {
 	public void aldatu(String id, int ganadutegia){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "UPDATE entzierroa set fk_ganadutegia=? where id=?";
-		String[] datuMotak={"String", "int"};
+		String[] datuMotak={"String", "Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id, ganadutegia};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -71,7 +71,7 @@ public class EntzierroKud {
 	public void aldatu(String id, int ganadutegia, float luzera){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "UPDATE entzierroa set luzera=?, fk_ganadutegia=? where id=?";
-		String[] datuMotak={"String", "int", "float"};
+		String[] datuMotak={"String", "Integer", "float"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id, ganadutegia, luzera};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 

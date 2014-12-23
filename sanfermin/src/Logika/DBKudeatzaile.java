@@ -57,10 +57,8 @@ public class DBKudeatzaile {
 				return pstmt.executeQuery();
 			}
 			else{
-				System.out.println(kontsulta);
-				System.out.println("12");
+				System.out.println("sartuda");
 				pstmt.executeUpdate();
-				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

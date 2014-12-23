@@ -28,7 +28,7 @@ public class GanadutegiKud {
 	public void gehitu(int id, String izena, String arduraduna, int tlf, String helbidea) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "INSERT INTO ganadutegia set id=?, helbidea=? ,izena=?, arduraduna=?, tlf=?";
-		String[] datuMotak={"int","String", "String","String","int"};
+		String[] datuMotak={"Integer","String", "String","String","Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id, helbidea, izena, arduraduna, tlf};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -38,10 +38,11 @@ public class GanadutegiKud {
 	public void ezabatu(int id) {
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "DELETE FROM ganadutegia WHERE id=?";
-		String[] datuMotak={"int"};
+		String[] datuMotak={"Integer"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		System.out.println(bektorea + " "+ datuak);
 		dbk.filter(kontsulta, bektorea, datuak);
 	}
 
@@ -52,7 +53,7 @@ public class GanadutegiKud {
 	public void aldatuArduraduna(int id, String ard){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "UPDATE ganadutegia set arduraduna=? where id=?";
-		String[] datuMotak={"int", "String"};
+		String[] datuMotak={"Integer", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id,ard};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -62,7 +63,7 @@ public class GanadutegiKud {
 	public void aldatuTlf(int id, int tlf){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "UPDATE ganadutegia set tlf=? where id=?";
-		String[] datuMotak={"int", "String"};
+		String[] datuMotak={"Integer", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id,tlf};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
@@ -72,7 +73,7 @@ public class GanadutegiKud {
 	public void aldatuHelbidea(int id, String helb){
 		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
 		String kontsulta = "UPDATE ganadutegia set helbidea=? where id=?";
-		String[] datuMotak={"int", "String"};
+		String[] datuMotak={"Integer", "String"};
 		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
 		Object[] datuakArrayObjects={id,helb};
 		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
