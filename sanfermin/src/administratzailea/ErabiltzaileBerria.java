@@ -100,20 +100,7 @@ public class ErabiltzaileBerria extends JFrame {
 					JOptionPane.showMessageDialog(null,
 							"Erabiltzaile berria sortu da. ", "Erabiltzailea gehituta",
 							JOptionPane.INFORMATION_MESSAGE);
-					erab.sortuErabiltzaileaEtaGehitu(erabTestua.getText(), pasahitzaTestua.getText());
-					new SortuGanadutegia();
-//					boolean badago=GanadutegiKud.getInstantzia().badago(erabTestua.getText());
-//					System.out.println(badago);
-//					if (!badago){
-//						erab.kenduErabiltzailea(erabTestua.getText(), pasahitzaTestua.getText());
-//						System.out.println("ezDago");
-//					}
-//					else
-//						System.out.println("badago");
-
-					//lehengo leihora bidali
-
-					
+					new SortuGanadutegia(erabTestua.getText(), pasahitzaTestua.getText());				
 				}else{
 					JOptionPane.showMessageDialog(null,
 							"Pasahitz berriak ez dira berdinak, berriro saiatu zaitez. ", "Desberdinak",

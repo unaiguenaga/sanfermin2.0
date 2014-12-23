@@ -57,7 +57,6 @@ public class DBKudeatzaile {
 				return pstmt.executeQuery();
 			}
 			else{
-				System.out.println("sartuda");
 				pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
