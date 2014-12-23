@@ -9,11 +9,13 @@ import Logika.GanadutegiLag;
 
 public class ZezenaTableModel extends AbstractTableModel{
 	
+	private static String erabiltzailea;
 	private Vector<String> columNames = new Vector<String>();
 	private ZezenKud zk = ZezenKud.getInstantzia();
 	private Vector<ZezenLag> data = new Vector<ZezenLag>();
 
-	public ZezenaTableModel() {
+	public ZezenaTableModel(String erab) {
+		erabiltzailea=erab;
 		hasieratuZutabeIzenak();
 		kargatu();
 		
@@ -46,12 +48,6 @@ public class ZezenaTableModel extends AbstractTableModel{
 	}
 	
 	public boolean isCellEditable(int row, int col){
-		/*int ler = 0, zut = 3;
-		if (row >= ler && col >= zut){
-			return true;
-		}else{
-			return false;
-		}*/
 		return true;
 	}
 	
@@ -61,6 +57,7 @@ public class ZezenaTableModel extends AbstractTableModel{
 	
 	public void hasieratuZutabeIzenak(){
 		columNames.add("Kodea");
+		columNames.add("Izena");
 		columNames.add("Jaiotze data");
 		columNames.add("Pisua");
 		columNames.add("Altuera");
@@ -68,17 +65,19 @@ public class ZezenaTableModel extends AbstractTableModel{
 	}
 	
 	public void kargatu(){
-		Vector<ZezenLag> v1 = zk.getLag();
+		Vector<ZezenLag> v1 = zk.getLag(erabiltzailea);
 		for (int i = 0; i<=v1.size()-1; i++){
 			data.addElement(v1.elementAt(i));
 		}
 	}
 	
 	public void gehitu(ZezenLag lag){
-		
-		System.out.println("Gehitu aurretik: "+data.size());
 		data.addElement(lag);
-		System.out.println("Gehitu eta gero: "+data.size());
+		fireTableDataChanged();
+	}
+	public void eguneratu(){
+		this.data = new Vector<ZezenLag>();
+		this.kargatu();
 		fireTableDataChanged();
 	}
 }

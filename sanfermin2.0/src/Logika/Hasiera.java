@@ -38,32 +38,35 @@ public class Hasiera extends JFrame {
 	class Entzule implements ActionListener {
 		
 		public void actionPerformed(ActionEvent arg0) {
-			ErabiltzaileKudeatzailea era = new ErabiltzaileKudeatzailea();
+			ErabiltzaileKudeatzailea era = ErabiltzaileKudeatzailea.getInstantzia();
 			if(era.konprobatuPasahitzaEtaErabiltzailea(erabTestua.getText(),pasahitzaTestua.getText())){
 				era.hasieratuAdminEdoUser(erabTestua.getText(), pasahitzaTestua.getText());
 				dispose();
 			}
 			else{
-				ErroreaPasahitza errorea= new ErroreaPasahitza();
+				Leihoak errorea= new Leihoak();
+				errorea.pasahitza();
 				erabTestua.setText("");
 				pasahitzaTestua.setText("");
 			}
-			System.out.println("Erabiltzailea: "+erabTestua.getText());	
 		}
 	}
 
 	public Hasiera() {
 		gridBagHasieratu();
 	}
+	 public static void main(String[] args) {
+		bistaratu();
+	}
 
-	public static void main(String[] args) {
+	public static void bistaratu() {
 		Hasiera hasiera = new Hasiera();
 		hasiera.setTitle("San Ferminak");
 		hasiera.setVisible(true);
 		hasiera.setSize(400, 200);
 		hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
 
+	}
 	private void gridBagHasieratu() {
 		edukiontzia = getContentPane();
 		eskema = new GridBagLayout();
@@ -110,6 +113,5 @@ public class Hasiera extends JFrame {
 
 		eskema.setConstraints(osagaia, mugak);
 		edukiontzia.add(osagaia);
-
 	}
 }

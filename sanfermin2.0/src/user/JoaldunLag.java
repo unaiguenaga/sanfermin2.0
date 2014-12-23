@@ -4,17 +4,17 @@ public class JoaldunLag {
 
 	private Integer kodea;
 	private String jaiotzeData;
-	private String pisua;
-	private String altuera;
+	private float pisua;
+	private float altuera;
 	private String kolorea;
 
 
-	public JoaldunLag(Integer kodea, String jaiotzeData, String pisua, String altuera, String kolorea) {
+	public JoaldunLag(Integer kodea, String jaiotzeData, float pisua, float altuera, String kolorea) {
 		this.kodea = kodea;
 		this.jaiotzeData = jaiotzeData;
 		this.pisua = pisua;
-		this.pisua = altuera;
-		this.pisua = kolorea;
+		this.altuera = altuera;
+		this.kolorea = kolorea;
 
 	}
 
@@ -26,10 +26,10 @@ public class JoaldunLag {
 		return jaiotzeData;
 	}
 
-	public String getPisua() {
+	public float getPisua() {
 		return pisua;
 	}
-	public String getAltuera() {
+	public float getAltuera() {
 		return altuera;
 	}
 	public String getKolorea() {
@@ -61,10 +61,10 @@ public class JoaldunLag {
 			jaiotzeData = (String) value;
 			break;
 		case 2:
-			pisua = (String) value;
+			pisua = (Float) value;
 			break;
 		case 3:
-			altuera = (String) value;
+			altuera = (Float) value;
 			break;
 		case 4:
 			kolorea = (String) value;

@@ -3,6 +3,7 @@ package Logika;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import user.BotoLag;
 
 import Logika.DBKudeatzaile;
 
@@ -26,18 +27,59 @@ public class GanadutegiKud {
 	// METODOAK
 
 	public void gehitu(int id, String izena, String arduraduna, int tlf, String helbidea) {
-		dbk.execSQL("INSERT INTO ganadutegia (id, helbidea, izena, arduraduna,tlf) VALUES ('" + id + "', '" + helbidea
-				+ "', '" + izena + "', '" + arduraduna + "', '" + tlf + "');");
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "INSERT INTO ganadutegia set id=?, helbidea=? ,izena=?, arduraduna=?, tlf=?";
+		String[] datuMotak={"Integer","String", "String","String","Integer"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={id, helbidea, izena, arduraduna, tlf};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
 	}
 
-	private void ezabatu(int id) {
-		dbk.execSQL("DELETE FROM ganadutegia WHERE id='" + id + "';");
+	public void ezabatu(int id) {
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "DELETE FROM ganadutegia WHERE id=?";
+		String[] datuMotak={"Integer"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={id};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
 	}
 
 	public void ezabatuDenak() {
 		dbk.execSQL("DELETE FROM ganadutegia;");
 	}
-
+	
+	public void aldatuArduraduna(int id, String ard){
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "UPDATE ganadutegia set arduraduna=? where id=?";
+		String[] datuMotak={"Integer", "String"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={id,ard};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
+	}
+	
+	public void aldatuTlf(int id, int tlf){
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "UPDATE ganadutegia set tlf=? where id=?";
+		String[] datuMotak={"Integer", "String"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={id,tlf};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
+	}
+	
+	public void aldatuHelbidea(int id, String helb){
+		DBKudeatzaile dbk = DBKudeatzaile.getInstantzia();
+		String kontsulta = "UPDATE ganadutegia set helbidea=? where id=?";
+		String[] datuMotak={"Integer", "String"};
+		Vector <String> bektorea=ErabiltzaileKudeatzailea.getInstantzia().lag1(datuMotak);
+		Object[] datuakArrayObjects={id,helb};
+		Vector<Object> datuak= ErabiltzaileKudeatzailea.getInstantzia().lag2(datuakArrayObjects); 
+		dbk.filter(kontsulta, bektorea, datuak);
+	}
+	
 	public Vector<GanadutegiLag> getLag() {
 		Vector<GanadutegiLag> v = new Vector<GanadutegiLag>();
 		try {
@@ -55,7 +97,21 @@ public class GanadutegiKud {
 	public Vector<String> getIzenak() {
 		Vector<String> v = new Vector<String>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT izena FROM ganadutegia;");
+			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia;");
+			while (rs.next()) {
+				v.add(rs.getString("izena"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
+	
+	public Vector<String> getIzenak(String erabiltzailea) {
+		Vector<String> v = new Vector<String>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT izena FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
 			while (rs.next()) {
 				v.add(rs.getString("izena"));
 			}
@@ -69,7 +125,7 @@ public class GanadutegiKud {
 	public Vector<Integer> getId() {
 		Vector<Integer> v = new Vector<Integer>();
 		try {
-			ResultSet rs = dbk.execSQL("SELECT id FROM ganadutegia;");
+			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia;");
 			while (rs.next()) {
 				v.add(rs.getInt("id"));
 			}
@@ -79,5 +135,75 @@ public class GanadutegiKud {
 		}
 		return v;
 	}
+	
+	public int getId(String erabiltzailea) {
+		Vector<Integer> v = new Vector<Integer>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT id FROM ganadutegia WHERE arduraduna = '"+erabiltzailea+"';");
+			while (rs.next()) {
+				return rs.getInt("id");
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return 0;
+	}
 
+	public boolean badago(String erabIzena) {
+		String kontsulta= "Select iderabiltzailea From erabiltzailea where iderabiltzailea='" + erabIzena+ "'";
+		ResultSet rs=dbk.execSQL(kontsulta);
+		try {
+			if(rs.next())
+				return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public int getIdGanadutegia(String izena) {
+		int kodea =0;
+		try {
+			ResultSet rs = dbk.execSQL("SELECT id FROM ganadutegia WHERE arduraduna='"+izena+"'"+";");
+			while (rs.next()) {
+				int kode = rs.getInt("id");
+				kodea=kode;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return kodea;
+	}
+
+	public Vector<BotoLag> BotoLag(String erabiltzailea) {
+		Vector<BotoLag> v = new Vector<BotoLag>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT * FROM ganadutegia WHERE arduraduna != '"+erabiltzailea+"';");
+			while (rs.next()) {
+				v.add(new BotoLag(rs.getInt("id"), rs.getString("izena")));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
+	
+	public Vector<BotoLag> BotoLagEskuina(String erabiltzailea) {
+		int kodea = GanadutegiKud.getInstantzia().getId(erabiltzailea);
+		Vector<BotoLag> v = new Vector<BotoLag>();
+		try {
+			ResultSet rs = dbk.execSQL("SELECT g.id, g.izena FROM ganadutegia g WHERE g.id IN (SELECT fk_hartzailea FROM botoak WHERE fk_emailea="+kodea+")");
+			while (rs.next()) {
+				v.add(new BotoLag(rs.getInt("id"), rs.getString("izena")));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return v;
+	}
 }

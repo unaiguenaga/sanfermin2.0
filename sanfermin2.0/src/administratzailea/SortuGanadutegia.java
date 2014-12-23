@@ -8,13 +8,16 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Logika.ErabiltzaileKudeatzailea;
 import Logika.GanadutegiKud;
 import Logika.GanadutegiLag;
 
@@ -30,6 +33,7 @@ public class SortuGanadutegia extends JFrame {
 	JTextField kodeTestua= new JTextField(10);
 	JTextField izenTestua = new JTextField(10);
 	JTextField helbideTestua= new JTextField(10);
+	JComboBox arduradunBox;
 	JTextField arduradunTestua= new JTextField(10);
 	JTextField tlfTestua= new JTextField(10);
 	JPanel behekoPanela = new JPanel();
@@ -37,23 +41,28 @@ public class SortuGanadutegia extends JFrame {
 	private GridBagLayout eskema;
 	private Container edukiontzia;
 	private GridBagConstraints mugak;
+	private static String erabiltzailea=null;
+	private static String pasahitz=null;
 	
 	private GanadutegiKud gk = GanadutegiKud.getInstantzia();
 	
 
-	public SortuGanadutegia() {
-		botoiakHasieratu();
+	public SortuGanadutegia(String erab, String pasahitza) {
+		erabiltzailea=erab;
+		pasahitz=pasahitza;
+		Vector<String> bektorea= new Vector<String>();
+		bektorea.add(erab);
+		arduradunBox = new JComboBox(bektorea);
 		gridBagHasieratu();
+		setTitle("Gehitu Ganadutegia");
+		setVisible(true);
+		setSize(300, 200);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
-	public static void main(String[] args) {
-		SortuGanadutegia hasiera = new SortuGanadutegia();
-		hasiera.setTitle("Gehitu Ganadutegia");
-		hasiera.setVisible(true);
-		hasiera.setSize(300, 200);
-		hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
 
+		
+	
 	private void gridBagHasieratu(){
 		edukiontzia = getContentPane();
 		eskema= new GridBagLayout();
@@ -77,7 +86,7 @@ public class SortuGanadutegia extends JFrame {
 		mugak.insets=new Insets(3, 3, 3, 3);
 		gehituOsagaia(helbideTestua, 3, 5, 5, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
-		gehituOsagaia(arduradunTestua, 4, 5, 3, 1);
+		gehituOsagaia(arduradunBox, 4, 5, 3, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
 		gehituOsagaia(tlfTestua, 5, 5, 5, 1);
 		mugak.insets=new Insets(3, 3, 3, 3);
@@ -85,21 +94,21 @@ public class SortuGanadutegia extends JFrame {
 		behekoPanela.add(BorderLayout.SOUTH, gehitu);
 		gehituOsagaia(behekoPanela,16, 3, 9, 1);
 		
-	}
-	
-	private void botoiakHasieratu(){
 		gehitu.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				gk.gehitu(Integer.parseInt(kodeTestua.getText()), izenTestua.getText(), arduradunTestua.getText(), Integer.parseInt(tlfTestua.getText()), helbideTestua.getText());
-				AukeraAdmin.getInstantzia().gtm.gehitu(new GanadutegiLag(izenTestua.getText(), arduradunTestua.getText(), Integer.parseInt(tlfTestua.getText())));
-				AukeraAdmin.getInstantzia().tableGanadutegiak.repaint();
+				ErabiltzaileKudeatzailea.getInstantzia().sortuErabiltzaileaEtaGehitu(erabiltzailea, pasahitz);
+				gk.gehitu(Integer.parseInt(kodeTestua.getText()), izenTestua.getText(), arduradunBox.getSelectedItem().toString(), Integer.parseInt(tlfTestua.getText()), helbideTestua.getText());
+				AukeraAdmin.getInstantzia().gtm.eguneratu();
 				dispose();
 				
 			}
 		});
+	
+		
 	}
+	
 	
 	
 	private void gehituOsagaia(Component osagaia, int errenkada, int zutabea, int zabalera, int altuera) {

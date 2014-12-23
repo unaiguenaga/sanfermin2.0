@@ -84,37 +84,8 @@ public class PasahitzaAldatu extends JFrame {
 
 				
 				public void actionPerformed(ActionEvent e) {
-					ErabiltzaileKudeatzailea era = new ErabiltzaileKudeatzailea();
-					System.out.println(jtPasBerria.getText().toString());
-					System.out.println(jtPasBerriaKonprobatu.getText());
-					if(era.konprobatuPasahitzaEtaErabiltzailea(jtErabIzena.getText(), jtPasZahar.getText())){
-						if(jtPasBerria.getText().equals(jtPasBerriaKonprobatu.getText())){
-							JOptionPane.showMessageDialog(null,
-									"Zure pasahitza aldatu da, aurrera segi dezakezu. ", "Aldatu da",
-									JOptionPane.INFORMATION_MESSAGE);
-							era.pasahitzaAldatu(jtErabIzena.getText(),jtPasBerria.getText());
-							dispose();
-							era.hasieratuAdminEdoUser(jtErabIzena.getText(), jtPasBerria.getText());
-							System.out.println("0");
-							
-						}
-						else{
-							JOptionPane.showMessageDialog(null,
-									"Pasahitz berriak ez dira berdinak, berriro saiatu zaitez. ", "Desberdinak",
-									JOptionPane.ERROR_MESSAGE);
-							dispose();
-							Hasiera.main(null);
-							System.out.println("1");
-
-						}
-					}
-					else{
-						ErroreaPasahitza errorea = new ErroreaPasahitza();
-						dispose();
-						Hasiera.main(null);
-						System.out.println("2");
-
-					}
+					pasahitzaAldatu(jtPasBerria.getText().toString(),jtPasBerriaKonprobatu.getText(),
+							jtErabIzena.getText(),jtPasZahar.getText());
 				}
 			});
 
@@ -130,6 +101,37 @@ public class PasahitzaAldatu extends JFrame {
 			eskema.setConstraints(osagaia, mugak);
 			edukiontzia.add(osagaia);
 
+		}
+		
+		public void pasahitzaAldatu(String pasBerri, String pasBerriKonpr, String erab, String pasZahar){
+			ErabiltzaileKudeatzailea era = ErabiltzaileKudeatzailea.getInstantzia();
+			System.out.println(pasBerri);
+			System.out.println(pasBerriKonpr);
+			if(era.konprobatuPasahitzaEtaErabiltzailea(erab, pasZahar)){
+				if(pasBerri.equals(pasBerriKonpr)){
+					JOptionPane.showMessageDialog(null,
+							"Zure pasahitza aldatu da, aurrera segi dezakezu. ", "Aldatu da",
+							JOptionPane.INFORMATION_MESSAGE);
+					era.pasahitzaAldatu(erab,pasBerri);
+					dispose();
+					era.hasieratuAdminEdoUser(erab, pasBerri);					
+				}
+				else{
+					JOptionPane.showMessageDialog(null,
+							"Pasahitz berriak ez dira berdinak, berriro saiatu zaitez. ", "Desberdinak",
+							JOptionPane.ERROR_MESSAGE);
+					dispose();
+					Hasiera.bistaratu();
+
+				}
+			}
+			else{
+				Leihoak errorea = new Leihoak();
+				errorea.pasahitza();
+				dispose();
+				Hasiera.bistaratu();
+
+			}
 		}
 
 

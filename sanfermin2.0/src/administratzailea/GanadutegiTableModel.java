@@ -5,6 +5,7 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.table.AbstractTableModel;
 
+import Logika.EntzierroLag;
 import Logika.GanadutegiKud;
 import Logika.GanadutegiLag;
 
@@ -48,12 +49,6 @@ public class GanadutegiTableModel extends AbstractTableModel{
 	}
 	
 	public boolean isCellEditable(int row, int col){
-		/*int ler = 0, zut = 3;
-		if (row >= ler && col >= zut){
-			return true;
-		}else{
-			return false;
-		}*/
 		return true;
 	}
 	
@@ -74,11 +69,9 @@ public class GanadutegiTableModel extends AbstractTableModel{
 		}
 	}
 	
-	public void gehitu(GanadutegiLag lag){
-		
-		System.out.println("Gehitu aurretik: "+data.size());
-		data.addElement(lag);
-		System.out.println("Gehitu eta gero: "+data.size());
-		fireTableDataChanged();
+	public void eguneratu(){
+		this.data = new Vector<GanadutegiLag>();
+		this.kargatu();
+		this.fireTableDataChanged();
 	}
 }

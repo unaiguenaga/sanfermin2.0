@@ -8,14 +8,21 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import user.AukeraUser;
+import user.ZezenKud;
+
 public class SortuJoalduna extends JFrame {
+	
+	private static String erabiltzailea=null;
 
 	JLabel kodea = new JLabel("Kodea:");
 	JLabel jaiotzeData = new JLabel("JaiotzeData:");
@@ -37,7 +44,8 @@ public class SortuJoalduna extends JFrame {
 		gridBagHasieratu();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String erab) {
+		erabiltzailea=erab;
 		SortuJoalduna hasiera = new SortuJoalduna();
 		hasiera.setTitle("Gehitu joalduna");
 		hasiera.setVisible(true);
@@ -80,7 +88,14 @@ public class SortuJoalduna extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+//				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+//				String data = formato.format(jaiotzeTestua.getDate());
+//				System.out.println("Erabiltzailea: "+erabiltzailea);
+				int ganadutegiKod = ZezenKud.getInstantzia().getGanadutegia(erabiltzailea);
+				
+				sortu(Integer.parseInt(kodeTestua.getText()), jaiotzeTestua.getText(), pisuaTestua.getText(), 
+						altueraTestua.getText(),koloreaTestua.getText(), ganadutegiKod);
+				
 			}
 		});
 
@@ -96,5 +111,25 @@ public class SortuJoalduna extends JFrame {
 		eskema.setConstraints(osagaia, mugak);
 		edukiontzia.add(osagaia);
 
+	}
+	
+	public void sortu(int kod, String jaiotzeData, String pisua, String altuera, String kolorea, int ganaduKod){
+		ZezenKud zk = ZezenKud.getInstantzia();
+		String kodigu = ""+kod;
+		if(zk.existitzenDaJoalduna(kodigu)){
+			JOptionPane.showMessageDialog(null,
+					"Joaldunaren kode hori jadanik existitzen da, saia zaitez berriro beste kode batekin. ", "Kode errepikatua",
+					JOptionPane.ERROR_MESSAGE);
+					this.kodeTestua.setText("");
+					this.jaiotzeTestua.setText("");
+					this.pisuaTestua.setText("");
+					this.altueraTestua.setText("");
+					this.kodeTestua.setText("");
+		}else{
+			zk.gehituJoalduna(kod, jaiotzeData, Float.parseFloat(pisua), Float.parseFloat(altuera), kolorea, ganaduKod);
+			dispose();
+			JOptionPane.showMessageDialog(null, "Joalduna gehitu da.");
+			AukeraUser.getInstantzia().jtm.eguneratu();
+		}
 	}
 }

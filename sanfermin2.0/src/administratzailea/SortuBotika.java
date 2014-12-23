@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import user.BotikaKud;
+
 public class SortuBotika extends JFrame{
 
 	JLabel kodea=new JLabel("Kodea:"); 
@@ -32,15 +34,12 @@ public class SortuBotika extends JFrame{
 	
 	public SortuBotika() {
 		gridBagHasieratu();
+		setTitle("Gehitu botika");
+		setVisible(true);
+		setSize(250, 200);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
-	
-	public static void main(String[] args) {
-		SortuBotika hasiera = new SortuBotika();
-		hasiera.setTitle("Gehitu botika");
-		hasiera.setVisible(true);
-		hasiera.setSize(250, 200);
-		hasiera.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
+
 
 	private void gridBagHasieratu(){
 		edukiontzia = getContentPane();
@@ -65,6 +64,9 @@ public class SortuBotika extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				int kodea = Integer.parseInt((String) kodeTestua.getText());
+				BotikaKud.getInstantzia().gehituBotika(kodea, (String) izenaTestua.getText());
+				AukeraAdmin.getInstantzia().btm.eguneratu();
 				dispose();
 			}
 		});
